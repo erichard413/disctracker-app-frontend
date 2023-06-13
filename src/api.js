@@ -44,8 +44,8 @@ class DiscTrackerAPI {
         const res = await this.request(`discs/${discId}`);
         return res;
     }
-    static async getCourses(name) {
-        const res = await this.request(`courses`, {courseName: name}, 'get');
+    static async getCourses(name, limit=5) {
+        const res = await this.request(`courses`, {courseName: name, limit: limit}, 'get');
         return res.results;
     }
     static async doCheckIn(discId, formData) {

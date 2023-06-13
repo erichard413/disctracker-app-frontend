@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import CheckinForm from '../forms/CheckinForm';
 import DiscTrackerAPI from '../api';
 import {useParams} from 'react-router-dom';
+import '../stylesheets/Checkin.css';
 
 function Checkin({user}) {
     const {discId} = useParams();

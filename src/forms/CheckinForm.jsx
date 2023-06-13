@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import DiscTrackerAPI from '../api';
+import '../stylesheets/CheckinForm.css';
+import {states, countryList, canadaProvinces} from '../helpers/data';
 
 import {
     Button,
@@ -13,12 +15,12 @@ import {
 function CheckinForm({user, disc}) {
     const navigate = useNavigate();
     const initialFlash = ""
-    const initialState = {courseName: "", city: "", state: "", zip: ""}
+    const initialState = {courseName: "", city: "", state: "", zip: "", country: "United States"}
     const [flashMsg, setFlashMsg] =  useState(initialFlash);
     const [formData, setFormData] = useState(initialState);
     const [fetchState, setFetchState] = useState('fetch');
     const [courseSuggestions, setCourseSuggestions] = useState([]);
-    const states = ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming']
+    
 
     useEffect(()=>{
         async function fetchCourses() {
@@ -55,7 +57,11 @@ function CheckinForm({user, disc}) {
     }
     return (
         <div className="CheckinForm">
-            <h2>Disc# {disc.id}</h2>
+            <div className="text-content">
+                <h2>Check in Disc</h2>
+                <p>Fill out the form below as completely as possible. You may find your course while typing the course name, click on desired course to auto-fill this form.</p>
+            </div>
+            
             <p className='FlashMsg'>{flashMsg}</p>
                 <Form className="form">
                 <FormGroup>
@@ -63,12 +69,13 @@ function CheckinForm({user, disc}) {
                     <Input 
                         name="courseName"
                         type="text"
+                        autoComplete="off"
                         placeholder="Course Name"
                         value={formData.courseName}
                         onChange={handleChange}
                     />
                 </FormGroup>
-                {formData.courseName.length > 1 && <div className="CheckinForm-suggestions">
+                {formData.courseName.length > 1 && document.activeElement.name === 'courseName' && <div className="CheckinForm-suggestions">
                         {courseSuggestions.map(course=> (
                             <div className="suggestion" key={course.id} onClick={()=>handleSuggestionClick(course)}>
                                 <p key={course.id}>{course.courseName}</p>
@@ -76,30 +83,63 @@ function CheckinForm({user, disc}) {
                         ))}
                     </div>}
                 <FormGroup>
+                    <Label for="type">Country:</Label>
+                    <Input
+                        name="country"
+                        type="select"
+                        placeholder="Your country"
+                        value={formData.country}
+                        onChange={handleChange}
+                    >
+                        {countryList.map(country=> (<option key={country}>{country}</option>))}
+                    </Input>
+                </FormGroup>
+                <FormGroup>
                     <Label for="type">City:</Label>
                     <Input name="city"
                         type="text"
+                        autoComplete="off"
                         placeholder="City"
                         value={formData.city}
                         onChange={handleChange}
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="state">State:</Label>
-                    <Input
-                        name="state"
-                        type="select"
-                        placeholder="Your state"
-                        value={formData.state}
-                        onChange={handleChange}
-                    >
-                        {states.map(state=> (<option key={state}>{state}</option>))}
+                    <Label for="state">{formData.country === 'Canada' ? 'Province' : 'State'}:</Label>
+                    {formData.country === "United States" ? 
+                        <Input
+                            name="state"
+                            type="select"
+                            placeholder="State"
+                            value={formData.state}
+                            onChange={handleChange}
+                        >
+                            {states.map(state=> (<option key={state}>{state}</option>))}
+                        </Input> : formData.country === 'Canada' ?
+                        <Input
+                            name="state"
+                            type="select"
+                            placeholder="State"
+                            value={formData.state}
+                            onChange={handleChange}
+                        >
+                            {canadaProvinces.map(province=> (<option key={province}>{province}</option>))}
                     </Input>
+                        : 
+                        <Input name="state"
+                            type="text"
+                            autoComplete="off"
+                            placeholder={formData.country === 'Canada' ? 'Province' : 'State/Province'}
+                            value={formData.state}
+                            onChange={handleChange}
+                        />
+                    }
                 </FormGroup>
                 <FormGroup>
                     <Label for="type">Zip:</Label>
                     <Input name="zip"
                         type="text"
+                        autoComplete="off"
                         placeholder="Zip"
                         value={formData.zip}
                         onChange={handleChange}
