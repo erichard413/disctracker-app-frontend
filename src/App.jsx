@@ -7,6 +7,13 @@ import Login from './components/Login';
 import NavBar from './components/NavBar';
 import Register from './components/Register';
 import Checkin from './components/Checkin';
+import Checkins from './components/Checkins';
+import Account from './components/Account';
+import Disc from './components/Disc';
+import EditProfile from './components/EditProfile';
+import EditCheckin from './components/EditCheckin';
+import AuthRecovery from './components/AuthRecovery';
+import UserCheckIns from './components/UserCheckIns';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -14,6 +21,7 @@ import './App.css'
 function App() {
   const navigate = useNavigate();
   const [user, setUser] = useState();
+  const [discs, setDiscs] = useState();
 
   // grab token from LS on page load, grab user on page load
   useEffect(()=>{
@@ -30,7 +38,11 @@ function App() {
       let userData = await DiscTrackerAPI.getUser(data.username);
       setUser(userData);
     }
-    
+    async function getDiscData() {
+      let discs = await DiscTrackerAPI.getAllDiscs();
+      setDiscs(discs);
+    }
+    getDiscData();
     if (DiscTrackerAPI.token) {
       getUserData();
     }
@@ -82,6 +94,13 @@ function App() {
         <Route exact path="/login" element={<Login login={logInUser}/>} />
         <Route exact path="/register" element={<Register setUser={setUser}/>} />
         <Route exact path="/checkin/:discId" element={<Checkin user={user}/>} />
+        <Route exact path="/checkins" element={<Checkins discs={discs} />} />
+        <Route exact path="/discs/:discId" element={<Disc discs={discs} user={user} />} />
+        <Route exact path="/myaccount" element={<Account user={user} />} />
+        <Route exact path="/editprofile" element={<EditProfile user={user} setUser={setUser} />} />
+        <Route exact path="/resetpw" element={<AuthRecovery />} />
+        <Route exact path="/myaccount/checkins" element={<UserCheckIns user={user} />} />
+        <Route exact path="/checkins/:id/edit" element={<EditCheckin user={user} />} />
       </Routes>
     </div>
   )

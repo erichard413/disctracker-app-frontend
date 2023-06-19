@@ -51,6 +51,46 @@ class DiscTrackerAPI {
     static async doCheckIn(discId, formData) {
         await this.request(`checkin/${discId}`, formData, 'post');
     }
+    static async getAllDiscs() {
+        const res = await this.request(`discs`);
+        return res
+    }
+    static async getCheckins(discId) {
+        const res = await this.request(`checkin/${discId}`);
+        return res.results;
+    }
+    static async resetPassword(username) {
+        try {
+            await this.request(`users/${username}/auth/reset`, {}, 'patch');
+            return;
+        } catch (err) {
+            console.error(err);
+        } 
+    }
+    static async getUserCheckins(username) {
+        try {
+            const res = await this.request(`checkin/user/${username}`);
+            return res;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    static async editCheckin(formData, id) {
+        try {
+            const res = await this.request(`checkin/${id}`, {formData}, 'patch');
+            return res;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    static async getCheckin(id) {
+        try {
+            const res = await this.request(`checkin/id/${id}`);
+            return res;
+        } catch (err) {
+            console.error(err);
+        }
+    }
 }
 
 export default DiscTrackerAPI

@@ -15,37 +15,11 @@
         margin: 0;
         padding: 0;
     }
-    input, select, .form-label {
-        position: relative;
-        display: inline;
-        font-size: 24px;
-    }
-    input, select {
-        height: 40px;
-        border: 1px solid teal;
-        border-radius: 5px;
-    }
+    
     .CheckinForm input {
         width: 100%;
         display: inline-block;
         padding: 2px;
-    }
-    .mb-3 {
-        margin: auto;
-        padding: 2px;
-        /* outline: 1px solid teal; */
-        width: 90%;
-    }
-    .form-select {
-        width: 100%;
-        padding: 0px;
-        margin: 0;
-        display: inline-block;
-    }
-    input, select, .suggestion {
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
     }
     .CheckinForm-suggestions {
         /* position: absolute;
@@ -66,8 +40,5 @@
         width: 100%;
         padding-left: 15px;
         margin: 0;
-    }
-    .CheckinForm button {
-        margin-top: 20px;
     }
 }
