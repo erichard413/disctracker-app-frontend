@@ -49,6 +49,11 @@ function NavBar({user, logOut}) {
                             <NavLink to="/myaccount" onClick={menuToggle}>Account</NavLink>
                         </NavItem>
                         }
+                        {(user && user.isAdmin) && 
+                        <NavItem>
+                            <NavLink to="/admin" onClick={menuToggle}>Admin</NavLink>
+                        </NavItem>
+                        }
                         <NavItem>
                             {user ? <NavLink to='/' onClick={handleLogOut}>Log Out</NavLink> : <NavLink to="/login" onClick={menuToggle}>Login</NavLink> }
                         </NavItem>

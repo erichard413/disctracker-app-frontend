@@ -75,9 +75,9 @@ class DiscTrackerAPI {
             console.error(err);
         }
     }
-    static async editCheckin(formData, id) {
+    static async editCheckin(id, formData) {
         try {
-            const res = await this.request(`checkin/${id}`, {formData}, 'patch');
+            const res = await this.request(`checkin/${id}`, formData, 'patch');
             return res;
         } catch (err) {
             console.error(err);
@@ -89,6 +89,24 @@ class DiscTrackerAPI {
             return res;
         } catch (err) {
             console.error(err);
+        }
+    }
+    static async getUsers(page=null, limit=15) {
+        let queryString = `users?limit=${limit}`
+        if (page) {queryString += `&page=${page}`}
+        try {
+            const res = await this.request(queryString);
+            return res 
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    static async adminEditUser(username, formData) {
+        try {
+            let res = await this.request(`users/${username}/admin`, formData, 'patch');
+            return res;
+        } catch(err) {
+            return err;
         }
     }
 }

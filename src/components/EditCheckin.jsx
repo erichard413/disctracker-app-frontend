@@ -14,7 +14,6 @@ function EditCheckin({user}) {
       }
       async function fetchCheckIn() {
         const res = await DiscTrackerAPI.getCheckin(id);
-        console.log(res);
         setCheckin(res);
       }
       fetchCheckIn();      

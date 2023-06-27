@@ -55,6 +55,28 @@ function CheckinForm({user, disc}) {
         setFormData(course);
         setCourseSuggestions([]);
     }
+
+    // returns false if form not complete, true when form is completed
+    const isComplete = () => {
+        let res;
+        // if any fields empty, return false
+        Object.values(formData).map(data => data === "" ? res = false : null);
+        if (res === false) {
+            return false;
+        }
+        // does data fit length requirements?
+        if (formData.courseName.length < 2 || formData.courseName.length > 100)  {
+            return false;
+        }
+        if (formData.city.length < 1 || formData.city.length > 50)  {
+            return false;
+        }
+        if (formData.zip.length < 5 || formData.zip.length > 15) {
+            return false;
+        }
+        return true;
+    }
+
     return (
         <div className="CheckinForm">
             <div className="text-content">
@@ -146,7 +168,7 @@ function CheckinForm({user, disc}) {
                     />
                 </FormGroup>  
 
-                <Button type="submit" onClick={handleSubmit}>Submit</Button>
+                {isComplete() ? <Button type="submit" onClick={handleSubmit}>Submit</Button> : <Button type="submit" onClick={handleSubmit} disabled>Submit</Button> }
             </Form>
         </div>
     )

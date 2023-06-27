@@ -15,12 +15,15 @@ import {
 function EditCheckinForm({user, checkin}) {
     const navigate = useNavigate();
     const initialFlash = ""
-    const initialState = {courseName: checkin.courseName, city: checkin.city, state: checkin.state, zip: checkin.zip, country: checkin.country}
+    const initialState = {courseName: "", city: "", state: "", zip: "", country: "United States"}
     const [flashMsg, setFlashMsg] =  useState(initialFlash);
     const [formData, setFormData] = useState(initialState);
     const [fetchState, setFetchState] = useState('fetch');
     const [courseSuggestions, setCourseSuggestions] = useState([]);
     
+    useEffect(()=>{
+        setFormData({courseName: checkin.courseName, city: checkin.city, state: checkin.state, zip: checkin.zip, country: checkin.country})
+    }, [checkin])
 
     useEffect(()=>{
         async function fetchCourses() {
@@ -44,8 +47,8 @@ function EditCheckinForm({user, checkin}) {
     const handleSubmit = (e) => {
         e.preventDefault();
         async function handleCheckIn() {
-            const res = await DiscTrackerAPI.editCheckin(formData)
-            setFormData(res);
+            const res = await DiscTrackerAPI.editCheckin(checkin.id, formData)
+            setFormData(formData);
         }
         handleCheckIn();
         setFlashMsg("Check in updated successfully!")
@@ -56,6 +59,32 @@ function EditCheckinForm({user, checkin}) {
         setFormData(course);
         setCourseSuggestions([]);
     }
+
+    if (!checkin || !formData) {
+        return (<div><p>Loading..</p></div>)
+    }
+
+    // returns false if form not complete, true when form is completed
+    const isComplete = () => {
+        let res;
+        // if any fields empty, return false
+        Object.values(formData).map(data => data === "" ? res = false : null);
+        if (res === false) {
+            return false;
+        }
+        // does data fit length requirements?
+        if (formData.courseName.length < 2 || formData.courseName.length > 100)  {
+            return false;
+        }
+        if (formData.city.length < 1 || formData.city.length > 50)  {
+            return false;
+        }
+        if (formData.zip.length < 5 || formData.zip.length > 15) {
+            return false;
+        }
+        return true;
+    }
+
     return (
         <div className="CheckinForm">
             <div className="text-content">
@@ -76,7 +105,7 @@ function EditCheckinForm({user, checkin}) {
                         onChange={handleChange}
                     />
                 </FormGroup>
-                {formData.courseName.length > 1 && document.activeElement.name === 'courseName' && <div className="CheckinForm-suggestions">
+                {(formData.courseName && formData.courseName.length > 1) && document.activeElement.name === 'courseName' && <div className="CheckinForm-suggestions">
                         {courseSuggestions.map(course=> (
                             <div className="suggestion" key={course.id} onClick={()=>handleSuggestionClick(course)}>
                                 <p key={course.id}>{course.courseName}</p>
@@ -146,8 +175,8 @@ function EditCheckinForm({user, checkin}) {
                         onChange={handleChange}
                     />
                 </FormGroup>  
-
-                <Button type="submit" onClick={handleSubmit}>Submit</Button>
+                {isComplete() ? <Button type="submit" onClick={handleSubmit}>Submit</Button> : <Button type="submit" onClick={handleSubmit} disabled>Submit</Button> }
+                
             </Form>
         </div>
     )

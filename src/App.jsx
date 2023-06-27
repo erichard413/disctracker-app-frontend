@@ -14,6 +14,10 @@ import EditProfile from './components/EditProfile';
 import EditCheckin from './components/EditCheckin';
 import AuthRecovery from './components/AuthRecovery';
 import UserCheckIns from './components/UserCheckIns';
+import AllUsers from './components/Admin/AllUsers';
+import AdminPage from './components/Admin/AdminPage';
+import UserPanel from './components/Admin/UserPanel';
+import AdminEditUser from './components/Admin/AdminEditUser';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -22,6 +26,8 @@ function App() {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   const [discs, setDiscs] = useState();
+  const [accounts, setAccounts] = useState();
+  const [account, setAccount] = useState();
 
   // grab token from LS on page load, grab user on page load
   useEffect(()=>{
@@ -101,6 +107,10 @@ function App() {
         <Route exact path="/resetpw" element={<AuthRecovery />} />
         <Route exact path="/myaccount/checkins" element={<UserCheckIns user={user} />} />
         <Route exact path="/checkins/:id/edit" element={<EditCheckin user={user} />} />
+        <Route exact path="/admin" element={<AdminPage user={user} />} />
+        <Route exact path="/admin/users" element={<AllUsers user={user} setAccounts={setAccounts} accounts={accounts} setAccount={setAccount} />} />
+        <Route exact path="/admin/users/:username" element={<UserPanel user={user} account={account} setAccount={setAccount} />} />
+        <Route exact path="/admin/users/edit/:username" element={<AdminEditUser user={user} account={account} setAccount={setAccount}/>} />
       </Routes>
     </div>
   )

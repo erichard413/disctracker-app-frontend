@@ -27,7 +27,7 @@ function Disc({discs, user}) {
         <div className="Disc">
             <p>{discId}</p>
                 {checkins && checkins.map(checkin => (
-                <DiscCheck checkin={checkin} user={user} />
+                <DiscCheck key={checkin.id} checkin={checkin} user={user} />
                 ))}
         </div>
     )

@@ -9,7 +9,7 @@ function DiscCheck({checkin, user}) {
             </p>
             <ul>
                 <li>{checkin.courseName}</li>
-                <li>{checkin.city} {checkin.state} {checkin.zip}</li>
+                <li>{checkin.city}, {checkin.state} {checkin.zip}</li>
                 <li>Checked in by: {checkin.username || "Anonymous"}</li>
             </ul>
             <div className="options-div">
