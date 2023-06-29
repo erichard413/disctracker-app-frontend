@@ -109,6 +109,24 @@ class DiscTrackerAPI {
             return err;
         }
     }
+    static async getAllCheckins(page=null, limit=15) {
+        let queryString = `checkin?limit=${limit}`
+        if (page) {queryString+= `&page=${page}`}
+        try {
+            const res = await this.request(queryString);
+            return res
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    static async adminDeleteUser(username) {
+        try {
+            const res = await this.request(`users/${username}`, {}, 'delete');
+            return res.message
+        } catch (err) {
+            return err.error.message
+        }
+    }
 }
 
 export default DiscTrackerAPI

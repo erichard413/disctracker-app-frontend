@@ -13,7 +13,7 @@ function DiscCheck({checkin, user}) {
                 <li>Checked in by: {checkin.username || "Anonymous"}</li>
             </ul>
             <div className="options-div">
-                {user && (user.username === checkin.username) && 
+                {user && (user.username === checkin.username || user.isAdmin) && 
                 <Link to={`/checkins/${checkin.id}/edit`}>
                     <button type="button">Edit</button>
                 </Link>

@@ -30,6 +30,11 @@ function AdminPage({user}) {
                             <button type="button">Manage Users</button>
                         </Link>
                     </li>
+                    <li>
+                        <Link to="/admin/checkins" user={user}>
+                            <button type="button">Manage Checkins</button>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>

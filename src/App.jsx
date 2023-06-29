@@ -18,6 +18,7 @@ import AllUsers from './components/Admin/AllUsers';
 import AdminPage from './components/Admin/AdminPage';
 import UserPanel from './components/Admin/UserPanel';
 import AdminEditUser from './components/Admin/AdminEditUser';
+import AllCheckins from './components/Admin/AllCheckins';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -111,6 +112,7 @@ function App() {
         <Route exact path="/admin/users" element={<AllUsers user={user} setAccounts={setAccounts} accounts={accounts} setAccount={setAccount} />} />
         <Route exact path="/admin/users/:username" element={<UserPanel user={user} account={account} setAccount={setAccount} />} />
         <Route exact path="/admin/users/edit/:username" element={<AdminEditUser user={user} account={account} setAccount={setAccount}/>} />
+        <Route exact path="/admin/checkins" element={<AllCheckins user={user} />} />
       </Routes>
     </div>
   )

@@ -1,0 +1,29 @@
+@media (max-width: 479px) {
+    .DeleteUserModal {
+        position: absolute;
+        top: 40%;
+        width: 80%;
+        height: auto;
+        padding: 10px;
+        text-align: center;
+        margin: auto;
+        background-color: white;
+        border-radius: 15px;
+        -moz-box-shadow: 0 0 5px #999;
+        -webkit-box-shadow: 0 0 5px #999;
+        box-shadow: 0 0 5px #999;
+    }
+    .DeleteUserModal button {
+        margin: 5px;
+    }
+    .Modal-Overlay {
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(128, 128, 128, 0.5);
+    }
+  }
