@@ -1,7 +1,30 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import DiscTrackerAPI from '../api';
+import DeleteCheckinModal from './Admin/modals/DeleteCheckinModal';
 
-function DiscCheck({checkin, user}) {
+function DiscCheck({checkin, user, modalState, setModalState, doDelete, setSelectedCheckin}) {
+    
+    
+    const handleDeleteToggle = () => {
+        const rootDiv = document.getElementById('root');
+        
+        if (modalState) {
+            rootDiv.classList.remove('Modal-noScroll');
+        } else {
+            rootDiv.classList.add('Modal-noScroll');
+        }
+        
+        setSelectedCheckin(checkin);
+        setModalState(!modalState);
+    }
+
+    if (!checkin || !user) {
+        return (
+            <div>Loading..</div>
+        )
+    }
+    
     return(
         <div className="DiscCheck">
             <p>
@@ -17,6 +40,9 @@ function DiscCheck({checkin, user}) {
                 <Link to={`/checkins/${checkin.id}/edit`}>
                     <button type="button">Edit</button>
                 </Link>
+                }
+                {user && (user.isAdmin) &&
+                    <button type="button" onClick={handleDeleteToggle}>Delete</button>
                 }
             </div>
         </div>

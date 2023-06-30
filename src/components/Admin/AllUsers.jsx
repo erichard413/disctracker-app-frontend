@@ -4,11 +4,13 @@ import DiscTrackerAPI from '../../api';
 import DeleteUserModal from './modals/DeleteUserModal';
 
 function AllUsers({user, accounts, setAccounts, setAccount}) {
+    const initialForm = {username: ''};
     const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const [modalState, setModalState] = useState(false);
     const [selectedUser, setSelectedUser] = useState();
     const [flashMsg, setFlashMsg] = useState();
+    const [formData, setFormData] = useState(initialForm);
 
     useEffect(()=>{
         if (localStorage.getItem('token') == null) {
@@ -31,6 +33,14 @@ function AllUsers({user, accounts, setAccounts, setAccount}) {
         return;
     }
 
+    const handleChange = (e) => {
+        const {name, value} = e.target;
+        setFormData(data => ({
+            ...data,
+            [name]: value
+        }));
+    }
+
     const incrementPage = () => {
         if (page < accounts.endPage) setPage(page+1);
     }
@@ -48,6 +58,12 @@ function AllUsers({user, accounts, setAccounts, setAccount}) {
 
     const handleDeleteClick = (e) => {
         e.preventDefault();
+        const rootDiv = document.getElementById('root');  
+        if (modalState) {
+            rootDiv.classList.remove('Modal-noScroll');
+        } else {
+            rootDiv.classList.add('Modal-noScroll');
+        }
         setModalState(!modalState);
         setSelectedUser(e.target.closest('li').innerText.slice(0, -2));
     }
@@ -61,12 +77,46 @@ function AllUsers({user, accounts, setAccounts, setAccount}) {
         setTimeout(()=>{setFlashMsg()}, 3000);
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        //get new data from DB
+        async function fetchUsers() {
+            const result = await DiscTrackerAPI.getUsers(page, 15, formData.username);
+            const userList = result.results.filter(acc => acc.username.toLowerCase() !== user.username.toLowerCase() && acc.isAdmin === false);
+            setAccounts({...result, results: userList});
+        }
+        fetchUsers();
+    }
+
+    const handleReset = (e) => {
+        e.preventDefault();
+        setFormData(initialForm);
+        const fetchAccounts = async () => {
+            const result = await DiscTrackerAPI.getUsers(page);
+            const userList = result.results.filter(acc => acc.username.toLowerCase() !== user.username.toLowerCase() && acc.isAdmin === false);
+            setAccounts({...result, results: userList});
+        }
+        if (user && user.isAdmin) fetchAccounts();
+    }
 
     return (
         <div className="AdminUsers">
             <h3>User Management</h3>
             <p>{flashMsg}</p>
             <div className="AdminUsers-users-container">
+                <label htmlFor="username">Username</label>
+                <input 
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    onChange={handleChange}
+                    value={formData.username}
+                />
+                <div>
+                    <button onClick={handleSubmit}>Search</button>
+                    <button onClick={handleReset}>Reset</button>    
+                </div>
+
                     <button onClick={decrementPage}>prev</button>
                         <span>{page}</span>
                     <button onClick={incrementPage}>next</button>
@@ -78,7 +128,7 @@ function AllUsers({user, accounts, setAccounts, setAccount}) {
                     </li> 
  
                 ))}
-                {modalState && <DeleteUserModal username={selectedUser} setModalState={setModalState} doDelete={doDelete} /> }
+                {modalState && <DeleteUserModal username={selectedUser} setModalState={setModalState} doDelete={doDelete} modalState={modalState} /> }
             </ul>
             </div>
         </div>

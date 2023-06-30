@@ -1,9 +1,16 @@
 import React, {useState} from 'react';
-import '../../../stylesheets/Admin/DeleteUserModal.css';
+import '../../../stylesheets/Admin/Modal.css';
 
-function DeleteUserModal({username, setModalState, doDelete}) {
+function DeleteUserModal({username, setModalState, doDelete, modalState}) {
     const [formData, setFormData] = useState({username: ''});
+    
     const handleClose = () => {
+        const rootDiv = document.getElementById('root');  
+        if (modalState) {
+            rootDiv.classList.remove('Modal-noScroll');
+        } else {
+            rootDiv.classList.add('Modal-noScroll');
+        }
         setModalState(false);
     }
 
@@ -19,7 +26,7 @@ function DeleteUserModal({username, setModalState, doDelete}) {
 
     return (
         <div className="Modal-Overlay">
-            <div className="DeleteUserModal">
+            <div className="Modal">
                 <h4>Delete User - {username}?</h4>
                 <p>Are you sure you want to delete this user? This change cannot be undone. To confirm, enter the username below and select "Delete".</p>
                 <input 
@@ -30,7 +37,7 @@ function DeleteUserModal({username, setModalState, doDelete}) {
                     type="text"
                     name="username"
                 />
-            <div className="DeleteUserModal-btns">
+            <div className="Modal-btns">
                 <button id='delete-btn' onClick={doDelete} disabled={disabled}>
                     Delete
                 </button>

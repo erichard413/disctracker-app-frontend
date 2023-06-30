@@ -22,7 +22,7 @@ function EditCheckinForm({user, checkin}) {
     const [courseSuggestions, setCourseSuggestions] = useState([]);
     
     useEffect(()=>{
-        setFormData({courseName: checkin.courseName, city: checkin.city, state: checkin.state, zip: checkin.zip, country: checkin.country})
+        setFormData({courseName: checkin.courseName, city: checkin.city, state: checkin.state, zip: checkin.zip, country: checkin.country || "United States"})
     }, [checkin])
 
     useEffect(()=>{

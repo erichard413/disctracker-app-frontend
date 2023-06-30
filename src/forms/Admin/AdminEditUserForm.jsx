@@ -40,7 +40,7 @@ function AdminEditUserForm({user, account}) {
 
     const handleChange = (e) => {
         const {name, value} = e.target;
-        if (name === "password" && value === "") formData.password2 = "";
+        // if (name === "password" && value === "") formData.password2 = "";
         setFormData(data => ({
             ...data,
             [name]: value
@@ -181,7 +181,6 @@ function AdminEditUserForm({user, account}) {
                     id="isAdmin"
                     type="checkbox"
                     value={formData.isAdmin}
-                    checked={formData.isAdmin}
                     onChange={boolToggle}
                 />
             </FormGroup>

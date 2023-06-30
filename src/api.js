@@ -91,9 +91,10 @@ class DiscTrackerAPI {
             console.error(err);
         }
     }
-    static async getUsers(page=null, limit=15) {
+    static async getUsers(page=null, limit=15, username) {
         let queryString = `users?limit=${limit}`
         if (page) {queryString += `&page=${page}`}
+        if (username) queryString += `&nameLike=${username}`;
         try {
             const res = await this.request(queryString);
             return res 
@@ -125,6 +126,14 @@ class DiscTrackerAPI {
             return res.message
         } catch (err) {
             return err.error.message
+        }
+    }
+    static async deleteCheckIn(id) {
+        try {
+            const res = await this.request(`checkin/${id}`, {}, 'delete');
+            return res.message;
+        } catch (err) {
+            return err.error.message;
         }
     }
 }

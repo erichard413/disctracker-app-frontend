@@ -1,5 +1,5 @@
 @media (max-width: 479px) {
-    .DeleteUserModal {
+    .Modal {
         position: absolute;
         top: 40%;
         width: 80%;
@@ -13,7 +13,7 @@
         -webkit-box-shadow: 0 0 5px #999;
         box-shadow: 0 0 5px #999;
     }
-    .DeleteUserModal button {
+    .Modal button {
         margin: 5px;
     }
     .Modal-Overlay {
@@ -24,6 +24,9 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba(128, 128, 128, 0.5);
+        background-color: rgba(128, 128, 128, 0.5) !important;
+    }
+    .Modal-noScroll {
+        overflow: hidden;
     }
   }
