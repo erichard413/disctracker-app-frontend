@@ -127,7 +127,7 @@ function AdminEditUserForm({user, account}) {
         {account && 
         <Form className="form">
           <FormGroup>
-            <Label for="type">First Name:</Label>
+            <Label for="firstName">First Name:</Label>
             <Input name="firstName"
                 type="text"
                 placeholder={account.firstName}

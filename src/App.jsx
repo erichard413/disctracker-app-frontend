@@ -19,6 +19,7 @@ import AdminPage from './components/Admin/AdminPage';
 import UserPanel from './components/Admin/UserPanel';
 import AdminEditUser from './components/Admin/AdminEditUser';
 import AllCheckins from './components/Admin/AllCheckins';
+import CreateDisc from './components/Admin/CreateDisc';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -113,6 +114,7 @@ function App() {
         <Route exact path="/admin/users/:username" element={<UserPanel user={user} account={account} setAccount={setAccount} />} />
         <Route exact path="/admin/users/edit/:username" element={<AdminEditUser user={user} account={account} setAccount={setAccount}/>} />
         <Route exact path="/admin/checkins" element={<AllCheckins user={user} />} />
+        <Route exact path="/admin/discs/create" element={<CreateDisc user={user}/>} />
       </Routes>
     </div>
   )

@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import AllUsers from './AllUsers';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -33,6 +32,11 @@ function AdminPage({user}) {
                     <li>
                         <Link to="/admin/checkins" user={user}>
                             <button type="button">Manage Checkins</button>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/admin/discs/create" user={user}>
+                            <button type="button">Create Disc</button>
                         </Link>
                     </li>
                 </ul>

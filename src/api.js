@@ -136,6 +136,14 @@ class DiscTrackerAPI {
             return err.error.message;
         }
     }
+    static async createDisc(data) {
+        try {
+            const res = await this.request(`discs`, data, 'post');
+            return res;
+        } catch(err) {
+            return err;
+        }
+    }
 }
 
 export default DiscTrackerAPI
