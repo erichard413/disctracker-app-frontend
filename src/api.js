@@ -56,7 +56,7 @@ class DiscTrackerAPI {
         return res
     }
     static async getCheckins(discId) {
-        const res = await this.request(`checkin/${discId}`);
+        const res = await this.request(`checkin/${discId}?direction=DESC`);
         return res.results;
     }
     static async resetPassword(username) {
