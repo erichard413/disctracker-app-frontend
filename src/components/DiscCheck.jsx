@@ -6,18 +6,18 @@ import DeleteCheckinModal from './Admin/modals/DeleteCheckinModal';
 function DiscCheck({checkin, user, modalState, setModalState, doDelete, setSelectedCheckin}) {
     
     
-    const handleDeleteToggle = () => {
-        const rootDiv = document.getElementById('root');
+    // const handleDeleteToggle = () => {
+    //     const rootDiv = document.getElementById('root');
         
-        if (modalState) {
-            rootDiv.classList.remove('Modal-noScroll');
-        } else {
-            rootDiv.classList.add('Modal-noScroll');
-        }
+    //     if (modalState) {
+    //         rootDiv.classList.remove('Modal-noScroll');
+    //     } else {
+    //         rootDiv.classList.add('Modal-noScroll');
+    //     }
         
-        setSelectedCheckin(checkin);
-        setModalState(!modalState);
-    }
+    //     setSelectedCheckin(checkin);
+    //     setModalState(!modalState);
+    // }
 
     if (!checkin || !user) {
         return (
@@ -35,7 +35,7 @@ function DiscCheck({checkin, user, modalState, setModalState, doDelete, setSelec
                 <li>{checkin.city}, {checkin.state} {checkin.zip}</li>
                 <li>Checked in by: {checkin.username || "Anonymous"}</li>
             </ul>
-            <div className="options-div">
+            {/* <div className="options-div">
                 {user && (user.username === checkin.username || user.isAdmin) && 
                 <Link to={`/checkins/${checkin.id}/edit`}>
                     <button type="button">Edit</button>
@@ -44,7 +44,7 @@ function DiscCheck({checkin, user, modalState, setModalState, doDelete, setSelec
                 {user && (user.isAdmin) &&
                     <button type="button" onClick={handleDeleteToggle}>Delete</button>
                 }
-            </div>
+            </div> */}
         </div>
     )
 }

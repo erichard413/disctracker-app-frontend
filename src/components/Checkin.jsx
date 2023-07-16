@@ -8,6 +8,7 @@ function Checkin({user}) {
     const {discId} = useParams();
     const [disc, setDisc] = useState();
     const [load, setLoad] = useState('load');
+
     useEffect(() => {
         async function fetchDisc() {
             const result = await DiscTrackerAPI.getDisc(discId);

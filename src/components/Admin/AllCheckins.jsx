@@ -21,7 +21,7 @@ function AllCheckins ({user}) {
 
     useEffect(()=> {
         const fetchCheckins = async () => {
-            const result = await DiscTrackerAPI.getAllCheckins(page, 15);
+            const result = await DiscTrackerAPI.getAllCheckins(page, 5);
             setCheckins(result);
             setLoadState('ready');
         }
@@ -54,16 +54,20 @@ function AllCheckins ({user}) {
             const res = await DiscTrackerAPI.deleteCheckIn(checkin.id);
             return res;
         }
+        setCheckins({...checkins, results: checkins.results.filter(c=> c.id !== checkin.id )})
+        setSelectedCheckin();
         if (user.isAdmin) handleDelete();
-        setModalState(!modalState);
     }
+
+    let isPrev = checkins.previous ? false : true;
+    let isNext = checkins.next ? false : true;
 
     return (
         <div className="AllCheckins">
             <h3>All Check Ins</h3>
-            <button onClick={decrementPage}>prev</button>
+            <button onClick={decrementPage} disabled={isPrev}>prev</button>
                         <span>{page}</span>
-            <button onClick={incrementPage}>next</button>
+            <button onClick={incrementPage} disabled={isNext}>next</button>
             <ul>
                 {checkins.results.map(checkin => (
                     <li key={checkin.id}>

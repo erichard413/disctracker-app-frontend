@@ -55,9 +55,11 @@ class DiscTrackerAPI {
         const res = await this.request(`discs`);
         return res
     }
-    static async getCheckins(discId) {
-        const res = await this.request(`checkin/${discId}?direction=DESC`);
-        return res.results;
+    static async getCheckins(discId, limit=5, page=1) {
+        let queryString = `checkin/${discId}?direction=DESC&limit=${limit}`
+        if (page) {queryString+= `&page=${page}`}
+        const res = await this.request(queryString);
+        return res;
     }
     static async resetPassword(username) {
         try {
@@ -141,6 +143,14 @@ class DiscTrackerAPI {
             const res = await this.request(`discs`, data, 'post');
             return res;
         } catch(err) {
+            return err;
+        }
+    }
+    static async getDistanceForDisc(discId) {
+        try {
+            const res = await this.request(`checkin/distance/${discId}`, {}, 'get');
+            return res.distance;
+        } catch (err) {
             return err;
         }
     }

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import DiscTrackerAPI from '../api';
 import '../stylesheets/CheckinForm.css';
 import {states, countryList, canadaProvinces} from '../helpers/data';
+import SuccessModal from '../components/modals/SuccessModal';
 
 import {
     Button,
@@ -16,6 +17,7 @@ function CheckinForm({user, disc}) {
     const navigate = useNavigate();
     const initialFlash = ""
     const initialState = {courseName: "", city: "", state: "", zip: "", country: "United States"}
+    const [modalState, setModalState] = useState(false);
     const [flashMsg, setFlashMsg] =  useState(initialFlash);
     const [formData, setFormData] = useState(initialState);
     const [fetchState, setFetchState] = useState('fetch');
@@ -47,7 +49,7 @@ function CheckinForm({user, disc}) {
             await DiscTrackerAPI.doCheckIn(disc.id, formData);
         }
         handleCheckIn();
-        navigate("/home", {replace: true});
+        setModalState(true);
     }
 
     const handleSuggestionClick = (course) => {
@@ -169,6 +171,7 @@ function CheckinForm({user, disc}) {
                 </FormGroup>  
 
                 {isComplete() ? <Button type="submit" onClick={handleSubmit}>Submit</Button> : <Button type="submit" onClick={handleSubmit} disabled>Submit</Button> }
+                {modalState && <SuccessModal setModalState={setModalState} formData={formData} modalState={modalState}/>}
             </Form>
         </div>
     )
