@@ -19,11 +19,11 @@ function DiscCheck({checkin, user, modalState, setModalState, doDelete, setSelec
     //     setModalState(!modalState);
     // }
 
-    if (!checkin || !user) {
-        return (
-            <div>Loading..</div>
-        )
-    }
+    // if (!checkin || !user) {
+    //     return (
+    //         <div>Loading..</div>
+    //     )
+    // }
     
     return(
         <div className="DiscCheck">

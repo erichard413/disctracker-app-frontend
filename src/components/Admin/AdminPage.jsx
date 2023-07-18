@@ -39,6 +39,11 @@ function AdminPage({user}) {
                             <button type="button">Create Disc</button>
                         </Link>
                     </li>
+                    <li>
+                        <Link to="/admin/createuser" user={user}>
+                            <button type="button">Create User</button>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>

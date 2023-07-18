@@ -2,7 +2,7 @@ import React from 'react';
 import '../../stylesheets/Admin/Modal.css';
 import { useNavigate } from 'react-router-dom';
 
-function SuccessModal({setModalState, modalState, formData}) {
+function SuccessModal({setModalState, modalState, modalMessage}) {
     const navigate = useNavigate();
     
     const handleClose = () => {
@@ -20,7 +20,7 @@ function SuccessModal({setModalState, modalState, formData}) {
         <div className="Modal-Overlay">
             <div className="Modal">
                 <h4>Checkin Successful</h4>
-                {formData && <p>You've successfully checked in this disc at {formData.courseName}.</p>}
+                {modalMessage && <p>{modalMessage}</p>}
                 <div className="Modal-btns">
                 <button onClick={handleClose}>
                     Confirm

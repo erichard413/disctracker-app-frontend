@@ -11,9 +11,13 @@ function Disc({discs, user}) {
     
     useEffect(()=>{
         async function fetchCheckins() {
-           const results = await DiscTrackerAPI.getCheckins(discId, 5, page);
-           const distance = await DiscTrackerAPI.getDistanceForDisc(discId);
-           setCheckins({...results, distance});
+           try {
+                const results = await DiscTrackerAPI.getCheckins(discId, 5, page);
+                const distance = await DiscTrackerAPI.getDistanceForDisc(discId);
+                setCheckins({...results, distance});  
+           } catch (err) {
+                console.log(err)
+           } 
            setLoadState('ready'); 
         }
         fetchCheckins();
@@ -42,15 +46,20 @@ function Disc({discs, user}) {
     
     let isPrev;
     let isNext;
+
     if (checkins) {
         isPrev = checkins.previous ? false : true;
         isNext = checkins.next ? false : true;
-    } 
-
+    }  else {
+        isPrev = true;
+        isNext = true;
+    }
+    
     return(
         <div className="Disc">
             <p>{discId}</p>
-                {checkins.results && <p>This disc has travelled {Math.round(checkins.distance)} miles!</p>}
+                {checkins && <p>This disc has travelled {Math.round(checkins.distance)} miles!</p>}
+                {!checkins && <p>No check ins found for this disc!</p>}
                 <button onClick={decrementPage} disabled={isPrev}>prev</button>
                         <span>{page}</span>
                 <button onClick={incrementPage} disabled={isNext}>next</button>

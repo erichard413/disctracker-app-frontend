@@ -171,7 +171,7 @@ function CheckinForm({user, disc}) {
                 </FormGroup>  
 
                 {isComplete() ? <Button type="submit" onClick={handleSubmit}>Submit</Button> : <Button type="submit" onClick={handleSubmit} disabled>Submit</Button> }
-                {modalState && <SuccessModal setModalState={setModalState} formData={formData} modalState={modalState}/>}
+                {modalState && <SuccessModal setModalState={setModalState} formData={formData} modalState={modalState} modalMessage={`You've successfully checked in this disc at ${formData.courseName}`}/>}
             </Form>
         </div>
     )

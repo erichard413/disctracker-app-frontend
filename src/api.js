@@ -154,6 +154,16 @@ class DiscTrackerAPI {
             return err;
         }
     }
+    static async adminCreateNewUser(formData) {
+        let data = {...formData}
+        delete data.password2;
+        try {
+            const res = await this.request(`users/new`, data, 'post');
+            return res;
+        } catch (err) {
+            return err
+        }
+    }
 }
 
 export default DiscTrackerAPI

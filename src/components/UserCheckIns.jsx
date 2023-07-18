@@ -23,6 +23,7 @@ function UserCheckIns({user}) {
 
     return (
         <div className="UserCheckIns">
+            <h3>Check Ins for {user.username}</h3>
             {checkins && checkins.map(checkin => (
                 <DiscCheck key={checkin.id} checkin={checkin} />
             ))}

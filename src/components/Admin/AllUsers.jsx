@@ -99,6 +99,19 @@ function AllUsers({user, accounts, setAccounts, setAccount}) {
         if (user && user.isAdmin) fetchAccounts();
     }
 
+    let isPrev;
+    let isNext;
+
+    if (accounts) {
+        isPrev = accounts.previous ? false : true;
+        isNext = accounts.next ? false : true;
+    }  else {
+        isPrev = true;
+        isNext = true;
+    }
+
+    console.log(accounts)
+
     return (
         <div className="AdminUsers">
             <h3>User Management</h3>
@@ -117,9 +130,9 @@ function AllUsers({user, accounts, setAccounts, setAccount}) {
                     <button onClick={handleReset}>Reset</button>    
                 </div>
 
-                    <button onClick={decrementPage}>prev</button>
+                    <button onClick={decrementPage} disabled={isPrev}>prev</button>
                         <span>{page}</span>
-                    <button onClick={incrementPage}>next</button>
+                    <button onClick={incrementPage} disabled={isNext}>next</button>
             <ul>
                 {accounts && accounts.results.map(acc => (
                     
