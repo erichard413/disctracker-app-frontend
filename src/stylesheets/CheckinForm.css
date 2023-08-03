@@ -1,44 +1,45 @@
 /* MOBILE */
 
 @media (max-width: 479px) {
-    .CheckinForm {
-        width: 100vw;
-        /* outline: 1px solid blue; */
-    }
-    .CheckinForm .text-content {
-        width: 90%;
-        margin: auto;
-        font-size: 14px;
-    }
-    .CheckinForm h2 {
-        font-size: 35px;
-        margin: 0;
-        padding: 0;
-    }
-    
-    .CheckinForm input {
-        width: 100%;
-        display: inline-block;
-        padding: 2px;
-    }
-    .CheckinForm-suggestions {
-        /* position: absolute;
+  .CheckinForm {
+    width: 100vw;
+    /* outline: 1px solid blue; */
+    z-index: 1;
+  }
+  .CheckinForm .text-content {
+    width: 90%;
+    margin: auto;
+    font-size: 14px;
+  }
+  .CheckinForm h2 {
+    font-size: 35px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .CheckinForm input {
+    width: 100%;
+    display: inline-block;
+    padding: 2px;
+  }
+  .CheckinForm-suggestions {
+    /* position: absolute;
         display: block; */
-        margin: auto;
-        width: 90%;
-        color: black;
-        text-align: left;
-        z-index: 1;
-        padding-left: 5%;
-    }
-    .CheckinForm-suggestions div {
-        position: relative;
-        display: inline-block;
-        height: auto;
-        background-color: white;
-        border: .5px solid black;
-        width: 100%;
-        padding-left: 15px;
-        margin: 0;
-    }
+    margin: auto;
+    width: 90%;
+    color: black;
+    text-align: left;
+    z-index: 1;
+    padding-left: 5%;
+  }
+  .CheckinForm-suggestions div {
+    position: relative;
+    display: inline-block;
+    height: auto;
+    background-color: white;
+    border: 0.5px solid black;
+    width: 100%;
+    padding-left: 15px;
+    margin: 0;
+  }
 }

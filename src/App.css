@@ -5,7 +5,8 @@
   text-align: center;
 }
 @media (max-width: 479px) {
-  input, select {
+  input,
+  select {
     position: relative;
     display: inline;
     font-size: 24px;
@@ -15,7 +16,8 @@
     display: block;
     font-size: 24px;
   }
-  input, select {
+  input,
+  select {
     height: 40px;
     border: 1px solid teal;
     border-radius: 5px;
@@ -32,7 +34,9 @@
     margin: 0;
     display: inline-block;
   }
-  input, select, .suggestion {
+  input,
+  select,
+  .suggestion {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -44,4 +48,3 @@
     color: black;
   }
 }
-

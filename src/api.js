@@ -25,7 +25,9 @@ class DiscTrackerAPI {
         return res;
     }
     static async register(formData) {
-        let res = await this.request('auth/register', formData, 'post');
+        let data = {...formData};
+        delete data.password2;
+        let res = await this.request('auth/register', data, 'post');
         return res
     }
     static async getUser(username) {

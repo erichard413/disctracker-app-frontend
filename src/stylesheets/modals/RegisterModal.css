@@ -1,8 +1,8 @@
 @media (max-width: 479px) {
-  .Modal {
+  .RegisterModal {
     position: absolute;
-    top: 40%;
-    width: 80%;
+    top: 0%;
+    width: 100%;
     height: auto;
     padding: 10px;
     text-align: center;
@@ -14,10 +14,10 @@
     box-shadow: 0 0 5px #999;
     z-index: 20;
   }
-  .Modal button {
+  .RegisterModal button {
     margin: 5px;
   }
-  .Modal-Overlay {
+  .RegisterModal-Overlay {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -29,7 +29,7 @@
     overflow: hidden;
     z-index: 10;
   }
-  .Modal-noScroll {
+  .RegisterModal-noScroll {
     overflow: hidden;
     max-height: 100%;
     height: 100%;
