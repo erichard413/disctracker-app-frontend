@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
+import { Footer } from "./components/Footer";
 import jwt_decode from "jwt-decode";
 import DiscTrackerAPI from "./api";
 import Home from "./components/Home";

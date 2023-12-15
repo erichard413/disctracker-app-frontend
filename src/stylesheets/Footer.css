@@ -1,0 +1,22 @@
+:root {
+  --teal: rgb(0, 109, 117);
+  --grey: rgb(43, 43, 43);
+}
+
+.Footer {
+  display: block;
+  position: fixed;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background-color: var(--grey);
+  height: 40px;
+  padding-top: 5px;
+}
+.Footer p {
+  color: white;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+}
