@@ -5,6 +5,7 @@ import DeleteCheckinModal from "./Admin/modals/DeleteCheckinModal";
 import udisc_url from "../assets/udisc-logo.png";
 import "../stylesheets/DiscCheck.css";
 import format from "date-fns/format";
+import { Skeleton } from "./Skeletons/Skeleton";
 
 function DiscCheck({
   checkin,
@@ -73,6 +74,10 @@ function DiscCheck({
             </div> */}
     </div>
   );
+}
+
+export function DiscCheckSkeleton() {
+  return <div className="DiscCheck DiscCheck-skeleton"></div>;
 }
 
 export default DiscCheck;

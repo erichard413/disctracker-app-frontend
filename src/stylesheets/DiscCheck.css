@@ -1,6 +1,7 @@
 @media (max-width: 479px) {
   .DiscCheck {
     /* border: 1px solid red; */
+    height: 16vh;
     width: 80vw;
     list-style: none;
     margin: 0 auto;

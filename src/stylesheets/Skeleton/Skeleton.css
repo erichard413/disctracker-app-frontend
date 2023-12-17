@@ -1,0 +1,64 @@
+.skeleton {
+  background: hsl(200, 20%, 90%);
+  border-radius: 0.5rem;
+  height: 1em;
+
+  animation: skeleton 1s infinite alternate ease-in-out;
+}
+
+.skeleton + .skeleton:last-child {
+  width: 75%;
+}
+
+.skeleton + .skeleton {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.skeleton-btn {
+  height: 2em;
+  width: 4em;
+}
+
+.skeleton-input {
+  height: 2.25em;
+  border: 2px solid black;
+}
+
+.skeleton-h2 {
+  width: 75vw;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.skeleton-h2-subtitle {
+  margin-top: 0;
+  height: 100%;
+}
+.skeleton-h2 + #subtitle {
+  height: 1.4rem;
+  width: 40vw;
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  position: relative;
+  top: -5px;
+}
+.top-left > .skeleton:first-of-type {
+  height: 150px;
+  width: 150px;
+  margin: auto;
+  margin-bottom: 9px;
+}
+.DiscCheck-skeleton {
+  background: hsl(200, 20%, 90%);
+  animation: skeleton 1s infinite alternate ease-in-out;
+}
+@keyframes skeleton {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
