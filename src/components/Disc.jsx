@@ -12,7 +12,7 @@ import "../stylesheets/Disc.css";
 const INIT_PAGE = 1;
 const NUM_PAGE_ITEMS = 5;
 
-function Disc({ discs, user }) {
+function Disc({ discs }) {
   const { discId } = useParams();
   const [disc, setDisc] = useState(null);
   const [distance, setDistance] = useState(null);
@@ -182,7 +182,7 @@ function Disc({ discs, user }) {
         ) : (
           <>
             {checkins.results.map(checkin => (
-              <DiscCheck key={checkin.id} checkin={checkin} user={user} />
+              <DiscCheck key={checkin.id} checkin={checkin} />
             ))}
           </>
         )}

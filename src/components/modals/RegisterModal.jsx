@@ -2,7 +2,7 @@ import React from "react";
 import "../../stylesheets/modals/RegisterModal.css";
 import RegisterForm from "../../forms/RegisterForm";
 
-function SuccessModal({ setModalState, modalState, setUser }) {
+function SuccessModal({ setModalState, modalState }) {
   const handleClose = () => {
     const rootDiv = document.getElementById("root");
     if (modalState) {
@@ -22,11 +22,7 @@ function SuccessModal({ setModalState, modalState, setUser }) {
           Creating an account will allow you to attach a note to your check in,
           and will let you follow your previously checked in discs.
         </p>
-        <RegisterForm
-          setUser={setUser}
-          setModalState={setModalState}
-          modalState={modalState}
-        />
+        <RegisterForm setModalState={setModalState} modalState={modalState} />
         <div className="RegisterModal-btns">
           <button onClick={handleClose}>Skip</button>
         </div>

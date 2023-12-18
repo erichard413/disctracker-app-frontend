@@ -2,8 +2,10 @@ import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { Navbar, Nav, NavbarBrand, NavItem } from "reactstrap";
 import "../stylesheets/NavBar.css";
+import { useUser } from "../hooks/useUserContext";
 
-function NavBar({ user, logOut }) {
+function NavBar({ logOut }) {
+  const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const prevIsOpen = useRef();

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DiscTrackerAPI from "../api";
+import { useUser } from "../hooks/useUserContext";
 import DeleteCheckinModal from "./Admin/modals/DeleteCheckinModal";
 import udisc_url from "../assets/udisc-logo.png";
 import "../stylesheets/DiscCheck.css";
@@ -9,12 +10,12 @@ import { Skeleton } from "./Skeletons/Skeleton";
 
 function DiscCheck({
   checkin,
-  user,
   modalState,
   setModalState,
   doDelete,
   setSelectedCheckin,
 }) {
+  const { user, setUser } = useUser();
   // const handleDeleteToggle = () => {
   //     const rootDiv = document.getElementById('root');
 

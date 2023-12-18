@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUserContext";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../api";
 
-function RegisterForm({ setUser, modalState, setModalState }) {
+function RegisterForm({ modalState, setModalState }) {
+  const { setUser } = useUser();
   const navigate = useNavigate();
   const initialState = {
     username: "",

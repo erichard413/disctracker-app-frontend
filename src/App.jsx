@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "./hooks/useAuthContext";
+import { useUser } from "./hooks/useUserContext";
 import { Footer } from "./components/Footer";
 import jwt_decode from "jwt-decode";
 import DiscTrackerAPI from "./api";
@@ -26,20 +28,25 @@ import "./App.css";
 
 function App() {
   const navigate = useNavigate();
-  const [user, setUser] = useState();
   const [discs, setDiscs] = useState();
   const [accounts, setAccounts] = useState();
   const [account, setAccount] = useState();
+  const { currentToken, setCurrentToken } = useAuth();
+  const { user, setUser } = useUser();
+
+  console.log(currentToken);
 
   // grab token from LS on page load, grab user on page load
   useEffect(() => {
-    async function getTokenFromLS() {
-      let token = localStorage.getItem("token") || null;
-      if (token) {
-        DiscTrackerAPI.token = token;
-      }
-    }
-    getTokenFromLS();
+    // -----SINCE I am using context, I probably don't need this code:
+
+    // async function getTokenFromLS() {
+    //   let token = localStorage.getItem("token") || null;
+    //   if (token) {
+    //     DiscTrackerAPI.token = token;
+    //   }
+    // }
+    // getTokenFromLS();
 
     async function getUserData() {
       let data = jwt_decode(DiscTrackerAPI.token);
@@ -95,90 +102,45 @@ function App() {
 
   return (
     <div className="App">
-      <NavBar logOut={logOutUser} user={user} />
+      <NavBar logOut={logOutUser} />
       <Routes>
-        <Route exact path="/" element={<Home user={user} />} />
-        <Route exact path="/home" element={<Home user={user} />} />
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/home" element={<Home />} />
         <Route exact path="/login" element={<Login login={logInUser} />} />
-        <Route
-          exact
-          path="/register"
-          element={<Register setUser={setUser} />}
-        />
-        <Route
-          exact
-          path="/checkin/:discId"
-          element={<Checkin user={user} setUser={setUser} />}
-        />
+        <Route exact path="/register" element={<Register />} />
+        <Route exact path="/checkin/:discId" element={<Checkin />} />
         <Route exact path="/checkins" element={<Checkins discs={discs} />} />
-        <Route
-          exact
-          path="/discs/:discId"
-          element={<Disc discs={discs} user={user} />}
-        />
-        <Route exact path="/myaccount" element={<Account user={user} />} />
-        <Route
-          exact
-          path="/editprofile"
-          element={<EditProfile user={user} setUser={setUser} />}
-        />
+        <Route exact path="/discs/:discId" element={<Disc discs={discs} />} />
+        <Route exact path="/myaccount" element={<Account />} />
+        <Route exact path="/editprofile" element={<EditProfile />} />
         <Route exact path="/resetpw" element={<AuthRecovery />} />
-        <Route
-          exact
-          path="/myaccount/checkins"
-          element={<UserCheckIns user={user} />}
-        />
-        <Route
-          exact
-          path="/checkins/:id/edit"
-          element={<EditCheckin user={user} />}
-        />
-        <Route exact path="/admin" element={<AdminPage user={user} />} />
+        <Route exact path="/myaccount/checkins" element={<UserCheckIns />} />
+        <Route exact path="/checkins/:id/edit" element={<EditCheckin />} />
+        <Route exact path="/admin" element={<AdminPage />} />
         <Route
           exact
           path="/admin/users"
           element={
             <AllUsers
-              user={user}
               setAccounts={setAccounts}
               accounts={accounts}
               setAccount={setAccount}
             />
           }
         />
-        <Route
-          exact
-          path="/admin/createuser"
-          element={<CreateUser user={user} />}
-        />
+        <Route exact path="/admin/createuser" element={<CreateUser />} />
         <Route
           exact
           path="/admin/users/:username"
-          element={
-            <UserPanel user={user} account={account} setAccount={setAccount} />
-          }
+          element={<UserPanel account={account} setAccount={setAccount} />}
         />
         <Route
           exact
           path="/admin/users/edit/:username"
-          element={
-            <AdminEditUser
-              user={user}
-              account={account}
-              setAccount={setAccount}
-            />
-          }
+          element={<AdminEditUser account={account} setAccount={setAccount} />}
         />
-        <Route
-          exact
-          path="/admin/checkins"
-          element={<AllCheckins user={user} />}
-        />
-        <Route
-          exact
-          path="/admin/discs/create"
-          element={<CreateDisc user={user} />}
-        />
+        <Route exact path="/admin/checkins" element={<AllCheckins />} />
+        <Route exact path="/admin/discs/create" element={<CreateDisc />} />
       </Routes>
     </div>
   );
