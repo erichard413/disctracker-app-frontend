@@ -1,0 +1,33 @@
+@media (max-width: 479px) {
+  .AllCheckins ul {
+    list-style: none;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .AllCheckins {
+    margin-bottom: 50px;
+  }
+  .AllCheckins li > * {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .AllCheckins .button-container {
+    display: inline-block;
+    height: auto;
+    padding: 5px;
+    vertical-align: middle;
+  }
+  .AllCheckins .button-container button {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .AllCheckins .button-container p {
+    display: inline-block;
+    position: relative;
+    font-size: 1.4em;
+    padding: 0;
+    margin: 0;
+    top: 2%;
+  }
+}

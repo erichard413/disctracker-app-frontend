@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DiscTrackerAPI from "../api";
 import DiscCheck from "./DiscCheck";
 import { useUser } from "../hooks/useUserContext";
+import "../stylesheets/UserCheckIns.css";
 
 function UserCheckIns() {
   const { user } = useUser();
@@ -31,10 +32,12 @@ function UserCheckIns() {
   return (
     <div className="UserCheckIns">
       <h3>Check Ins for {user.username}</h3>
-      {checkins &&
-        checkins.map(checkin => (
-          <DiscCheck key={checkin.id} checkin={checkin} />
-        ))}
+      <div className="checkins-container">
+        {checkins &&
+          checkins.map(checkin => (
+            <DiscCheck key={checkin.id} checkin={checkin} />
+          ))}
+      </div>
     </div>
   );
 }

@@ -1,0 +1,9 @@
+@media (max-width: 479px) {
+  .UserCheckIns .checkins-container {
+    width: 100%;
+    /* border: 1px solid blue; */
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 60px;
+  }
+}

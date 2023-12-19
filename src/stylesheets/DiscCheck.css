@@ -10,6 +10,7 @@
     margin-top: 5px;
     font-size: 16px;
   }
+
   .DiscCheck li {
     list-style: none;
   }
@@ -30,6 +31,7 @@
   }
   .DiscCheck .button-container {
     width: auto;
+    text-align: center;
   }
   .DiscCheck .link {
     padding: 2px;
@@ -43,5 +45,7 @@
   }
   .DiscCheck .link.u-disc {
     background-color: #fae20b;
+    width: 50px;
+    margin: auto;
   }
 }

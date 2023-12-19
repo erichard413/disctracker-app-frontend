@@ -1,0 +1,16 @@
+/* MOBILE */
+
+@media (max-width: 479px) {
+  .Account .left-container img {
+    width: 150px;
+  }
+  .Account .right-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .Account .Account-content > * {
+    margin: 15px;
+    display: block;
+  }
+}

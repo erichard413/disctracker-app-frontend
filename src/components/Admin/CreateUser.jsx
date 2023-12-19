@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminCreateUserForm from "../../forms/Admin/AdminCreateUserForm";
 import { useUser } from "../../hooks/useUserContext";
+import "../../stylesheets/Admin/CreateUser.css";
 
 function CreateUser() {
   const { user } = useUser();
@@ -19,8 +20,8 @@ function CreateUser() {
     return;
   }
   return (
-    <div className="CreateDisc">
-      <h3>Create User</h3>
+    <div className="CreateUser">
+      <h2>Create User</h2>
       <AdminCreateUserForm />
     </div>
   );

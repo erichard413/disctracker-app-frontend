@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../hooks/useUserContext";
+import defaultUserImg from "../assets/user-images/defaultprofilepic.png";
+import "../stylesheets/Account.css";
 
 function Account() {
   const { user } = useUser();
+
   if (!user) {
     return (
       <div>
@@ -16,15 +19,24 @@ function Account() {
 
   return (
     <div className="Account">
-      <h3>Your Account - {user.username}</h3>
-      <ul>
-        <li>First Name: {user.firstName}</li>
-        <li>Last Name: {user.lastName}</li>
-        <li>Email: {user.email}</li>
-        <li>
-          Joined: {dateStrings[1] + "-" + dateStrings[2] + "-" + dateStrings[0]}
-        </li>
-      </ul>
+      <h2>Your Account - {user.username}</h2>
+      <div className="top-container">
+        <div className="left-container">
+          <img src={defaultUserImg} alt="default-profile-pic" />
+        </div>
+        <div className="right-container">
+          <ul>
+            <li>First Name: {user.firstName}</li>
+            <li>Last Name: {user.lastName}</li>
+            <li>Email: {user.email}</li>
+            <li>
+              Joined:{" "}
+              {dateStrings[1] + "-" + dateStrings[2] + "-" + dateStrings[0]}
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <div className="Account-content">
         <Link to="/editprofile">
           <button type="button">Edit Profile</button>

@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useUser } from "../../hooks/useUserContext";
+import "../../stylesheets/Admin/AdminPage.css";
 
 function AdminPage() {
   const { user } = useUser();
@@ -20,7 +22,7 @@ function AdminPage() {
 
   return (
     <div className="AdminPage">
-      <h3>Administration Panel</h3>
+      <h2>Administration Panel</h2>
       <div className="Admin-links">
         <ul>
           <li>

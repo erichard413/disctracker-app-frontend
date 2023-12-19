@@ -219,7 +219,12 @@ function AdminCreateUserForm() {
             />
           </FormGroup>
           {/* {isComplete() ? <Button type="submit" onClick={handleSubmit}>Submit</Button> : <Button type="submit" disabled onClick={handleSubmit}>Submit</Button>} */}
-          <Button type="submit" onClick={handleSubmit} disabled={!isComplete()}>
+          <Button
+            id="submit-btn"
+            type="submit"
+            onClick={handleSubmit}
+            disabled={!isComplete()}
+          >
             Submit
           </Button>
           {modalState && (

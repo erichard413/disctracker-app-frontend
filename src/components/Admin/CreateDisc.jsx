@@ -20,7 +20,7 @@ function CreateDisc() {
   }
   return (
     <div className="CreateDisc">
-      <h3>Create disc</h3>
+      <h2>Create disc</h2>
       <AdminCreateDiscForm user={user} />
     </div>
   );

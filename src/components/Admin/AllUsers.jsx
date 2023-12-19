@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import DiscTrackerAPI from "../../api";
 import DeleteUserModal from "./modals/DeleteUserModal";
 import { useUser } from "../../hooks/useUserContext";
+import "../../stylesheets/AllUsers.css";
 
 function AllUsers({ accounts, setAccounts, setAccount }) {
   const { user } = useUser();
@@ -14,36 +15,38 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
   const [flashMsg, setFlashMsg] = useState();
   const [formData, setFormData] = useState(initialForm);
 
-  useEffect(() => {
-    if (localStorage.getItem("token") == null) {
-      navigate("/home");
-      return;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("token") == null) {
+  //     navigate("/home");
+  //     return;
+  //   }
+  // }, []);
 
   useEffect(() => {
     const fetchAccounts = async () => {
       const result = await DiscTrackerAPI.getUsers(page);
-      const userList = result.results.filter(
-        acc =>
-          acc.username.toLowerCase() !== user.username.toLowerCase() &&
-          acc.isAdmin === false
-      );
-      setAccounts({ ...result, results: userList });
+      // -------------- DO I WANT TO FILTER OUT ADMINS & OWN USER FROM LIST?
+      // const userList = result.results.filter(
+      //   acc =>
+      //     acc.username.toLowerCase() !== user.username.toLowerCase() &&
+      //     acc.isAdmin === false
+      // );
+      setAccounts({ ...result });
     };
     if (user && user.isAdmin) fetchAccounts();
   }, [user, page]);
 
-  if (user && !user.isAdmin) {
+  if (!user || !user.isAdmin) {
     navigate("/", { replace: true });
     return;
   }
 
   const handleChange = e => {
     const { name, value } = e.target;
+
     setFormData(data => ({
       ...data,
-      [name]: value,
+      [name]: value.replace(/\s/g, ""),
     }));
   };
 
@@ -61,8 +64,7 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
     }
     doClick();
   };
-
-  const handleDeleteClick = e => {
+  const handleDeleteClick = (e, username) => {
     e.preventDefault();
     const rootDiv = document.getElementById("root");
     if (modalState) {
@@ -71,16 +73,20 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
       rootDiv.classList.add("Modal-noScroll");
     }
     setModalState(!modalState);
-    setSelectedUser(e.target.closest("li").innerText.slice(0, -2));
+    setSelectedUser(username);
   };
 
   const doDelete = async () => {
     const res = await DiscTrackerAPI.adminDeleteUser(selectedUser);
+    const rootDiv = document.getElementById("root");
+    if (modalState) {
+      rootDiv.classList.remove("Modal-noScroll");
+    } else {
+      rootDiv.classList.add("Modal-noScroll");
+    }
     setModalState(!modalState);
     let updateAccList = accounts.results.filter(
-      acc =>
-        acc.username.toLowerCase() !== selectedUser.toLowerCase() &&
-        acc.isAdmin === false
+      acc => acc.username.toLowerCase() !== selectedUser.toLowerCase()
     );
     setAccounts({ ...accounts, results: updateAccList });
     setFlashMsg(res);
@@ -94,12 +100,12 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
     //get new data from DB
     async function fetchUsers() {
       const result = await DiscTrackerAPI.getUsers(page, 15, formData.username);
-      const userList = result.results.filter(
-        acc =>
-          acc.username.toLowerCase() !== user.username.toLowerCase() &&
-          acc.isAdmin === false
-      );
-      setAccounts({ ...result, results: userList });
+      // const userList = result.results.filter(
+      //   acc =>
+      //     acc.username.toLowerCase() !== user.username.toLowerCase() &&
+      //     acc.isAdmin === false
+      // );
+      setAccounts({ ...result });
     }
     fetchUsers();
   };
@@ -109,12 +115,12 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
     setFormData(initialForm);
     const fetchAccounts = async () => {
       const result = await DiscTrackerAPI.getUsers(page);
-      const userList = result.results.filter(
-        acc =>
-          acc.username.toLowerCase() !== user.username.toLowerCase() &&
-          acc.isAdmin === false
-      );
-      setAccounts({ ...result, results: userList });
+      // const userList = result.results.filter(
+      //   acc =>
+      //     acc.username.toLowerCase() !== user.username.toLowerCase() &&
+      //     acc.isAdmin === false
+      // );
+      setAccounts({ ...result });
     };
     if (user && user.isAdmin) fetchAccounts();
   };
@@ -130,14 +136,12 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
     isNext = true;
   }
 
-  console.log(accounts);
-
   return (
     <div className="AdminUsers">
-      <h3>User Management</h3>
-      <p>{flashMsg}</p>
+      <h2>User Management</h2>
+      <p id="flash-container">{flashMsg}</p>
       <div className="AdminUsers-users-container">
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">Search by Username:</label>
         <input
           type="text"
           name="username"
@@ -145,45 +149,65 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
           onChange={handleChange}
           value={formData.username}
         />
-        <div>
+        <div className="search-buttons">
           <button onClick={handleSubmit}>Search</button>
           <button onClick={handleReset}>Reset</button>
         </div>
+        <div className="hr-line-grey"></div>
+        <div className="hr-line-teal"></div>
+        <div className="button-container">
+          <button onClick={decrementPage} disabled={isPrev}>
+            prev
+          </button>
+          <p>Page {page}</p>
+          <button onClick={incrementPage} disabled={isNext}>
+            next
+          </button>
+        </div>
+        <div className="accounts-container">
+          <ul>
+            {accounts &&
+              accounts.results.map(acc => (
+                <UserListItem
+                  key={acc.username}
+                  handleDeleteClick={handleDeleteClick}
+                  handleClick={handleClick}
+                  acc={acc}
+                />
+              ))}
+          </ul>
+        </div>
 
-        <button onClick={decrementPage} disabled={isPrev}>
-          prev
-        </button>
-        <span>{page}</span>
-        <button onClick={incrementPage} disabled={isNext}>
-          next
-        </button>
-        <ul>
-          {accounts &&
-            accounts.results.map(acc => (
-              <li key={acc.username}>
-                <span
-                  onClick={() => {
-                    handleClick(acc);
-                  }}
-                >
-                  {acc.username}
-                </span>{" "}
-                <button className="user-delete-btn" onClick={handleDeleteClick}>
-                  X
-                </button>
-              </li>
-            ))}
-          {modalState && (
-            <DeleteUserModal
-              username={selectedUser}
-              setModalState={setModalState}
-              doDelete={doDelete}
-              modalState={modalState}
-            />
-          )}
-        </ul>
+        {modalState && (
+          <DeleteUserModal
+            username={selectedUser}
+            setModalState={setModalState}
+            doDelete={doDelete}
+            modalState={modalState}
+          />
+        )}
       </div>
     </div>
+  );
+}
+
+function UserListItem({ acc, handleDeleteClick, handleClick }) {
+  return (
+    <li key={acc.username}>
+      <div className="li-container-left">{acc.username}</div>
+      <div className="li-container-right">
+        <button
+          className="user-delete-btn"
+          disabled={acc.isAdmin ? true : false}
+          onClick={e => handleDeleteClick(e, acc.username)}
+        >
+          DELETE
+        </button>
+        <button className="user-delete-btn" onClick={() => handleClick(acc)}>
+          VIEW
+        </button>
+      </div>
+    </li>
   );
 }
 

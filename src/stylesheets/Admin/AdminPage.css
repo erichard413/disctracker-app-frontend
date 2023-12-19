@@ -1,0 +1,10 @@
+@media (max-width: 479px) {
+  .AdminPage ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .AdminPage ul > li {
+    margin: 15px;
+  }
+}

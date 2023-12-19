@@ -4,6 +4,7 @@ import DiscTrackerAPI from "../../api";
 import DiscCheck from "../DiscCheck";
 import DeleteCheckinModal from "./modals/DeleteCheckinModal";
 import { useUser } from "../../hooks/useUserContext";
+import "../../stylesheets/AllCheckins.css";
 
 function AllCheckins() {
   const { user } = useUser();
@@ -65,14 +66,21 @@ function AllCheckins() {
 
   return (
     <div className="AllCheckins">
-      <h3>All Check Ins</h3>
-      <button onClick={decrementPage} disabled={isPrev}>
-        prev
-      </button>
-      <span>{page}</span>
-      <button onClick={incrementPage} disabled={isNext}>
-        next
-      </button>
+      <h2>All Check Ins</h2>
+      <div className="hr-line-grey"></div>
+      <div className="hr-line-teal"></div>
+      <div className="button-container">
+        <button onClick={decrementPage} disabled={isPrev}>
+          prev
+        </button>
+        <p>
+          Page {page} of {checkins.endPage}
+        </p>
+        <button onClick={incrementPage} disabled={isNext}>
+          next
+        </button>
+      </div>
+
       <ul>
         {checkins.results.map(checkin => (
           <li key={checkin.id}>
