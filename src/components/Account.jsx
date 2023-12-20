@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../hooks/useUserContext";
+import { useNavigate } from "react-router-dom";
 import defaultUserImg from "../assets/user-images/defaultprofilepic.png";
 import "../stylesheets/Account.css";
 
 function Account() {
   const { user } = useUser();
+  const navigate = useNavigate();
 
-  if (!user) {
-    return (
-      <div>
-        <p>Loading...</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/", { replace: true });
+      return;
+    }
+  }, []);
+
+  if (!user) return <></>;
 
   const dateStrings = user.joinDate.split(" ")[0].split("-");
 

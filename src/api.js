@@ -162,10 +162,10 @@ class DiscTrackerAPI {
       return err;
     }
   }
-  static async getDistanceForDisc(discId) {
+  static async getStatsForDisc(discId) {
     try {
-      const res = await this.request(`checkin/distance/${discId}`, {}, "get");
-      return res.distance;
+      const res = await this.request(`checkin/${discId}/stats`, {}, "get");
+      return res;
     } catch (err) {
       return err;
     }

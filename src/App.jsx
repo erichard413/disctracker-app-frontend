@@ -39,7 +39,6 @@ function App() {
   // grab token from LS on page load, grab user on page load
   useEffect(() => {
     // -----SINCE I am using context, I probably don't need this code:
-
     // async function getTokenFromLS() {
     //   let token = localStorage.getItem("token") || null;
     //   if (token) {
@@ -47,11 +46,17 @@ function App() {
     //   }
     // }
     // getTokenFromLS();
-
     async function getUserData() {
-      let data = jwt_decode(DiscTrackerAPI.token);
-      let userData = await DiscTrackerAPI.getUser(data.username);
-      setUser(userData);
+      try {
+        let data = jwt_decode(DiscTrackerAPI.token);
+        let userData = await DiscTrackerAPI.getUser(data.username);
+        console.log(userData);
+        setUser(userData);
+      } catch (err) {
+        console.log(err);
+        DiscTrackerAPI.token = null;
+        localStorage.removeItem("token");
+      }
     }
     async function getDiscData() {
       let discs = await DiscTrackerAPI.getAllDiscs();
@@ -62,18 +67,18 @@ function App() {
       getUserData();
     }
   }, []);
-  // get user data on login
-  useEffect(() => {
-    async function getUserData() {
-      let data = jwt_decode(DiscTrackerAPI.token);
-      let userData = await DiscTrackerAPI.getUser(data.username);
-      setUser(userData);
-    }
+  // // get user data on login - this use effect is not needed
+  // useEffect(() => {
+  //   async function getUserData() {
+  //     let data = jwt_decode(DiscTrackerAPI.token);
+  //     let userData = await DiscTrackerAPI.getUser(data.username);
+  //     setUser(userData);
+  //   }
 
-    if (DiscTrackerAPI.token) {
-      getUserData();
-    }
-  }, [DiscTrackerAPI]);
+  //   if (DiscTrackerAPI.token) {
+  //     getUserData();
+  //   }
+  // }, [DiscTrackerAPI]);
 
   // function to log in user, store token on DiscTrackerAPI
   const logInUser = async (username, password) => {

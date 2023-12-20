@@ -16,8 +16,15 @@
   .Disc .top-right {
     width: 100%;
     text-align: left;
-    font-size: 1.2em;
+    font-size: 1em;
     /* border: 1px solid blue; */
+  }
+  .Disc .top-right ul {
+    list-style: none;
+    padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin: 0;
   }
   .Disc #subtitle {
     /* border: 1px solid teal; */
@@ -68,5 +75,8 @@
     padding: 0;
     margin: 0;
     top: 2%;
+  }
+  .Disc .bold-me {
+    font-weight: bold;
   }
 }

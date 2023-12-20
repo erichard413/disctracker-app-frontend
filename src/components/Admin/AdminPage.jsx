@@ -9,16 +9,13 @@ function AdminPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("token") == null) {
-      navigate("/home");
+    if (!user || !user.isAdmin) {
+      navigate("/", { replace: true });
       return;
     }
   }, []);
 
-  if (user && !user.isAdmin) {
-    navigate("/", { replace: true });
-    return;
-  }
+  if (!user) return <></>;
 
   return (
     <div className="AdminPage">

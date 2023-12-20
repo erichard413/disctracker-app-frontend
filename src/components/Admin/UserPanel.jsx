@@ -10,10 +10,9 @@ function UserPanel({ account, setAccount }) {
   const navigate = useNavigate();
   const { username } = useParams();
   const [loadState, setLoadState] = useState("load");
-
   useEffect(() => {
-    if (localStorage.getItem("token") == null) {
-      navigate("/home");
+    if (!user || !user.isAdmin) {
+      navigate("/", { replace: true });
       return;
     }
   }, []);

@@ -11,10 +11,6 @@ function UserCheckIns() {
   const [checkins, setCheckins] = useState();
 
   useEffect(() => {
-    if (localStorage.getItem("token") == null) {
-      navigate("/home");
-      return;
-    }
     async function fetchCheckins() {
       const res = await DiscTrackerAPI.getUserCheckins(user.username);
       setCheckins(res);
@@ -22,12 +18,7 @@ function UserCheckIns() {
     fetchCheckins();
   }, []);
 
-  if (!user)
-    return (
-      <div>
-        <p>Loading..</p>
-      </div>
-    );
+  if (!user) navigate("/");
 
   return (
     <div className="UserCheckIns">

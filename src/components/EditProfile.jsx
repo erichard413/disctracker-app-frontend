@@ -1,15 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import EditProfileForm from "../forms/EditProfileForm";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../hooks/useUserContext";
 
 function EditProfile() {
+  const { user } = useUser();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (localStorage.getItem("token") == null) {
-      navigate("/home");
-    }
-  }, []);
+  if (!user) navigate("/");
 
   return (
     <div className="EditProfile">

@@ -15,8 +15,8 @@ const NUM_PAGE_ITEMS = 5;
 function Disc({ discs }) {
   const { discId } = useParams();
   const [disc, setDisc] = useState(null);
-  const [distance, setDistance] = useState(null);
-  const [checkins, setCheckins] = useState();
+  const [checkins, setCheckins] = useState(null);
+  const [stats, setStats] = useState();
   const [loadState, setLoadState] = useState("load");
   const [page, setPage] = useState(INIT_PAGE);
 
@@ -26,10 +26,10 @@ function Disc({ discs }) {
     console.log("getting disc..");
     const getDiscData = async () => {
       try {
-        const distanceData = await DiscTrackerAPI.getDistanceForDisc(discId);
+        const discStats = await DiscTrackerAPI.getStatsForDisc(discId);
         const discData = await DiscTrackerAPI.getDisc(discId);
         setDisc(discData);
-        setDistance(distanceData);
+        setStats(discStats);
       } catch (err) {
         console.log(err);
       }
@@ -149,8 +149,40 @@ function Disc({ discs }) {
             </>
           ) : (
             <>
-              {checkins && (
-                <p>This disc has travelled {Math.ceil(distance)} miles!</p>
+              {checkins && stats && (
+                <>
+                  <ul>
+                    <li>
+                      This disc has travelled{" "}
+                      <span className="bold-me">
+                        {Math.ceil(stats.distance)}
+                      </span>{" "}
+                      miles!
+                    </li>
+                    <li>
+                      Played on{" "}
+                      <span className="bold-me">{stats.courseCount}</span>{" "}
+                      course{stats.courseCount > 1 && "s"}!
+                    </li>
+                    <li>
+                      Visited{" "}
+                      <span className="bold-me">{stats.stateCount}</span> state
+                      {stats.stateCount > 1 && "s"}!
+                    </li>
+                    <li>
+                      Checked in by{" "}
+                      <span className="bold-me">{stats.userCount}</span> user
+                      {stats.userCount > 1 && "s"}!
+                    </li>
+                    {stats.countryCount > 1 && (
+                      <li>
+                        This disc has been to{" "}
+                        <span className="bold-me">{stats.countryCount}</span>{" "}
+                        countries!
+                      </li>
+                    )}
+                  </ul>
+                </>
               )}
               {!checkins && <p>No check ins found for this disc!</p>}
             </>

@@ -45,9 +45,7 @@ function Checkin() {
         <RegisterModal modalState={modalState} setModalState={setModalState} />
       )}
       {disc && <CheckinForm disc={disc} />}
-      <button onClick={toggleModal} disabled={signUpDisabled}>
-        SignUp
-      </button>
+      {!user && <button onClick={toggleModal}>SignUp</button>}
     </div>
   );
 }
