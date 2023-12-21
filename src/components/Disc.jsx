@@ -8,13 +8,17 @@ import { SkeletonH2Subtitle } from "./Skeletons/Skeleton";
 import { SkeletonList } from "./Skeletons/Skeleton";
 import { DiscCheckSkeleton } from "./DiscCheck";
 import "../stylesheets/Disc.css";
+import { useDiscs } from "../hooks/useDiscContext";
 
 const INIT_PAGE = 1;
 const NUM_PAGE_ITEMS = 5;
 
-function Disc({ discs }) {
+function Disc() {
+  const { discs } = useDiscs();
   const { discId } = useParams();
-  const [disc, setDisc] = useState(null);
+  const [disc, setDisc] = useState(() =>
+    discs ? discs.filter(d => d?.id == discId) : null
+  );
   const [checkins, setCheckins] = useState(null);
   const [stats, setStats] = useState();
   const [loadState, setLoadState] = useState("load");
@@ -23,12 +27,15 @@ function Disc({ discs }) {
   console.log("page re-rendered");
 
   useEffect(() => {
-    console.log("getting disc..");
     const getDiscData = async () => {
       try {
         const discStats = await DiscTrackerAPI.getStatsForDisc(discId);
-        const discData = await DiscTrackerAPI.getDisc(discId);
-        setDisc(discData);
+        if (!disc) {
+          console.log("getting disc..");
+          const discData = await DiscTrackerAPI.getDisc(discId);
+          setDisc(discData);
+        }
+
         setStats(discStats);
       } catch (err) {
         console.log(err);
@@ -213,7 +220,7 @@ function Disc({ discs }) {
           </>
         ) : (
           <>
-            {checkins.results.map(checkin => (
+            {checkins?.results.map(checkin => (
               <DiscCheck key={checkin.id} checkin={checkin} />
             ))}
           </>

@@ -35,12 +35,8 @@ class DiscTrackerAPI {
     return res;
   }
   static async editUser(username, formData) {
-    try {
-      let res = await this.request(`users/${username}`, formData, "patch");
-      return res;
-    } catch (err) {
-      return err;
-    }
+    let res = await this.request(`users/${username}`, formData, "patch");
+    return res;
   }
   static async getDisc(discId) {
     const res = await this.request(`discs/${discId}`);
@@ -70,36 +66,20 @@ class DiscTrackerAPI {
     return res;
   }
   static async resetPassword(username) {
-    try {
-      await this.request(`users/${username}/auth/reset`, {}, "patch");
-      return;
-    } catch (err) {
-      console.error(err);
-    }
+    await this.request(`users/${username}/auth/reset`, {}, "patch");
+    return;
   }
   static async getUserCheckins(username) {
-    try {
-      const res = await this.request(`checkin/user/${username}`);
-      return res;
-    } catch (err) {
-      console.error(err);
-    }
+    const res = await this.request(`checkin/user/${username}`);
+    return res;
   }
   static async editCheckin(id, formData) {
-    try {
-      const res = await this.request(`checkin/${id}`, formData, "patch");
-      return res;
-    } catch (err) {
-      console.error(err);
-    }
+    const res = await this.request(`checkin/${id}`, formData, "patch");
+    return res;
   }
   static async getCheckin(id) {
-    try {
-      const res = await this.request(`checkin/id/${id}`);
-      return res;
-    } catch (err) {
-      console.error(err);
-    }
+    const res = await this.request(`checkin/id/${id}`);
+    return res;
   }
   static async getUsers(page = null, limit = 9, username = null) {
     let queryString = `users?limit=${limit}`;
@@ -107,78 +87,49 @@ class DiscTrackerAPI {
       queryString += `&page=${page}`;
     }
     if (username) queryString += `&nameLike=${username}`;
-    try {
-      const res = await this.request(queryString);
-      return res;
-    } catch (err) {
-      console.error(err);
-    }
+
+    const res = await this.request(queryString);
+    return res;
   }
   static async adminEditUser(username, formData) {
-    try {
-      let res = await this.request(
-        `users/${username}/admin`,
-        formData,
-        "patch"
-      );
-      return res;
-    } catch (err) {
-      return err;
-    }
+    let res = await this.request(`users/${username}/admin`, formData, "patch");
+    return res;
   }
   static async getAllCheckins(page = null, limit = 15) {
     let queryString = `checkin?limit=${limit}`;
     if (page) {
       queryString += `&page=${page}`;
     }
-    try {
-      const res = await this.request(queryString);
-      return res;
-    } catch (err) {
-      console.error(err);
-    }
+
+    const res = await this.request(queryString);
+    return res;
   }
   static async adminDeleteUser(username) {
-    try {
-      const res = await this.request(`users/${username}`, {}, "delete");
-      return res.message;
-    } catch (err) {
-      return err.error.message;
-    }
+    const res = await this.request(`users/${username}`, {}, "delete");
+    return res.message;
   }
   static async deleteCheckIn(id) {
-    try {
-      const res = await this.request(`checkin/${id}`, {}, "delete");
-      return res.message;
-    } catch (err) {
-      return err.error.message;
-    }
+    const res = await this.request(`checkin/${id}`, {}, "delete");
+    return res.message;
   }
   static async createDisc(data) {
-    try {
-      const res = await this.request(`discs`, data, "post");
-      return res;
-    } catch (err) {
-      return err;
-    }
+    const res = await this.request(`discs`, data, "post");
+    return res;
   }
   static async getStatsForDisc(discId) {
-    try {
-      const res = await this.request(`checkin/${discId}/stats`, {}, "get");
-      return res;
-    } catch (err) {
-      return err;
-    }
+    const res = await this.request(`checkin/${discId}/stats`, {}, "get");
+    return res;
   }
   static async adminCreateNewUser(formData) {
     let data = { ...formData };
     delete data.password2;
-    try {
-      const res = await this.request(`users/new`, data, "post");
-      return res;
-    } catch (err) {
-      return err;
-    }
+
+    const res = await this.request(`users/new`, data, "post");
+    return res;
+  }
+  static async editDisc(discId, formData) {
+    const res = await this.request(`discs/${discId}`, formData, "patch");
+    return res;
   }
 }
 

@@ -7,4 +7,7 @@
   .AdminPage ul > li {
     margin: 15px;
   }
+  .AdminPage button {
+    width: 60vw;
+  }
 }

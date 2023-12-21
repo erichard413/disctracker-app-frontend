@@ -39,7 +39,7 @@ function DiscCard({ disc }) {
                 {user?.isAdmin && (
                   <button
                     onClick={() => {
-                      console.log("Admin edit button");
+                      navigate(`/discs/${disc.id}/edit`);
                     }}
                   >
                     Edit

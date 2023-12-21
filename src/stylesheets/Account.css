@@ -13,4 +13,7 @@
     margin: 15px;
     display: block;
   }
+  .Account button {
+    width: 60vw;
+  }
 }

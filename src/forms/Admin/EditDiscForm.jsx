@@ -1,24 +1,29 @@
-import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useDiscs } from "../../hooks/useDiscContext";
+import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../../api";
-import { useUser } from "../../hooks/useUserContext";
-import { useDiscs } from "../../hooks/useDiscContext";
 
-function AdminCreateDiscForm() {
-  const { user } = useUser();
+export function EditDiscForm() {
+  const { discId } = useParams();
   const { discs, setDiscs } = useDiscs();
-  let errs = {};
-  let initialFlash = {};
-  let initialForm = {
-    id: "",
-    manufacturer: "",
-    plastic: "",
-    name: "",
-  };
+  const [formData, setFormData] = useState(null);
+  const [flashMsg, setFlashMsg] = useState(null);
 
-  const [flashMsg, setFlashMsg] = useState(initialFlash);
-  const [formData, setFormData] = useState(initialForm);
+  useEffect(() => {
+    if (discs) {
+      let discData = discs.filter(d => d.id == discId)[0];
+      const { name, plastic, manufacturer } = discData;
+      setFormData({ name, plastic, manufacturer });
+    }
+  }, [discs]);
 
+  if (!formData)
+    return (
+      <div>
+        <p>Loading..</p>
+      </div>
+    );
   const handleChange = e => {
     let { name, value } = e.target;
     const changeState = () => {
@@ -27,39 +32,36 @@ function AdminCreateDiscForm() {
         [name]: value,
       }));
     };
-    if (name === "id" && value.length <= 20) changeState();
+    if (name === "id" && value.length <= 20 && !window.isNaN(value)) {
+      value = value.replace(/\s/g, "");
+      changeState();
+    }
     if (name === "manufacturer" && value.length <= 30) changeState();
     if (name === "plastic" && value.length <= 30) changeState();
     if (name === "name" && value.length <= 30) changeState();
   };
-
-  if (!user) {
-    return (
-      <div>
-        <p>Loading..</p>
-      </div>
-    );
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log(formData);
-    async function doCreate() {
-      const result = await DiscTrackerAPI.createDisc(formData);
-      if (result.Created)
-        setFlashMsg({ ...flashMsg, message: `Disc created successfully!` });
-      if (result.error) console.error(result);
+  const handleSubmit = async e => {
+    console.log("fire submit");
+    try {
+      await DiscTrackerAPI.editDisc(discId, formData);
+    } catch (err) {
+      setFlashMsg({ message: err[0] });
       setTimeout(() => {
-        setFlashMsg(initialFlash);
-      }, 3500);
-      return;
+        setFlashMsg(null);
+      }, 3000);
     }
-    doCreate();
-    setDiscs(data => [...data, { ...formData }]);
+    // update our state to reflect changes
+    setDiscs(data =>
+      data.map(d => {
+        if (d.id == discId) return { id: discId, ...formData };
+        return d;
+      })
+    );
+    setFlashMsg({ message: "Disc Updated Successfully!" });
   };
 
   return (
-    <div className="AdminCreateDiscForm">
+    <div className="EditDiscForm">
       <p>{flashMsg && flashMsg.message}</p>
       <Form className="form">
         <FormGroup>
@@ -68,8 +70,8 @@ function AdminCreateDiscForm() {
             name="id"
             type="text"
             placeholder="Disc Id"
-            value={formData.id}
-            onChange={handleChange}
+            value={discId}
+            disabled
           />
         </FormGroup>
         <FormGroup>
@@ -102,10 +104,8 @@ function AdminCreateDiscForm() {
             onChange={handleChange}
           />
         </FormGroup>
-        <Button onClick={handleSubmit}>Create</Button>
+        <Button onClick={handleSubmit}>Edit</Button>
       </Form>
     </div>
   );
 }
-
-export default AdminCreateDiscForm;

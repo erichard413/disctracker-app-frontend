@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes, useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "./hooks/useAuthContext";
 import { useUser } from "./hooks/useUserContext";
-import { Footer } from "./components/Footer";
+import { EditDisc } from "./components/Admin/EditDisc";
+import { useDiscs } from "./hooks/useDiscContext";
 import jwt_decode from "jwt-decode";
 import DiscTrackerAPI from "./api";
 import Home from "./components/Home";
@@ -28,7 +29,7 @@ import "./App.css";
 
 function App() {
   const navigate = useNavigate();
-  const [discs, setDiscs] = useState();
+  const { discs, setDiscs } = useDiscs();
   const [accounts, setAccounts] = useState();
   const [account, setAccount] = useState();
   const { currentToken, setCurrentToken } = useAuth();
@@ -114,8 +115,9 @@ function App() {
         <Route exact path="/login" element={<Login login={logInUser} />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/checkin/:discId" element={<Checkin />} />
-        <Route exact path="/checkins" element={<Checkins discs={discs} />} />
-        <Route exact path="/discs/:discId" element={<Disc discs={discs} />} />
+        <Route exact path="/checkins" element={<Checkins />} />
+        <Route exact path="/discs/:discId" element={<Disc />} />
+        <Route exact path="/discs/:discId/edit" element={<EditDisc />} />
         <Route exact path="/myaccount" element={<Account />} />
         <Route exact path="/editprofile" element={<EditProfile />} />
         <Route exact path="/resetpw" element={<AuthRecovery />} />
