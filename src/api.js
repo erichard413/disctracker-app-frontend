@@ -69,8 +69,15 @@ class DiscTrackerAPI {
     await this.request(`users/${username}/auth/reset`, {}, "patch");
     return;
   }
-  static async getUserCheckins(username) {
-    const res = await this.request(`checkin/user/${username}`);
+  static async getUserCheckins(
+    username,
+    page = 1,
+    limit = 5,
+    direction = "DESC"
+  ) {
+    const res = await this.request(
+      `checkin/user/${username}?page=${page}&limit=${limit}&direction=${direction}`
+    );
     return res;
   }
   static async editCheckin(id, formData) {
