@@ -4,15 +4,27 @@ import DiscTrackerAPI from "../../api";
 import DiscCheck from "../DiscCheck";
 import DeleteCheckinModal from "./modals/DeleteCheckinModal";
 import { useUser } from "../../hooks/useUserContext";
+import { CheckinsSearchForm } from "../../forms/Admin/CheckinsSearchForm";
 import "../../stylesheets/AllCheckins.css";
+
+const INIT_PAGE = 1;
+const NUM_ITEMS_PER_PAGE = 5;
+
+const initialFormData = {
+  userName: "",
+  courseName: "",
+  date: "",
+};
 
 function AllCheckins() {
   const { user } = useUser();
   const navigate = useNavigate();
   const [checkins, setCheckins] = useState();
+  const [formData, setFormData] = useState(initialFormData);
   const [loadState, setLoadState] = useState("load");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(INIT_PAGE);
   const [modalState, setModalState] = useState(false);
+  const [search, setSearch] = useState(false);
   const [selectedCheckin, setSelectedCheckin] = useState();
 
   useEffect(() => {
@@ -24,7 +36,11 @@ function AllCheckins() {
 
   useEffect(() => {
     const fetchCheckins = async () => {
-      const result = await DiscTrackerAPI.getAllCheckins(page, 5);
+      const result = await DiscTrackerAPI.getAllCheckins(
+        page,
+        NUM_ITEMS_PER_PAGE,
+        formData
+      );
       setCheckins(result);
       setLoadState("ready");
     };
@@ -67,6 +83,18 @@ function AllCheckins() {
   return (
     <div className="AllCheckins">
       <h2>All Check Ins</h2>
+      <div>
+        <p onClick={() => setSearch(s => !s)}>Search</p>
+      </div>
+      {search && (
+        <CheckinsSearchForm
+          setCheckins={setCheckins}
+          page={page}
+          formData={formData}
+          setFormData={setFormData}
+        />
+      )}
+
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
       <div className="button-container">
@@ -74,7 +102,7 @@ function AllCheckins() {
           prev
         </button>
         <p>
-          Page {page} of {checkins.endPage}
+          Page {page} of {checkins.endPage !== 0 ? checkins.endPage : 1}
         </p>
         <button onClick={incrementPage} disabled={isNext}>
           next

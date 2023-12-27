@@ -102,10 +102,20 @@ class DiscTrackerAPI {
     let res = await this.request(`users/${username}/admin`, formData, "patch");
     return res;
   }
-  static async getAllCheckins(page = null, limit = 15) {
-    let queryString = `checkin?limit=${limit}`;
-    if (page) {
-      queryString += `&page=${page}`;
+  static async getAllCheckins(page = 1, limit = 15, formData = null) {
+    const userName = formData?.userName || null;
+    const courseName = formData?.courseName || null;
+    const date = formData?.date || null;
+
+    let queryString = `checkin?limit=${limit}&page=${page}`;
+    if (userName) {
+      queryString += `&userName=${userName}`;
+    }
+    if (date) {
+      queryString += `&date=${date}`;
+    }
+    if (courseName) {
+      queryString += `&courseName=${courseName}`;
     }
 
     const res = await this.request(queryString);

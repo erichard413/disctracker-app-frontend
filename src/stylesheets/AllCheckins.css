@@ -1,4 +1,18 @@
 @media (max-width: 479px) {
+  .AllCheckins h4 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.2em;
+  }
+  .AllCheckins .search-container > label {
+    display: block;
+  }
+  .AllCheckins .search-buttons button {
+    margin: 10px;
+  }
+  .AllCheckins .search-container input {
+    width: 80vw;
+  }
   .AllCheckins ul {
     list-style: none;
     padding: 0;
