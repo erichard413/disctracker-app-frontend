@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../../api";
 import SuccessModal from "../../components/modals/SuccessModal";
 import { useUser } from "../../hooks/useUserContext";
+import "../../stylesheets/Admin/CreateUser.css";
 
 function AdminCreateUserForm() {
   const { user } = useUser();
@@ -114,31 +115,40 @@ function AdminCreateUserForm() {
     };
     handleErrors();
 
+    const doCreate = async () => {
+      await DiscTrackerAPI.adminCreateNewUser(formData);
+      setModalState(true);
+    };
     if (!isErr) {
-      const result = await DiscTrackerAPI.adminCreateNewUser(formData);
-      console.log(result);
+      doCreate().catch(err => setFlashMsg({ errors: err }));
+      setTimeout(() => {
+        setFlashMsg("");
+      }, 5000);
 
-      if (!result.token) {
-        setFlashMsg({ ...flashMsg, errors: result });
-      }
-      if (result.token) {
-        setModalState(true);
-      }
+      // if (!result.token) {
+      //   setFlashMsg({ ...flashMsg, errors: result });
+      // }
+      // if (result.token) {
+      //   setModalState(true);
+      // }
     }
 
     setTimeout(() => {
       setFlashMsg(initialFlash);
-    }, 3000);
+    }, 5000);
   }
-
+  console.log(flashMsg);
   return (
     <div className="AdminCreateUserForm">
-      {flashMsg.errors &&
-        flashMsg.errors.map(err => (
-          <p className="FlashMsg-error" key={err}>
-            {err}
-          </p>
-        ))}
+      <div id="flash-container">
+        {flashMsg.errors &&
+          flashMsg.errors.map(err => (
+            <p className="FlashMsg-error" key={err}>
+              {err}
+            </p>
+          ))}
+      </div>
+
       {user && (
         <Form className="form">
           <FormGroup>
@@ -209,7 +219,9 @@ function AdminCreateUserForm() {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="type">Is Admin?</Label>
+            <Label for="type" id="isAdmin-label">
+              Is Admin?
+            </Label>
             <Input
               name="isAdmin"
               id="isAdmin"
@@ -218,7 +230,7 @@ function AdminCreateUserForm() {
               onChange={boolToggle}
             />
           </FormGroup>
-          {/* {isComplete() ? <Button type="submit" onClick={handleSubmit}>Submit</Button> : <Button type="submit" disabled onClick={handleSubmit}>Submit</Button>} */}
+
           <Button
             id="submit-btn"
             type="submit"
@@ -230,9 +242,11 @@ function AdminCreateUserForm() {
           {modalState && (
             <SuccessModal
               setModalState={setModalState}
+              modalTitle={"User created!"}
               formData={formData}
               modalState={modalState}
               modalMessage={`Successfully created User: ${formData.username}`}
+              navTo={`/admin/users`}
             />
           )}
         </Form>

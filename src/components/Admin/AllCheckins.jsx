@@ -5,6 +5,9 @@ import DiscCheck from "../DiscCheck";
 import DeleteCheckinModal from "./modals/DeleteCheckinModal";
 import { useUser } from "../../hooks/useUserContext";
 import { CheckinsSearchForm } from "../../forms/Admin/CheckinsSearchForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import "../../stylesheets/AllCheckins.css";
 
 const INIT_PAGE = 1;
@@ -83,8 +86,14 @@ function AllCheckins() {
   return (
     <div className="AllCheckins">
       <h2>All Check Ins</h2>
-      <div>
-        <p onClick={() => setSearch(s => !s)}>Search</p>
+      <div className="search-subtitle">
+        <span onClick={() => setSearch(s => !s)}>
+          <h4>Search </h4>
+          <span className="chevrons">
+            <FontAwesomeIcon icon={search ? faChevronUp : faChevronDown} />
+            <FontAwesomeIcon icon={search ? faChevronUp : faChevronDown} />
+          </span>
+        </span>
       </div>
       {search && (
         <CheckinsSearchForm

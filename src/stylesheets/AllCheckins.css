@@ -1,8 +1,16 @@
 @media (max-width: 479px) {
+  .AllCheckins > h2 {
+    margin-bottom: 5px;
+  }
   .AllCheckins h4 {
     margin: 0;
     padding: 0;
     font-size: 1.2em;
+    display: inline;
+  }
+  .AllCheckins .search-subtitle p {
+    margin: 0;
+    padding: 0;
   }
   .AllCheckins .search-container > label {
     display: block;
@@ -61,5 +69,30 @@
     padding: 0;
     margin: 0;
     top: 2%;
+  }
+  .AllCheckins .chevrons {
+    background-color: black;
+    height: 100px;
+    width: auto;
+    border-radius: 15%;
+    padding-left: 15px;
+    padding-top: 3px;
+    margin-left: 10px;
+  }
+  .AllCheckins .chevrons > :first-child {
+    color: white;
+    display: inline;
+    position: relative;
+    bottom: 0px;
+    top: 3px;
+    text-align: center;
+  }
+  .AllCheckins .chevrons > :nth-child(2) {
+    color: white;
+    display: inline;
+    position: relative;
+    left: -16px;
+    bottom: 5px;
+    top: -2px;
   }
 }

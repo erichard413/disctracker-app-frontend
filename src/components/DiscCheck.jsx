@@ -41,11 +41,9 @@ function DiscCheck({
       </span>
       <span className="Disc-check-subtitle">
         Checked in by:{" "}
-        {checkin.username ? (
-          <Link to={`/users/${checkin.username}`}>{checkin.username}</Link>
-        ) : (
-          "Anonymous"
-        )}
+        <span style={{ fontWeight: "600" }}>
+          {checkin.username ? checkin.username : "Anonymous"}
+        </span>
       </span>
       <ul>
         <li>{checkin.courseName}</li>

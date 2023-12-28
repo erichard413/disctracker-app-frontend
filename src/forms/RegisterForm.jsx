@@ -71,13 +71,13 @@ function RegisterForm({ modalState, setModalState }) {
         setTimeout(() => {
           setFlashMsg("");
           setModalState(false);
-        }, 3000);
+        }, 5000);
       }
     };
     signMeUp().catch(err => setFlashMsg({ Error: err }));
     setTimeout(() => {
       setFlashMsg("");
-    }, 3000);
+    }, 5000);
   };
 
   // returns false if form not complete, true when form is completed
@@ -116,9 +116,12 @@ function RegisterForm({ modalState, setModalState }) {
     <div className="RegisterForm">
       <Form className="form">
         <FormGroup>
-          {flashMsg && (
-            <p className="FlashMsg">{flashMsg.Error || flashMsg.Success}</p>
-          )}
+          <div id="flash-container">
+            {flashMsg && (
+              <p className="FlashMsg">{flashMsg.Error || flashMsg.Success}</p>
+            )}
+          </div>
+
           <Label for="type">Username:</Label>
           <Input
             name="username"

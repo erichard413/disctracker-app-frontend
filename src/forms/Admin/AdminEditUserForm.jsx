@@ -3,8 +3,11 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../../api";
 import validateEmail from "../../helpers/emailValidator";
 import { useUser } from "../../hooks/useUserContext";
+import SuccessModal from "../../components/modals/SuccessModal";
+import "../../stylesheets/EditUser.css";
 
 function AdminEditUserForm({ account }) {
+  const [modalState, setModalState] = useState(false);
   const { user } = useUser();
   let errs = {};
   let initialFlash = {};
@@ -71,7 +74,7 @@ function AdminEditUserForm({ account }) {
         errs.firstName = "First Name must not be empty!";
       if (formData.lastName === "")
         errs.lastName = "Last Name must not be empty!";
-      if (!validateEmail(formData.email))
+      if (formData.email && !validateEmail(formData.email))
         errs.email = "Email address must be a valid email!";
       setFlashMsg(errs);
       if (Object.keys(errs).length === 0) {
@@ -79,17 +82,21 @@ function AdminEditUserForm({ account }) {
           let data = {};
           if (formData.firstName) data.firstName = formData.firstName;
           if (formData.lastName) data.lastName = formData.lastName;
-          if (formData.email) data.email = formData.email;
+          if (
+            formData.email &&
+            formData.email.toLowerCase() != account.email.toLowerCase()
+          )
+            data.email = formData.email;
           if (formData.password) data.password = formData.password;
           data.isAdmin = formData.isAdmin;
           await DiscTrackerAPI.adminEditUser(account.username, data);
+          setModalState(true);
         }
-        editUser();
-        setFlashMsg({ ...flashMsg, success: "Profile Updated Successfully!" });
+        editUser().catch(err => setFlashMsg({ errors: err }));
       }
       setTimeout(() => {
         setFlashMsg(initialFlash);
-      }, 3500);
+      }, 5000);
     };
     editProfile();
   };
@@ -141,12 +148,17 @@ function AdminEditUserForm({ account }) {
     }
     return true;
   };
-
+  console.log(flashMsg);
   return (
     <div className="EditProfileForm">
-      {flashMsg.success && (
-        <p className="FlashMsg-success">{flashMsg.success}</p>
-      )}
+      <div id="flash-container">
+        {flashMsg.success && (
+          <p className="FlashMsg-success">{flashMsg.success}</p>
+        )}
+        {flashMsg.errors &&
+          flashMsg.errors.map((err, i) => <p key={i}>{err}</p>)}
+      </div>
+
       {account && (
         <Form className="form">
           <FormGroup>
@@ -205,7 +217,9 @@ function AdminEditUserForm({ account }) {
             </FormGroup>
           )}
           <FormGroup>
-            <Label for="type">Is Admin?</Label>
+            <Label for="type" id="isAdmin-label">
+              Is Admin?
+            </Label>
             <Input
               name="isAdmin"
               id="isAdmin"
@@ -224,6 +238,16 @@ function AdminEditUserForm({ account }) {
             </Button>
           )}
         </Form>
+      )}
+      {modalState && (
+        <SuccessModal
+          setModalState={setModalState}
+          modalTitle={"User updated!"}
+          formData={formData}
+          modalState={modalState}
+          modalMessage={`Successfully edited User: ${account.username}`}
+          navTo={`/admin/users`}
+        />
       )}
     </div>
   );

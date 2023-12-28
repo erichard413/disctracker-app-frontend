@@ -3,6 +3,11 @@ import DiscTrackerAPI from "../../api";
 
 const INIT_PAGE = 1;
 const NUM_ITEMS_PER_PAGE = 5;
+const initialFormData = {
+  userName: "",
+  courseName: "",
+  date: "",
+};
 
 export function CheckinsSearchForm({
   setCheckins,
@@ -43,7 +48,6 @@ export function CheckinsSearchForm({
 
   return (
     <div className="search-container">
-      <h4>Search By:</h4>
       <label htmlFor="userName">Username:</label>
       <input
         type="text"

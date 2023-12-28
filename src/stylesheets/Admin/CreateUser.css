@@ -3,6 +3,31 @@
     margin: 0px;
   }
   .CreateUser h2 {
-    margin-bottom: 0px;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 0;
+    padding: 0px;
+    line-height: 1.2rem;
+  }
+  .AdminCreateUserForm #flash-container {
+    height: 30px;
+  }
+  .AdminCreateUserForm #flash-container p {
+    font-weight: 600;
+    color: rgb(139, 41, 41);
+    margin: 0;
+    padding: 0;
+  }
+  .AdminCreateUserForm .form-check-input {
+    display: inline;
+    position: relative;
+    margin: 15px;
+    height: auto;
+  }
+  .AdminCreateUserForm #isAdmin-label {
+    display: inline;
+  }
+  .AdminCreateUserForm .form > div:last-of-type {
+    height: 60px;
   }
 }
