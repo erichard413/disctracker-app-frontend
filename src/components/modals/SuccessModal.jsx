@@ -1,6 +1,7 @@
-import React from "react";
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import "../../stylesheets/Admin/Modal.css";
 import { useNavigate } from "react-router-dom";
+import { createPortal } from "react-dom";
 
 function SuccessModal({
   setModalState,
@@ -9,29 +10,52 @@ function SuccessModal({
   modalTitle,
   navTo,
 }) {
+  console.log(modalState);
+  const prevIsOpen = useRef();
   const navigate = useNavigate();
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    prevIsOpen.current = modalState;
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!modalState && prevIsOpen.current) {
+      setIsClosing(state => !state);
+    }
+    prevIsOpen.current = modalState;
+  }, [modalState]);
 
   const handleClose = () => {
-    const rootDiv = document.getElementById("root");
-    if (modalState) {
-      rootDiv.classList.remove("Modal-noScroll");
-    } else {
-      rootDiv.classList.add("Modal-noScroll");
-    }
     setModalState(false);
-    navigate(navTo, { replace: true });
   };
 
-  return (
-    <div className="Modal-Overlay">
-      <div className="Modal">
-        <h4>{modalTitle}</h4>
-        {modalMessage && <p>{modalMessage}</p>}
-        <div className="Modal-btns">
-          <button onClick={handleClose}>Confirm</button>
+  if (!modalState && !isClosing) return null;
+
+  return createPortal(
+    <>
+      {(modalState || isClosing || prevIsOpen.current) && (
+        <div className={`Modal ${isClosing ? "closing" : ""} `}>
+          <div
+            className="overlay"
+            onAnimationEnd={() => {
+              if (isClosing) {
+                setIsClosing(false);
+                navigate(navTo);
+              }
+            }}
+          ></div>
+          <div className="modal-body">
+            <h4>{modalTitle}</h4>
+            {modalMessage && <p>{modalMessage}</p>}
+            <div className="Modal-btns">
+              <button onClick={handleClose}>Confirm</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}{" "}
+    </>,
+    document.body.querySelector("#modal-div")
   );
 }
 

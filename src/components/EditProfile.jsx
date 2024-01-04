@@ -11,7 +11,7 @@ function EditProfile() {
 
   return (
     <div className="EditProfile">
-      <h3>Edit your Profile</h3>
+      <h2>Edit your Profile</h2>
       <EditProfileForm />
     </div>
   );

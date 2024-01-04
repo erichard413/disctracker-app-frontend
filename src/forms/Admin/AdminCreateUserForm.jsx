@@ -239,16 +239,15 @@ function AdminCreateUserForm() {
           >
             Submit
           </Button>
-          {modalState && (
-            <SuccessModal
-              setModalState={setModalState}
-              modalTitle={"User created!"}
-              formData={formData}
-              modalState={modalState}
-              modalMessage={`Successfully created User: ${formData.username}`}
-              navTo={`/admin/users`}
-            />
-          )}
+
+          <SuccessModal
+            setModalState={setModalState}
+            modalTitle={"User created!"}
+            formData={formData}
+            modalState={modalState}
+            modalMessage={`Successfully created User: ${formData.username}`}
+            navTo={`/admin/users`}
+          />
         </Form>
       )}
     </div>

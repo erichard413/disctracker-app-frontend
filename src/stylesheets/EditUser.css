@@ -1,6 +1,9 @@
 @media (max-width: 479px) {
-  .AdminEditUser h3 {
+  .AdminEditUser h2 {
     margin-bottom: 0;
+  }
+  .AdminEditUser {
+    margin-bottom: 60px;
   }
   .EditProfileForm #flash-container {
     height: 30px;

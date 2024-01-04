@@ -1,14 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDiscs } from "../../hooks/useDiscContext";
 import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../../api";
+import SuccessModal from "../../components/modals/SuccessModal";
+import "../../stylesheets/EditDisc.css";
 
 export function EditDiscForm() {
+  const navigate = useNavigate();
   const { discId } = useParams();
   const { discs, setDiscs } = useDiscs();
   const [formData, setFormData] = useState(null);
   const [flashMsg, setFlashMsg] = useState(null);
+  const [modalState, setModalState] = useState(false);
 
   useEffect(() => {
     if (discs) {
@@ -44,68 +48,83 @@ export function EditDiscForm() {
     console.log("fire submit");
     try {
       await DiscTrackerAPI.editDisc(discId, formData);
+      // update our state to reflect changes
+      setDiscs(data =>
+        data.map(d => {
+          if (d.id == discId) return { id: discId, ...formData };
+          return d;
+        })
+      );
+      setModalState(true);
     } catch (err) {
       setFlashMsg({ message: err[0] });
       setTimeout(() => {
         setFlashMsg(null);
       }, 3000);
     }
-    // update our state to reflect changes
-    setDiscs(data =>
-      data.map(d => {
-        if (d.id == discId) return { id: discId, ...formData };
-        return d;
-      })
-    );
-    setFlashMsg({ message: "Disc Updated Successfully!" });
   };
 
   return (
-    <div className="EditDiscForm">
-      <p>{flashMsg && flashMsg.message}</p>
-      <Form className="form">
-        <FormGroup>
-          <Label for="id">Disc Id:</Label>
-          <Input
-            name="id"
-            type="text"
-            placeholder="Disc Id"
-            value={discId}
-            disabled
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="manufacturer">Disc Manufacturer:</Label>
-          <Input
-            name="manufacturer"
-            type="text"
-            placeholder="Manufacturer"
-            value={formData.manufacturer}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="plastic">Disc Plastic:</Label>
-          <Input
-            name="plastic"
-            type="text"
-            placeholder="Plastic"
-            value={formData.plastic}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="name">Disc Name:</Label>
-          <Input
-            name="name"
-            type="text"
-            placeholder="Disc Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <Button onClick={handleSubmit}>Edit</Button>
-      </Form>
-    </div>
+    <>
+      <div className="EditDiscForm">
+        <div id="flash-container">
+          <p>{flashMsg && flashMsg.message}</p>
+        </div>
+
+        <Form className="form">
+          <FormGroup>
+            <Label for="id">Disc Id:</Label>
+            <Input
+              name="id"
+              type="text"
+              placeholder="Disc Id"
+              value={discId}
+              disabled
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="manufacturer">Disc Manufacturer:</Label>
+            <Input
+              name="manufacturer"
+              type="text"
+              placeholder="Manufacturer"
+              value={formData.manufacturer}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="plastic">Disc Plastic:</Label>
+            <Input
+              name="plastic"
+              type="text"
+              placeholder="Plastic"
+              value={formData.plastic}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="name">Disc Name:</Label>
+            <Input
+              name="name"
+              type="text"
+              placeholder="Disc Name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <div className="button-container">
+            <Button onClick={handleSubmit}>Edit</Button>
+            <Button onClick={() => navigate("/checkins")}>Cancel</Button>
+          </div>
+        </Form>
+      </div>
+      <SuccessModal
+        modalState={modalState}
+        setModalState={setModalState}
+        navTo={`/discs/${formData.discId}}`}
+        modalTitle={`Disc ${formData.discId}!`}
+        modalMessage={`Disc edited successfully!`}
+      />
+    </>
   );
 }

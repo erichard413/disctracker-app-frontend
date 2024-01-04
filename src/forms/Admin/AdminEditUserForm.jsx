@@ -239,16 +239,15 @@ function AdminEditUserForm({ account }) {
           )}
         </Form>
       )}
-      {modalState && (
-        <SuccessModal
-          setModalState={setModalState}
-          modalTitle={"User updated!"}
-          formData={formData}
-          modalState={modalState}
-          modalMessage={`Successfully edited User: ${account.username}`}
-          navTo={`/admin/users`}
-        />
-      )}
+
+      <SuccessModal
+        setModalState={setModalState}
+        modalTitle={"User updated!"}
+        formData={formData}
+        modalState={modalState}
+        modalMessage={`Successfully edited User: ${account.username}`}
+        navTo={`/admin/users`}
+      />
     </div>
   );
 }

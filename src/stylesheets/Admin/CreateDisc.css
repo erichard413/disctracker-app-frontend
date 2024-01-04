@@ -1,0 +1,6 @@
+@media (max-width: 479px) {
+  .CreateDisc h2 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}

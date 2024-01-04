@@ -5,6 +5,8 @@
     width: 80vw;
     list-style: none;
     margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: rgb(230, 230, 230);
     border-radius: 15px;
     margin-top: 5px;
@@ -33,7 +35,13 @@
     width: auto;
     text-align: center;
   }
+  .DiscCheck .button-container > * {
+    width: auto;
+    text-align: center;
+    margin: 5px;
+  }
   .DiscCheck .link {
+    display: inline;
     padding: 2px;
     padding-left: 15px;
     padding-right: 15px;
@@ -46,6 +54,9 @@
   .DiscCheck .link.u-disc {
     background-color: #fae20b;
     width: 50px;
-    margin: auto;
+  }
+  .DiscCheck .link.edit-checkin-btn {
+    background-color: green;
+    width: 50px;
   }
 }

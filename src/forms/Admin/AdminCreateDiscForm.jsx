@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../../api";
 import { useUser } from "../../hooks/useUserContext";
 import { useDiscs } from "../../hooks/useDiscContext";
+import "../../stylesheets/Admin/CreateDisc.css";
 
 function AdminCreateDiscForm() {
   const { user } = useUser();
@@ -41,26 +42,25 @@ function AdminCreateDiscForm() {
     );
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log(formData);
-    async function doCreate() {
-      const result = await DiscTrackerAPI.createDisc(formData);
-      if (result.Created)
-        setFlashMsg({ ...flashMsg, message: `Disc created successfully!` });
-      if (result.error) console.error(result);
+    try {
+      await DiscTrackerAPI.createDisc(formData);
+      setDiscs(data => [...data, { ...formData }]);
+    } catch (err) {
+      setFlashMsg({ message: err[0] });
       setTimeout(() => {
         setFlashMsg(initialFlash);
       }, 3500);
-      return;
     }
-    doCreate();
-    setDiscs(data => [...data, { ...formData }]);
   };
 
   return (
     <div className="AdminCreateDiscForm">
-      <p>{flashMsg && flashMsg.message}</p>
+      <div id="flash-container">
+        <p>{flashMsg && flashMsg.message}</p>
+      </div>
+
       <Form className="form">
         <FormGroup>
           <Label for="id">Disc Id:</Label>

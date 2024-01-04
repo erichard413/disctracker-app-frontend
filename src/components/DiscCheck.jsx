@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import DiscTrackerAPI from "../api";
-
+import { useUser } from "../hooks/useUserContext";
+import { useDiscs } from "../hooks/useDiscContext";
 import DeleteCheckinModal from "./Admin/modals/DeleteCheckinModal";
 import udisc_url from "../assets/udisc-logo.png";
 import "../stylesheets/DiscCheck.css";
@@ -15,24 +15,9 @@ function DiscCheck({
   doDelete,
   setSelectedCheckin,
 }) {
-  // const handleDeleteToggle = () => {
-  //     const rootDiv = document.getElementById('root');
-
-  //     if (modalState) {
-  //         rootDiv.classList.remove('Modal-noScroll');
-  //     } else {
-  //         rootDiv.classList.add('Modal-noScroll');
-  //     }
-
-  //     setSelectedCheckin(checkin);
-  //     setModalState(!modalState);
-  // }
-
-  // if (!checkin || !user) {
-  //     return (
-  //         <div>Loading..</div>
-  //     )
-  // }
+  const { discs } = useDiscs();
+  const { user } = useUser();
+  const disc = discs?.filter(d => d.id == checkin.discId)[0] || [];
 
   return (
     <div className="DiscCheck">
@@ -40,7 +25,14 @@ function DiscCheck({
         {format(new Date(checkin.date), "EEEE LLLL dd, yyyy")}
       </span>
       <span className="Disc-check-subtitle">
-        Checked in by:{" "}
+        {window.location.pathname.includes("/admin/checkins") ? (
+          <>
+            <span style={{ fontWeight: "600" }}>{disc.name}</span> checked in
+            by:{" "}
+          </>
+        ) : (
+          <>Checked in by: </>
+        )}
         <span style={{ fontWeight: "600" }}>
           {checkin.username ? checkin.username : "Anonymous"}
         </span>
@@ -62,17 +54,12 @@ function DiscCheck({
             <img src={udisc_url} alt="uDisc.com" />
           </div>
         </Link>
+        {(user?.isAdmin || checkin.username == user?.username) && (
+          <Link to={`/checkins/${checkin.id}/edit`}>
+            <div className="link edit-checkin-btn">Edit</div>
+          </Link>
+        )}
       </div>
-      {/* <div className="options-div">
-                {user && (user.username === checkin.username || user.isAdmin) && 
-                <Link to={`/checkins/${checkin.id}/edit`}>
-                    <button type="button">Edit</button>
-                </Link>
-                }
-                {user && (user.isAdmin) &&
-                    <button type="button" onClick={handleDeleteToggle}>Delete</button>
-                }
-            </div> */}
     </div>
   );
 }

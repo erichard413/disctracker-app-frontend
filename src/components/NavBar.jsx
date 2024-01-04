@@ -20,9 +20,9 @@ function NavBar({ logOut }) {
 
   // console.log(`Menu is open? ${isOpen || isClosing || prevIsOpen.current}`);
 
-  const menuToggle = () => {
-    setIsOpen(menu => !menu);
-  };
+  // const menuToggle = () => {
+  //   setIsOpen(menu => !menu);
+  // };
 
   const handleLogOut = () => {
     setIsOpen(menu => !menu);

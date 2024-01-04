@@ -2,12 +2,15 @@
   .NavBar-mobile {
     display: inline-block;
     position: relative;
+    left: 0;
+    top: 0;
     padding: 0;
     margin: 0;
-    width: 100%;
+    width: 100vw;
     background-color: rgb(43, 43, 43);
     border: 0px;
     height: 100px;
+    z-index: 4;
   }
   .NavBar-mobile li {
     list-style: none;
@@ -25,11 +28,11 @@
   .NavBar-mobile .navbar-brand {
     display: inline-block;
     position: relative;
-    z-index: 2;
     height: 100px;
     background-color: rgb(43, 43, 43);
     padding: 0px;
     margin: 0px;
+    z-index: 3;
     display: flex;
   }
   .navbar-brand:first-child {
@@ -80,7 +83,7 @@
     width: 100vw;
     position: absolute;
     background-color: rgb(43, 43, 43);
-    z-index: 1;
+    z-index: 2;
   }
   .NavBar-mobile .button-open .bar1 {
     transform: translate(0, 11px) rotate(-45deg);
