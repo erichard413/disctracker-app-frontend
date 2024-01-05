@@ -3,7 +3,9 @@ import { useDiscs } from "../../hooks/useDiscContext";
 import { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../../api";
-import SuccessModal from "../../components/modals/SuccessModal";
+import Modal from "../../components/modals/Modal";
+import { SuccessModal } from "../../components/modals/Content/SuccessModal";
+import { FlashContainer } from "../../components/flash/FlashContainer";
 import "../../stylesheets/EditDisc.css";
 
 export function EditDiscForm() {
@@ -67,9 +69,7 @@ export function EditDiscForm() {
   return (
     <>
       <div className="EditDiscForm">
-        <div id="flash-container">
-          <p>{flashMsg && flashMsg.message}</p>
-        </div>
+        <FlashContainer flashMsg={flashMsg} />
 
         <Form className="form">
           <FormGroup>
@@ -118,13 +118,16 @@ export function EditDiscForm() {
           </div>
         </Form>
       </div>
-      <SuccessModal
+      <Modal
         modalState={modalState}
         setModalState={setModalState}
-        navTo={`/discs/${formData.discId}}`}
-        modalTitle={`Disc ${formData.discId}!`}
-        modalMessage={`Disc edited successfully!`}
-      />
+        navTo={`/discs/${discId}`}
+      >
+        <SuccessModal
+          modalTitle={`Disc ${discId}!`}
+          modalMessage={`Disc edited successfully!`}
+        />
+      </Modal>
     </>
   );
 }

@@ -1,16 +1,24 @@
-import { useRef, useState, useEffect, useLayoutEffect } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  Children,
+  cloneElement,
+  isValidElement,
+} from "react";
 import "../../stylesheets/Admin/Modal.css";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 
-function SuccessModal({
+function Modal({
   setModalState,
   modalState,
   modalMessage,
   modalTitle,
-  navTo,
+  navTo = null,
+  children,
 }) {
-  console.log(modalState);
   const prevIsOpen = useRef();
   const navigate = useNavigate();
   const [isClosing, setIsClosing] = useState(false);
@@ -41,22 +49,22 @@ function SuccessModal({
             onAnimationEnd={() => {
               if (isClosing) {
                 setIsClosing(false);
-                navigate(navTo);
+                if (navTo) navigate(navTo);
               }
             }}
           ></div>
-          <div className="modal-body">
-            <h4>{modalTitle}</h4>
-            {modalMessage && <p>{modalMessage}</p>}
-            <div className="Modal-btns">
-              <button onClick={handleClose}>Confirm</button>
-            </div>
-          </div>
+          {Children.map(children, child => {
+            if (!isValidElement(child)) return null;
+            return cloneElement(child, {
+              ...child.props,
+              handleClose: handleClose,
+            });
+          })}
         </div>
-      )}{" "}
+      )}
     </>,
     document.body.querySelector("#modal-div")
   );
 }
 
-export default SuccessModal;
+export default Modal;

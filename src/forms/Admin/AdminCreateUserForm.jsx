@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../../api";
-import SuccessModal from "../../components/modals/SuccessModal";
+import Modal from "../../components/modals/Modal";
+import { SuccessModal } from "../../components/modals/Content/SuccessModal";
 import { useUser } from "../../hooks/useUserContext";
 import "../../stylesheets/Admin/CreateUser.css";
 
@@ -240,14 +241,16 @@ function AdminCreateUserForm() {
             Submit
           </Button>
 
-          <SuccessModal
+          <Modal
             setModalState={setModalState}
-            modalTitle={"User created!"}
-            formData={formData}
             modalState={modalState}
-            modalMessage={`Successfully created User: ${formData.username}`}
             navTo={`/admin/users`}
-          />
+          >
+            <SuccessModal
+              modalMessage={`Successfully created User: ${formData.username}`}
+              modalTitle={"User created!"}
+            />
+          </Modal>
         </Form>
       )}
     </div>

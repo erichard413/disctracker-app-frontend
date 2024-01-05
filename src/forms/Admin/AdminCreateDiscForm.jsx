@@ -4,10 +4,13 @@ import DiscTrackerAPI from "../../api";
 import { useUser } from "../../hooks/useUserContext";
 import { useDiscs } from "../../hooks/useDiscContext";
 import "../../stylesheets/Admin/CreateDisc.css";
+import Modal from "../../components/modals/Modal";
+import { SuccessModal } from "../../components/modals/Content/SuccessModal";
 
 function AdminCreateDiscForm() {
   const { user } = useUser();
   const { discs, setDiscs } = useDiscs();
+  const [modalState, setModalState] = useState();
   let errs = {};
   let initialFlash = {};
   let initialForm = {
@@ -47,6 +50,7 @@ function AdminCreateDiscForm() {
     try {
       await DiscTrackerAPI.createDisc(formData);
       setDiscs(data => [...data, { ...formData }]);
+      setModalState(true);
     } catch (err) {
       setFlashMsg({ message: err[0] });
       setTimeout(() => {
@@ -104,6 +108,16 @@ function AdminCreateDiscForm() {
         </FormGroup>
         <Button onClick={handleSubmit}>Create</Button>
       </Form>
+      <Modal
+        setModalState={setModalState}
+        modalState={modalState}
+        navTo={`/admin`}
+      >
+        <SuccessModal
+          modalMessage={`Successfully created Disc: ${formData.discId}`}
+          modalTitle={"Disc created!"}
+        />
+      </Modal>
     </div>
   );
 }

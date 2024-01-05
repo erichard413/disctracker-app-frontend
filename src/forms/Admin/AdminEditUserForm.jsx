@@ -3,7 +3,8 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../../api";
 import validateEmail from "../../helpers/emailValidator";
 import { useUser } from "../../hooks/useUserContext";
-import SuccessModal from "../../components/modals/SuccessModal";
+import Modal from "../../components/modals/Modal";
+import { SuccessModal } from "../../components/modals/Content/SuccessModal";
 import "../../stylesheets/EditUser.css";
 
 function AdminEditUserForm({ account }) {
@@ -240,14 +241,16 @@ function AdminEditUserForm({ account }) {
         </Form>
       )}
 
-      <SuccessModal
+      <Modal
         setModalState={setModalState}
-        modalTitle={"User updated!"}
-        formData={formData}
         modalState={modalState}
-        modalMessage={`Successfully edited User: ${account.username}`}
         navTo={`/admin/users`}
-      />
+      >
+        <SuccessModal
+          modalMessage={`Successfully edited User: ${account.username}`}
+          modalTitle={"User updated!"}
+        />
+      </Modal>
     </div>
   );
 }

@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import DiscTrackerAPI from "../api";
 import "../stylesheets/CheckinForm.css";
 import { states, countryList, canadaProvinces } from "../helpers/data";
-import SuccessModal from "../components/modals/SuccessModal";
+import Modal from "../components/modals/Modal";
+import { SuccessModal } from "../components/modals/Content/SuccessModal";
 
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
@@ -230,16 +231,16 @@ function EditCheckinForm({ user, checkin }) {
           </Button>
         )}
       </Form>
-      {modalState && (
+      <Modal
+        setModalState={setModalState}
+        modalState={modalState}
+        navTo={`/checkins`}
+      >
         <SuccessModal
-          setModalState={setModalState}
           modalTitle={"Check-in updated!"}
-          formData={formData}
-          modalState={modalState}
           modalMessage={`Successfully edited check-in at ${formData.courseName}`}
-          navTo={`/checkins`}
         />
-      )}
+      </Modal>
     </div>
   );
 }

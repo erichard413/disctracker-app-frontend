@@ -117,9 +117,7 @@ function RegisterForm({ modalState, setModalState }) {
       <Form className="form">
         <FormGroup>
           <div id="flash-container">
-            {flashMsg && (
-              <p className="FlashMsg">{flashMsg.Error || flashMsg.Success}</p>
-            )}
+            {flashMsg && <p>{flashMsg.Error || flashMsg.Success}</p>}
           </div>
 
           <Label for="type">Username:</Label>

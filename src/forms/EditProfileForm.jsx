@@ -3,6 +3,9 @@ import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../api";
 import validateEmail from "../helpers/emailValidator";
 import { useUser } from "../hooks/useUserContext";
+import Modal from "../components/modals/Modal";
+import { SuccessModal } from "../components/modals/Content/SuccessModal";
+import { FlashContainer } from "../components/flash/FlashContainer";
 
 function EditProfileForm() {
   const { user, setUser } = useUser();
@@ -17,6 +20,7 @@ function EditProfileForm() {
   };
   const [flashMsg, setFlashMsg] = useState(initialFlash);
   const [formData, setFormData] = useState(initialForm);
+  const [modalState, setModalState] = useState(false);
 
   useEffect(() => {
     async function waitForUserData() {
@@ -69,22 +73,29 @@ function EditProfileForm() {
         errs.email = "Email address must be a valid email!";
       setFlashMsg(errs);
       if (Object.keys(errs).length === 0) {
-        async function editUser() {
-          let data = {};
-          if (formData.firstName) data.firstName = formData.firstName;
-          if (formData.lastName) data.lastName = formData.lastName;
-          if (formData.email) data.email = formData.email;
-          if (formData.password) data.password = formData.password;
+        let data = {};
+        if (formData.firstName) data.firstName = formData.firstName;
+        if (formData.lastName) data.lastName = formData.lastName;
+        if (
+          formData.email &&
+          formData.email.toLowerCase() !== user.email.toLowerCase()
+        )
+          data.email = formData.email;
+        if (formData.password) data.password = formData.password;
+        try {
           await DiscTrackerAPI.editUser(user.username, data);
           let userData = await DiscTrackerAPI.getUser(user.username);
           setUser(userData);
+          setModalState(true);
+        } catch (err) {
+          setFlashMsg({ message: err });
+          setTimeout(() => {
+            setFlashMsg(initialFlash);
+          }, 3500);
         }
-        editUser();
-        setFlashMsg({ ...flashMsg, success: "Profile Updated Successfully!" });
+
+        // setFlashMsg({ ...flashMsg, success: "Profile Updated Successfully!" });
       }
-      setTimeout(() => {
-        setFlashMsg(initialFlash);
-      }, 3500);
     };
     editProfile();
   };
@@ -136,12 +147,10 @@ function EditProfileForm() {
     }
     return true;
   };
-
+  console.log(flashMsg);
   return (
     <div className="EditProfileForm">
-      {flashMsg.success && (
-        <p className="FlashMsg-success">{flashMsg.success}</p>
-      )}
+      <FlashContainer flashMsg={flashMsg} />
       {user && (
         <Form className="form">
           <FormGroup>
@@ -199,15 +208,28 @@ function EditProfileForm() {
               />
             </FormGroup>
           )}
-          {isComplete() ? (
-            <Button type="submit" onClick={handleSubmit}>
-              Submit
-            </Button>
-          ) : (
-            <Button type="submit" disabled onClick={handleSubmit}>
-              Submit
-            </Button>
-          )}
+          <div className="buttons-container">
+            {isComplete() ? (
+              <Button type="submit" onClick={handleSubmit}>
+                Submit
+              </Button>
+            ) : (
+              <Button type="submit" disabled onClick={handleSubmit}>
+                Submit
+              </Button>
+            )}
+          </div>
+
+          <Modal
+            modalState={modalState}
+            setModalState={setModalState}
+            navTo={`/myaccount`}
+          >
+            <SuccessModal
+              modalTitle={"Profile Updated"}
+              modalMessage={"Successfully updated profile!"}
+            />
+          </Modal>
         </Form>
       )}
     </div>
