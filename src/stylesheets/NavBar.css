@@ -1,7 +1,7 @@
 @media (max-width: 479px) {
   .NavBar-mobile {
-    display: inline-block;
-    position: relative;
+    display: block;
+    position: fixed;
     left: 0;
     top: 0;
     padding: 0;

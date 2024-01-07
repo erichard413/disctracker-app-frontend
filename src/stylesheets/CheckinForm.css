@@ -5,6 +5,7 @@
     width: 100vw;
     /* outline: 1px solid blue; */
     z-index: 1;
+    padding-bottom: 80px;
   }
   .CheckinForm .text-content {
     width: 90%;
@@ -22,6 +23,7 @@
     display: inline-block;
     padding: 2px;
   }
+
   .CheckinForm-suggestions {
     /* position: absolute;
         display: block; */
@@ -53,5 +55,8 @@
   .CheckinForm h2 + p:first-of-type {
     padding: 0;
     margin: 0;
+  }
+  .CheckinForm button {
+    display: inline-block;
   }
 }

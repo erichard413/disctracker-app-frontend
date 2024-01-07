@@ -10,7 +10,7 @@ function Account() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user) {
+    if (!user && !localStorage.getItem("token")) {
       navigate("/", { replace: true });
       return;
     }

@@ -8,7 +8,16 @@
   overflow-x: hidden;
 }
 @media (max-width: 479px) {
+  .App > :nth-child(2) {
+    margin-top: 130px;
+  }
+  textarea {
+    width: 100%;
+    border: 1px solid teal;
+    border-radius: 5px;
+  }
   input,
+  textarea,
   select {
     position: relative;
     display: inline;
@@ -19,17 +28,21 @@
     display: block;
     font-size: 24px;
   }
+  .form {
+    margin: auto;
+  }
   input,
   select {
     height: 40px;
     border: 1px solid teal;
     border-radius: 5px;
   }
-  .mb-3 {
+  .App .mb-3 {
+    padding-top: 2px;
+    padding-bottom: 2px;
     margin: auto;
-    padding: 2px;
     /* outline: 1px solid teal; */
-    width: 90%;
+    width: 90vw;
   }
   .form-select {
     width: 100%;
@@ -38,6 +51,7 @@
     display: inline-block;
   }
   input,
+  textarea,
   select,
   .suggestion {
     box-sizing: border-box;
@@ -70,6 +84,7 @@
     top: 0;
     left: 0;
     z-index: 6;
+    width: 100vw;
   }
   #flash-container {
     height: 30px;

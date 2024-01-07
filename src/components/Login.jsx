@@ -1,16 +1,12 @@
-import React, {useState} from 'react';
-import LoginForm from '../forms/LoginForm';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import LoginForm from "../forms/LoginForm";
 
-function Login({login}) {
-    return(
-        <div className="Login">
-            <LoginForm login={login} />
-            <Link to="/resetpw">
-                <p>Forgot Password?</p>
-            </Link>
-        </div>
-    )
+function Login({ doLogin }) {
+  return (
+    <div className="Login">
+      <LoginForm login={doLogin} />
+    </div>
+  );
 }
 
-export default Login
+export default Login;

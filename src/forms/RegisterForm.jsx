@@ -5,7 +5,7 @@ import { useUser } from "../hooks/useUserContext";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import DiscTrackerAPI from "../api";
 
-function RegisterForm({ modalState, setModalState }) {
+function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
   const { setUser } = useUser();
   const navigate = useNavigate();
   const initialState = {
@@ -57,22 +57,13 @@ function RegisterForm({ modalState, setModalState }) {
         setFlashMsg({ ...flashMsg, Error: "Email must be a valid email!" });
         return;
       }
-      const res = await DiscTrackerAPI.register(formData);
-      DiscTrackerAPI.token = res.token;
-      setFormData(initialState);
-      let data = jwt_decode(DiscTrackerAPI.token);
-      let userData = await DiscTrackerAPI.getUser(data.username);
-      setUser(userData);
-      if (!modalState) navigate("/home", { replace: true });
-      if (modalState) {
-        setFlashMsg({
-          Success: `User ${formData.username} created successfully!`,
-        });
-        setTimeout(() => {
-          setFlashMsg("");
-          setModalState(false);
-        }, 5000);
+      await DiscTrackerAPI.register(formData);
+      await doLogin(formData.username, formData.password);
+
+      if (handleClose) {
+        handleClose();
       }
+      if (!handleClose) navigate("/home", { replace: true });
     };
     signMeUp().catch(err => setFlashMsg({ Error: err }));
     setTimeout(() => {
@@ -112,12 +103,19 @@ function RegisterForm({ modalState, setModalState }) {
     return true;
   };
 
+  //handle log in, should close register modal, open log in modal.
+  const handleLogInClick = e => {
+    e.preventDefault();
+    handleClose();
+    setLoginModal(true);
+  };
+
   return (
     <div className="RegisterForm">
       <Form className="form">
         <FormGroup>
           <div id="flash-container">
-            {flashMsg && <p>{flashMsg.Error || flashMsg.Success}</p>}
+            {/* {flashMsg && <p>{flashMsg.Error[0] || flashMsg.Error}</p>} */}
           </div>
 
           <Label for="type">Username:</Label>
@@ -179,15 +177,26 @@ function RegisterForm({ modalState, setModalState }) {
             onChange={handleChange}
           />
         </FormGroup>
-        {isComplete() ? (
-          <Button type="submit" onClick={handleSubmit}>
+        <div className="buttons-container">
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={isComplete() ? false : true}
+          >
             Sign Up
           </Button>
-        ) : (
-          <Button type="submit" onClick={handleSubmit} disabled>
-            Sign Up
-          </Button>
-        )}
+          {handleClose && <button onClick={handleLogInClick}>Log In</button>}
+          {handleClose && (
+            <button
+              onClick={e => {
+                e.preventDefault();
+                handleClose();
+              }}
+            >
+              Skip
+            </button>
+          )}
+        </div>
       </Form>
     </div>
   );

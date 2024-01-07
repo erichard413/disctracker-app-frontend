@@ -9,6 +9,7 @@ import { SkeletonList } from "./Skeletons/Skeleton";
 import { DiscCheckSkeleton } from "./DiscCheck";
 import "../stylesheets/Disc.css";
 import { useDiscs } from "../hooks/useDiscContext";
+import { useCheckins } from "../hooks/useCheckinsContext";
 
 const INIT_PAGE = 1;
 const NUM_PAGE_ITEMS = 5;
@@ -16,33 +17,20 @@ const NUM_PAGE_ITEMS = 5;
 function Disc() {
   const { discs } = useDiscs();
   const { discId } = useParams();
-  const [disc, setDisc] = useState(() =>
-    discs ? discs.filter(d => d?.id == discId) : null
-  );
-  const [checkins, setCheckins] = useState(null);
+  // const [disc, setDisc] = useState(() =>
+  //   discs ? discs.filter(d => d?.id == discId) : null
+  // );
+  const [checkins, setCheckins] = useState([]);
   const [stats, setStats] = useState();
   const [loadState, setLoadState] = useState("load");
   const [page, setPage] = useState(INIT_PAGE);
+  const disc = discs?.filter(d => d?.id == discId);
 
   console.log("page re-rendered");
 
   useEffect(() => {
-    const getDiscData = async () => {
-      try {
-        const discStats = await DiscTrackerAPI.getStatsForDisc(discId);
-        if (!disc) {
-          console.log("getting disc..");
-          const discData = await DiscTrackerAPI.getDisc(discId);
-          setDisc(discData);
-        }
-
-        setStats(discStats);
-      } catch (err) {
-        console.log(err);
-      }
-    };
     getDiscData();
-    changePage(INIT_PAGE);
+    fetchCheckins(INIT_PAGE);
   }, []);
 
   // I probably don't need a useEffect here. Disabled for now.
@@ -64,22 +52,34 @@ function Disc() {
   //   fetchCheckins();
   // }, [page]);
 
-  const changePage = idx => {
-    console.log("fetching check ins..");
-    async function fetchCheckins() {
-      try {
-        const results = await DiscTrackerAPI.getCheckins(
-          discId,
-          NUM_PAGE_ITEMS,
-          idx
-        );
-        setCheckins(results);
-      } catch (err) {
-        console.log(err);
-      }
-      setLoadState("ready");
+  const getDiscData = async () => {
+    try {
+      const discStats = await DiscTrackerAPI.getStatsForDisc(discId);
+      // if (!disc) {
+      //   console.log("getting disc..");
+      //   const discData = await DiscTrackerAPI.getDisc(discId);
+      //   setDisc(discData);
+      // }
+
+      setStats(discStats);
+    } catch (err) {
+      console.log(err);
     }
-    fetchCheckins();
+  };
+
+  const fetchCheckins = async (idx = INIT_PAGE) => {
+    console.log("fetching check ins..");
+    try {
+      const results = await DiscTrackerAPI.getCheckins(
+        discId,
+        NUM_PAGE_ITEMS,
+        idx
+      );
+      setCheckins(results);
+    } catch (err) {
+      console.log(err);
+    }
+    setLoadState("ready");
   };
 
   // if (loadState !== "ready") {
@@ -97,12 +97,12 @@ function Disc() {
   const incrementPage = () => {
     setLoadState("fetching-checkins");
     if (page < checkins.endPage) setPage(p => p + 1);
-    changePage(page + 1);
+    fetchCheckins(page + 1);
   };
   const decrementPage = () => {
     setLoadState("fetching-checkins");
     if (page > 1) setPage(p => p - 1);
-    changePage(page - 1);
+    fetchCheckins(page - 1);
   };
 
   let isPrev;
@@ -220,8 +220,13 @@ function Disc() {
           </>
         ) : (
           <>
-            {checkins?.results.map(checkin => (
-              <DiscCheck key={checkin.id} checkin={checkin} />
+            {checkins?.results?.map(checkin => (
+              <DiscCheck
+                key={checkin.id}
+                checkin={checkin}
+                getDiscData={getDiscData}
+                fetchCheckins={fetchCheckins}
+              />
             ))}
           </>
         )}

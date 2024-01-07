@@ -23,6 +23,8 @@ function Checkins() {
     paginatedDiscs = paginatedResults(discs, page, NUM_PAGE_ITEMS);
   }
 
+  if (!discs) return null;
+
   return (
     <div className="Checkins">
       <h2>Select Disc</h2>
@@ -42,7 +44,7 @@ function Checkins() {
       </div>
 
       {discs &&
-        paginatedDiscs.results.map(disc => (
+        paginatedDiscs?.results.map(disc => (
           <DiscCard key={disc.id} disc={disc} />
         ))}
     </div>

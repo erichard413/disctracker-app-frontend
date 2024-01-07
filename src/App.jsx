@@ -47,18 +47,7 @@ function App() {
     //   }
     // }
     // getTokenFromLS();
-    async function getUserData() {
-      try {
-        let data = jwt_decode(DiscTrackerAPI.token);
-        let userData = await DiscTrackerAPI.getUser(data.username);
-        console.log(userData);
-        setUser(userData);
-      } catch (err) {
-        console.log(err);
-        DiscTrackerAPI.token = null;
-        localStorage.removeItem("token");
-      }
-    }
+    if (currentToken) getUserData();
     async function getDiscData() {
       let discs = await DiscTrackerAPI.getAllDiscs();
       setDiscs(discs);
@@ -68,6 +57,19 @@ function App() {
       getUserData();
     }
   }, []);
+
+  async function getUserData() {
+    try {
+      let data = jwt_decode(DiscTrackerAPI.token);
+      let userData = await DiscTrackerAPI.getUser(data.username);
+      setUser(userData);
+    } catch (err) {
+      console.log(err);
+      DiscTrackerAPI.token = null;
+      localStorage.removeItem("token");
+    }
+  }
+
   // // get user data on login - this use effect is not needed
   // useEffect(() => {
   //   async function getUserData() {
@@ -91,7 +93,6 @@ function App() {
       async function getData() {
         let userData = await DiscTrackerAPI.getUser(data.username);
         setUser(userData);
-        navigate("/home");
         return res;
       }
       return getData();
@@ -112,9 +113,17 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/home" element={<Home />} />
-        <Route exact path="/login" element={<Login login={logInUser} />} />
-        <Route exact path="/register" element={<Register />} />
-        <Route exact path="/checkin/:discId" element={<Checkin />} />
+        <Route exact path="/login" element={<Login doLogin={logInUser} />} />
+        <Route
+          exact
+          path="/register"
+          element={<Register doLogin={logInUser} />}
+        />
+        <Route
+          exact
+          path="/checkin/:discId"
+          element={<Checkin doLogin={logInUser} />}
+        />
         <Route exact path="/checkins" element={<Checkins />} />
         <Route exact path="/discs/:discId" element={<Disc />} />
         <Route exact path="/discs/:discId/edit" element={<EditDisc />} />

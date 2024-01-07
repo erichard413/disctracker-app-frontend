@@ -15,4 +15,7 @@
     margin: 0;
     padding: 0;
   }
+  .RegisterForm .buttons-container * {
+    margin: 15px;
+  }
 }

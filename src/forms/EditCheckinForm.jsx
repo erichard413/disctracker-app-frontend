@@ -5,10 +5,12 @@ import "../stylesheets/CheckinForm.css";
 import { states, countryList, canadaProvinces } from "../helpers/data";
 import Modal from "../components/modals/Modal";
 import { SuccessModal } from "../components/modals/Content/SuccessModal";
+import { useUser } from "../hooks/useUserContext";
 
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
-function EditCheckinForm({ user, checkin }) {
+function EditCheckinForm({ checkin }) {
+  const { user } = useUser();
   const navigate = useNavigate();
   const initialFlash = "";
   const initialState = {
@@ -17,6 +19,7 @@ function EditCheckinForm({ user, checkin }) {
     state: "",
     zip: "",
     country: "United States",
+    note: "",
   };
   const [flashMsg, setFlashMsg] = useState(initialFlash);
   const [formData, setFormData] = useState(initialState);
@@ -31,6 +34,7 @@ function EditCheckinForm({ user, checkin }) {
       state: checkin.state,
       zip: checkin.zip,
       country: checkin.country || "United States",
+      note: checkin.note || null,
     });
   }, [checkin]);
 
@@ -56,7 +60,11 @@ function EditCheckinForm({ user, checkin }) {
   const handleSubmit = e => {
     e.preventDefault();
     async function handleCheckIn() {
-      const res = await DiscTrackerAPI.editCheckin(checkin.id, formData);
+      const res = await DiscTrackerAPI.editCheckin(
+        checkin.id,
+        formData,
+        user.username
+      );
       setFormData(formData);
     }
     try {
@@ -69,7 +77,7 @@ function EditCheckinForm({ user, checkin }) {
 
   const handleSuggestionClick = course => {
     setFetchState("clicked");
-    setFormData(course);
+    setFormData(data => ({ ...data, ...course }));
     setCourseSuggestions([]);
   };
 
@@ -85,7 +93,15 @@ function EditCheckinForm({ user, checkin }) {
   const isComplete = () => {
     let res;
     // if any fields empty, return false
-    Object.values(formData).map(data => (data === "" ? (res = false) : null));
+    if (formData.country == "United States") {
+      Object.keys(formData).map(data => {
+        res = data == "" ? false : null;
+      });
+      if (formData.zip.length < 5 || formData.zip.length > 15) {
+        return false;
+      }
+    }
+
     if (res === false) {
       return false;
     }
@@ -96,9 +112,7 @@ function EditCheckinForm({ user, checkin }) {
     if (formData.city.length < 1 || formData.city.length > 50) {
       return false;
     }
-    if (formData.zip.length < 5 || formData.zip.length > 15) {
-      return false;
-    }
+
     return true;
   };
 
@@ -214,27 +228,40 @@ function EditCheckinForm({ user, checkin }) {
           <Input
             name="zip"
             type="text"
-            inputmode="numeric"
             autoComplete="off"
             placeholder="Zip"
             value={formData.zip}
             onChange={handleChange}
           />
         </FormGroup>
-        {isComplete() ? (
-          <Button type="submit" onClick={handleSubmit}>
-            Submit
-          </Button>
-        ) : (
-          <Button type="submit" onClick={handleSubmit} disabled>
-            Submit
-          </Button>
+        {user && (
+          <FormGroup>
+            <Label for="type">Note:</Label>
+            <Input
+              name="note"
+              type="textarea"
+              autoComplete="off"
+              placeholder="Optional"
+              maxLength="255"
+              rows="5"
+              value={formData.note}
+              onChange={handleChange}
+            />
+          </FormGroup>
         )}
+
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+          disabled={isComplete() ? false : true}
+        >
+          Submit
+        </Button>
       </Form>
       <Modal
         setModalState={setModalState}
         modalState={modalState}
-        navTo={`/checkins`}
+        navTo={`/discs/${checkin.discId}`}
       >
         <SuccessModal
           modalTitle={"Check-in updated!"}

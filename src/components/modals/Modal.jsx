@@ -7,15 +7,15 @@ import {
   cloneElement,
   isValidElement,
 } from "react";
-import "../../stylesheets/Admin/Modal.css";
+import "../../stylesheets/modals/Modal.css";
 import { useNavigate } from "react-router-dom";
 import { createPortal } from "react-dom";
 
 function Modal({
   setModalState,
   modalState,
-  modalMessage,
-  modalTitle,
+  modalMessage = null,
+  modalTitle = null,
   navTo = null,
   children,
 }) {

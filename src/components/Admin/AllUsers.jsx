@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DiscTrackerAPI from "../../api";
-import DeleteUserModal from "./modals/DeleteUserModal";
+import DeleteUserModal from "../modals/Content/DeleteUserModal";
 import { useUser } from "../../hooks/useUserContext";
 import "../../stylesheets/AllUsers.css";
+import Modal from "../modals/Modal";
 
 function AllUsers({ accounts, setAccounts, setAccount }) {
   const { user } = useUser();
@@ -15,12 +16,11 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
   const [flashMsg, setFlashMsg] = useState();
   const [formData, setFormData] = useState(initialForm);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("token") == null) {
-  //     navigate("/home");
-  //     return;
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!user || !user.isAdmin) {
+      navigate("/", { replace: true });
+    }
+  }, []);
 
   useEffect(() => {
     const fetchAccounts = async () => {
@@ -36,10 +36,10 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
     if (user && user.isAdmin) fetchAccounts();
   }, [user, page]);
 
-  if (!user || !user.isAdmin) {
-    navigate("/", { replace: true });
-    return;
-  }
+  // if (!user || !user.isAdmin) {
+  //   navigate("/", { replace: true });
+  //   return;
+  // }
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -178,14 +178,13 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
           </ul>
         </div>
 
-        {modalState && (
-          <DeleteUserModal
-            username={selectedUser}
-            setModalState={setModalState}
-            doDelete={doDelete}
-            modalState={modalState}
-          />
-        )}
+        <Modal
+          modalState={modalState}
+          setModalState={setModalState}
+          navTo={"/admin/users"}
+        >
+          <DeleteUserModal username={selectedUser} doDelete={doDelete} />
+        </Modal>
       </div>
     </div>
   );

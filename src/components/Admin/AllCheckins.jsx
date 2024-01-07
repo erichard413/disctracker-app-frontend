@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DiscTrackerAPI from "../../api";
 import DiscCheck from "../DiscCheck";
-import DeleteCheckinModal from "./modals/DeleteCheckinModal";
+import DeleteCheckinModal from "../modals/Content/DeleteCheckinModal.jsx";
 import { useUser } from "../../hooks/useUserContext";
 import { CheckinsSearchForm } from "../../forms/Admin/CheckinsSearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import Modal from "../modals/Modal.jsx";
 import "../../stylesheets/AllCheckins.css";
+import { useCheckins } from "../../hooks/useCheckinsContext.jsx";
 
 const INIT_PAGE = 1;
 const NUM_ITEMS_PER_PAGE = 5;
@@ -22,7 +24,7 @@ const initialFormData = {
 function AllCheckins() {
   const { user } = useUser();
   const navigate = useNavigate();
-  const [checkins, setCheckins] = useState();
+  const [checkins, setCheckins] = useState([]);
   const [formData, setFormData] = useState(initialFormData);
   const [loadState, setLoadState] = useState("load");
   const [page, setPage] = useState(INIT_PAGE);
@@ -31,30 +33,26 @@ function AllCheckins() {
   const [selectedCheckin, setSelectedCheckin] = useState();
 
   useEffect(() => {
-    if (localStorage.getItem("token") == null) {
-      navigate("/home");
-      return;
-    }
+    if (localStorage.getItem("token") == null) navigate("/home");
   }, []);
+  useEffect(() => {
+    if (user && !user?.isAdmin) {
+      navigate("/home");
+    }
+  }, [user]);
 
   useEffect(() => {
-    const fetchCheckins = async () => {
-      const result = await DiscTrackerAPI.getAllCheckins(
-        page,
-        NUM_ITEMS_PER_PAGE,
-        formData
-      );
-      setCheckins(result);
-      setLoadState("ready");
-    };
     fetchCheckins();
   }, [user, page]);
-
-  if (user && !user.isAdmin) {
-    navigate("/", { replace: true });
-    return;
-  }
-
+  const fetchCheckins = async () => {
+    const result = await DiscTrackerAPI.getAllCheckins(
+      page,
+      NUM_ITEMS_PER_PAGE,
+      formData
+    );
+    setCheckins(result);
+    setLoadState("ready");
+  };
   if (loadState !== "ready") {
     return <div>Loading..</div>;
   }
@@ -64,20 +62,6 @@ function AllCheckins() {
   };
   const decrementPage = () => {
     if (page > 1) setPage(page - 1);
-  };
-
-  const doDelete = checkin => {
-    setSelectedCheckin(checkin);
-    async function handleDelete() {
-      const res = await DiscTrackerAPI.deleteCheckIn(checkin.id);
-      return res;
-    }
-    setCheckins({
-      ...checkins,
-      results: checkins.results.filter(c => c.id !== checkin.id),
-    });
-    setSelectedCheckin();
-    if (user.isAdmin) handleDelete();
   };
 
   let isPrev = checkins.previous ? false : true;
@@ -126,20 +110,19 @@ function AllCheckins() {
               checkin={checkin}
               modalState={modalState}
               setModalState={setModalState}
-              doDelete={doDelete}
+              fetchCheckins={fetchCheckins}
               setSelectedCheckin={setSelectedCheckin}
             />
           </li>
         ))}
       </ul>
-      {modalState && selectedCheckin && (
-        <DeleteCheckinModal
-          checkin={selectedCheckin}
-          setModalState={setModalState}
-          doDelete={doDelete}
-          modalState={modalState}
-        />
-      )}
+      {/* <Modal
+        setModalState={setModalState}
+        modalState={modalState}
+        navTo={"/admin/checkins"}
+      >
+        <DeleteCheckinModal checkin={selectedCheckin} doDelete={doDelete} />
+      </Modal> */}
     </div>
   );
 }

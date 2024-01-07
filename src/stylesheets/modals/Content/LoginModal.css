@@ -1,0 +1,14 @@
+@media (max-width: 479px) {
+  .LoginModal {
+    margin: auto;
+  }
+  .LoginModal h2 {
+    margin: 0;
+  }
+  .LoginModal h4 {
+    margin: 0;
+  }
+  .LoginModal p {
+    margin: 2px;
+  }
+}

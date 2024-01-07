@@ -7,8 +7,10 @@ import Modal from "../components/modals/Modal";
 
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { SuccessModal } from "../components/modals/Content/SuccessModal";
+import { useUser } from "../hooks/useUserContext";
 
-function CheckinForm({ user, disc }) {
+function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
+  const { user } = useUser();
   const navigate = useNavigate();
   const initialFlash = "";
   const initialState = {
@@ -17,6 +19,7 @@ function CheckinForm({ user, disc }) {
     state: "",
     zip: "",
     country: "United States",
+    note: "",
   };
   const [modalState, setModalState] = useState(false);
   const [flashMsg, setFlashMsg] = useState(initialFlash);
@@ -37,6 +40,9 @@ function CheckinForm({ user, disc }) {
 
   const handleChange = e => {
     const { name, value } = e.target;
+    if (name == "note" && value.length == 255) {
+      return;
+    }
     setFormData(data => ({
       ...data,
       [name]: value,
@@ -54,7 +60,7 @@ function CheckinForm({ user, disc }) {
 
   const handleSuggestionClick = course => {
     setFetchState("clicked");
-    setFormData(course);
+    setFormData(data => ({ ...data, ...course }));
     setCourseSuggestions([]);
   };
 
@@ -62,10 +68,20 @@ function CheckinForm({ user, disc }) {
   const isComplete = () => {
     let res;
     // if any fields empty, return false
-    Object.values(formData).map(data => (data === "" ? (res = false) : null));
-    if (res === false) {
+    // Object.values(formData).map(data => (data === "" ? (res = false) : null));
+    // if (res === false) {
+    //   return false;
+    // }
+    if (formData.courseName === "") return false;
+    if (
+      (formData.country === "United States" || formData.country === "Canada") &&
+      formData.state === ""
+    ) {
       return false;
     }
+
+    if (formData.city === "") return false;
+    if (formData.zip === "") return false;
     // does data fit length requirements?
     if (formData.courseName.length < 2 || formData.courseName.length > 100) {
       return false;
@@ -76,20 +92,23 @@ function CheckinForm({ user, disc }) {
     if (formData.zip.length < 5 || formData.zip.length > 15) {
       return false;
     }
+    if (formData.note?.length > 255) {
+      return false;
+    }
     return true;
+  };
+
+  const handleSignUpClick = e => {
+    e.preventDefault();
+    openRegisterModal();
+  };
+  const handleLogInClick = e => {
+    e.preventDefault();
+    openLogInModal();
   };
 
   return (
     <div className="CheckinForm">
-      <div className="text-content">
-        <h2>Check in Disc</h2>
-        <p>
-          Fill out the form below as completely as possible. You may find your
-          course while typing the course name, click on desired course to
-          auto-fill this form.
-        </p>
-      </div>
-
       <p className="FlashMsg">{flashMsg}</p>
       <Form className="form">
         <FormGroup>
@@ -194,16 +213,34 @@ function CheckinForm({ user, disc }) {
             onChange={handleChange}
           />
         </FormGroup>
-
-        {isComplete() ? (
-          <Button type="submit" onClick={handleSubmit}>
-            Submit
-          </Button>
-        ) : (
-          <Button type="submit" onClick={handleSubmit} disabled>
-            Submit
-          </Button>
+        {user && (
+          <FormGroup>
+            <Label for="type">Note:</Label>
+            <Input
+              name="note"
+              type="textarea"
+              autoComplete="off"
+              placeholder="Optional"
+              maxLength="255"
+              rows="5"
+              value={formData.note}
+              onChange={handleChange}
+            />
+          </FormGroup>
         )}
+
+        <div className="buttons-container">
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={isComplete() ? false : true}
+          >
+            Submit
+          </Button>
+          {!user && <button onClick={handleSignUpClick}>Sign Up</button>}
+          {!user && <button onClick={handleLogInClick}>Log In</button>}
+        </div>
+
         <Modal
           setModalState={setModalState}
           modalState={modalState}

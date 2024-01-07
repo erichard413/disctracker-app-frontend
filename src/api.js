@@ -80,8 +80,12 @@ class DiscTrackerAPI {
     );
     return res;
   }
-  static async editCheckin(id, formData) {
-    const res = await this.request(`checkin/${id}`, formData, "patch");
+  static async editCheckin(id, formData, username) {
+    const res = await this.request(
+      `checkin/${id}`,
+      { username, ...formData },
+      "patch"
+    );
     return res;
   }
   static async getCheckin(id) {
@@ -125,8 +129,8 @@ class DiscTrackerAPI {
     const res = await this.request(`users/${username}`, {}, "delete");
     return res.message;
   }
-  static async deleteCheckIn(id) {
-    const res = await this.request(`checkin/${id}`, {}, "delete");
+  static async deleteCheckIn(id, username) {
+    const res = await this.request(`checkin/${id}`, { username }, "delete");
     return res.message;
   }
   static async createDisc(data) {

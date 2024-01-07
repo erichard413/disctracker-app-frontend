@@ -1,0 +1,14 @@
+@media (max-width: 479px) {
+  .RegisterModal {
+    margin: auto;
+  }
+  .RegisterModal h2 {
+    margin: 0;
+  }
+  .RegisterModal h4 {
+    margin: 0;
+  }
+  .RegisterModal p {
+    margin: 2px;
+  }
+}
