@@ -17,29 +17,23 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
   const [formData, setFormData] = useState(initialForm);
 
   useEffect(() => {
-    if (!user || !user.isAdmin) {
+    if (!localStorage.getItem("token") && !user.isAdmin) {
       navigate("/", { replace: true });
     }
   }, []);
 
   useEffect(() => {
     const fetchAccounts = async () => {
-      const result = await DiscTrackerAPI.getUsers(page);
-      // -------------- DO I WANT TO FILTER OUT ADMINS & OWN USER FROM LIST?
-      // const userList = result.results.filter(
-      //   acc =>
-      //     acc.username.toLowerCase() !== user.username.toLowerCase() &&
-      //     acc.isAdmin === false
-      // );
+      const result = await DiscTrackerAPI.getUsers(page, 9);
       setAccounts({ ...result });
     };
     if (user && user.isAdmin) fetchAccounts();
-  }, [user, page]);
+  }, [user]);
 
-  // if (!user || !user.isAdmin) {
-  //   navigate("/", { replace: true });
-  //   return;
-  // }
+  const fetchAccounts = async idx => {
+    const result = await DiscTrackerAPI.getUsers(idx, 9, formData.username);
+    setAccounts({ ...result });
+  };
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -51,9 +45,11 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
   };
 
   const incrementPage = () => {
+    fetchAccounts(page + 1);
     if (page < accounts.endPage) setPage(page + 1);
   };
   const decrementPage = () => {
+    fetchAccounts(page - 1);
     if (page > 1) setPage(page - 1);
   };
 
@@ -99,7 +95,7 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
     e.preventDefault();
     //get new data from DB
     async function fetchUsers() {
-      const result = await DiscTrackerAPI.getUsers(page, 15, formData.username);
+      const result = await DiscTrackerAPI.getUsers(1, 9, formData.username);
       // const userList = result.results.filter(
       //   acc =>
       //     acc.username.toLowerCase() !== user.username.toLowerCase() &&
@@ -108,6 +104,7 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
       setAccounts({ ...result });
     }
     fetchUsers();
+    setPage(1);
   };
 
   const handleReset = e => {

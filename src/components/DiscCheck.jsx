@@ -9,6 +9,9 @@ import { Skeleton } from "./Skeletons/Skeleton";
 import Modal from "./modals/Modal";
 import DeleteCheckinModal from "./modals/Content/DeleteCheckinModal";
 import DiscTrackerAPI from "../api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
+import { faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 
 function DiscCheck({ checkin, fetchCheckins, getDiscData = null }) {
   const { discs } = useDiscs();
@@ -59,7 +62,12 @@ function DiscCheck({ checkin, fetchCheckins, getDiscData = null }) {
         <li>
           {checkin.city}, {checkin.state} {checkin.zip}
         </li>
-        <li>{checkin?.note}</li>
+
+        {checkin.note && (
+          <>
+            <li className="note-li">{checkin?.note}</li>
+          </>
+        )}
       </ul>
       <div className="button-container">
         <Link

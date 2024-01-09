@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUserContext";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import { isEmail } from "../helpers/isEmail";
 import DiscTrackerAPI from "../api";
 
 function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
@@ -39,8 +40,12 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
     }
     if (name === "firstName" && value.length <= 30) changeState();
     if (name === "lastName" && value.length <= 30) changeState();
-    if (name === "email" && value.length <= 60) changeState();
+
     if (name === "password2" && value.length <= 20) {
+      value = value.replace(/\s/g, "");
+      changeState();
+    }
+    if (name === "email" && value.length <= 60) {
       value = value.replace(/\s/g, "");
       changeState();
     }
@@ -93,11 +98,7 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
       return false;
     }
     // is email?
-    if (
-      !formData.email.includes("@") ||
-      !formData.email.includes(".") ||
-      formData.email.length < 6
-    ) {
+    if (!isEmail(formData.email)) {
       return false;
     }
     return true;
@@ -115,7 +116,11 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
       <Form className="form">
         <FormGroup>
           <div id="flash-container">
-            {/* {flashMsg && <p>{flashMsg.Error[0] || flashMsg.Error}</p>} */}
+            {flashMsg && (
+              <p>
+                {flashMsg instanceof Array ? flashMsg.Error[0] : flashMsg.Error}
+              </p>
+            )}
           </div>
 
           <Label for="type">Username:</Label>
