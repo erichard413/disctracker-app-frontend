@@ -8,9 +8,8 @@ import { CheckinsSearchForm } from "../../forms/Admin/CheckinsSearchForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import Modal from "../modals/Modal.jsx";
 import "../../stylesheets/AllCheckins.css";
-import { useCheckins } from "../../hooks/useCheckinsContext.jsx";
+import PageButtons from "../PageButtons.jsx";
 
 const INIT_PAGE = 1;
 const NUM_ITEMS_PER_PAGE = 5;
@@ -90,17 +89,12 @@ function AllCheckins() {
 
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
-      <div className="button-container">
-        <button onClick={decrementPage} disabled={isPrev}>
-          prev
-        </button>
-        <p>
-          Page {page} of {checkins.endPage !== 0 ? checkins.endPage : 1}
-        </p>
-        <button onClick={incrementPage} disabled={isNext}>
-          next
-        </button>
-      </div>
+      <PageButtons
+        page={page}
+        paginated={checkins}
+        decrementPage={decrementPage}
+        incrementPage={incrementPage}
+      />
 
       <ul>
         {checkins.results.map(checkin => (
@@ -116,13 +110,6 @@ function AllCheckins() {
           </li>
         ))}
       </ul>
-      {/* <Modal
-        setModalState={setModalState}
-        modalState={modalState}
-        navTo={"/admin/checkins"}
-      >
-        <DeleteCheckinModal checkin={selectedCheckin} doDelete={doDelete} />
-      </Modal> */}
     </div>
   );
 }

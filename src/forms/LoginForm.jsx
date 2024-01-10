@@ -28,10 +28,11 @@ function LoginForm({ login, handleClose = null }) {
         setFlashMsg(initialFlash);
       }, 3000);
     }
-    if (handleClose) {
+    if (handleClose && res.token) {
       handleClose();
       return;
-    } else {
+    }
+    if (!handleClose && res.token) {
       navigate("/home");
     }
   };

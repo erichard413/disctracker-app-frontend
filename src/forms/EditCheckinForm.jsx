@@ -34,7 +34,7 @@ function EditCheckinForm({ checkin }) {
       state: checkin.state,
       zip: checkin.zip,
       country: checkin.country || "United States",
-      note: checkin.note || null,
+      note: checkin.note || "",
     });
   }, [checkin]);
 

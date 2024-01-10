@@ -5,6 +5,7 @@ import DeleteUserModal from "../modals/Content/DeleteUserModal";
 import { useUser } from "../../hooks/useUserContext";
 import "../../stylesheets/AllUsers.css";
 import Modal from "../modals/Modal";
+import PageButtons from "../PageButtons";
 
 function AllUsers({ accounts, setAccounts, setAccount }) {
   const { user } = useUser();
@@ -96,11 +97,6 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
     //get new data from DB
     async function fetchUsers() {
       const result = await DiscTrackerAPI.getUsers(1, 9, formData.username);
-      // const userList = result.results.filter(
-      //   acc =>
-      //     acc.username.toLowerCase() !== user.username.toLowerCase() &&
-      //     acc.isAdmin === false
-      // );
       setAccounts({ ...result });
     }
     fetchUsers();
@@ -112,26 +108,10 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
     setFormData(initialForm);
     const fetchAccounts = async () => {
       const result = await DiscTrackerAPI.getUsers(page);
-      // const userList = result.results.filter(
-      //   acc =>
-      //     acc.username.toLowerCase() !== user.username.toLowerCase() &&
-      //     acc.isAdmin === false
-      // );
       setAccounts({ ...result });
     };
     if (user && user.isAdmin) fetchAccounts();
   };
-
-  let isPrev;
-  let isNext;
-
-  if (accounts) {
-    isPrev = accounts.previous ? false : true;
-    isNext = accounts.next ? false : true;
-  } else {
-    isPrev = true;
-    isNext = true;
-  }
 
   return (
     <div className="AdminUsers">
@@ -152,15 +132,13 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
         </div>
         <div className="hr-line-grey"></div>
         <div className="hr-line-teal"></div>
-        <div className="button-container">
-          <button onClick={decrementPage} disabled={isPrev}>
-            prev
-          </button>
-          <p>Page {page}</p>
-          <button onClick={incrementPage} disabled={isNext}>
-            next
-          </button>
-        </div>
+
+        <PageButtons
+          page={page}
+          decrementPage={decrementPage}
+          incrementPage={incrementPage}
+          paginated={accounts}
+        />
         <div className="accounts-container">
           <ul>
             {accounts &&

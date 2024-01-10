@@ -7,6 +7,7 @@ import { useDiscs } from "./hooks/useDiscContext";
 import jwt_decode from "jwt-decode";
 import DiscTrackerAPI from "./api";
 import Home from "./components/Home";
+import UserPage from "./components/UserPage";
 import Login from "./components/Login";
 import NavBar from "./components/NavBar";
 import Register from "./components/Register";
@@ -32,22 +33,10 @@ function App() {
   const { discs, setDiscs } = useDiscs();
   const [accounts, setAccounts] = useState();
   const [account, setAccount] = useState();
-  const { currentToken, setCurrentToken } = useAuth();
   const { user, setUser } = useUser();
-
-  console.log(currentToken);
 
   // grab token from LS on page load, grab user on page load
   useEffect(() => {
-    // -----SINCE I am using context, I probably don't need this code:
-    // async function getTokenFromLS() {
-    //   let token = localStorage.getItem("token") || null;
-    //   if (token) {
-    //     DiscTrackerAPI.token = token;
-    //   }
-    // }
-    // getTokenFromLS();
-    if (currentToken) getUserData();
     async function getDiscData() {
       let discs = await DiscTrackerAPI.getAllDiscs();
       setDiscs(discs);
@@ -69,19 +58,6 @@ function App() {
       localStorage.removeItem("token");
     }
   }
-
-  // // get user data on login - this use effect is not needed
-  // useEffect(() => {
-  //   async function getUserData() {
-  //     let data = jwt_decode(DiscTrackerAPI.token);
-  //     let userData = await DiscTrackerAPI.getUser(data.username);
-  //     setUser(userData);
-  //   }
-
-  //   if (DiscTrackerAPI.token) {
-  //     getUserData();
-  //   }
-  // }, [DiscTrackerAPI]);
 
   // function to log in user, store token on DiscTrackerAPI
   const logInUser = async (username, password) => {
@@ -132,6 +108,7 @@ function App() {
         <Route exact path="/resetpw" element={<AuthRecovery />} />
         <Route exact path="/myaccount/checkins" element={<UserCheckIns />} />
         <Route exact path="/checkins/:id/edit" element={<EditCheckin />} />
+        <Route exact path="/users/:username" element={<UserPage />} />
         <Route exact path="/admin" element={<AdminPage />} />
         <Route
           exact

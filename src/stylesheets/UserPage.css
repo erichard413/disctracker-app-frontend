@@ -1,0 +1,38 @@
+/* MOBILE */
+
+@media (max-width: 479px) {
+  .UserPage .left-container img {
+    width: 150px;
+  }
+  .UserPage .right-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .UserPage .Account-content > * {
+    margin: 15px;
+    display: block;
+  }
+
+  .UserPage .checkin-container {
+    margin-bottom: 60px;
+  }
+  .UserPage .button-container {
+    display: inline-block;
+    height: auto;
+    padding: 5px;
+    vertical-align: middle;
+  }
+  .UserPage .button-container button {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .UserPage .button-container > p {
+    display: inline-block;
+    position: relative;
+    font-size: 1.4em;
+    padding: 0;
+    margin: 0;
+    top: 2%;
+  }
+}
