@@ -53,6 +53,13 @@ class DiscTrackerAPI {
   static async doCheckIn(discId, formData) {
     await this.request(`checkin/${discId}`, formData, "post");
   }
+  static async getDiscs(page = 1, limit = 10, formData) {
+    let query = `discs?page=${page}&limit=${limit}`;
+    Object.keys(formData).map(d => {
+      if (formData[d] !== "") query += `&${d}=${formData[d]}`;
+    });
+    await this.request(query, formData, "get");
+  }
   static async getAllDiscs() {
     const res = await this.request(`discs`);
     return res;

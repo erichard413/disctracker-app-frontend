@@ -26,6 +26,7 @@ import AdminEditUser from "./components/Admin/AdminEditUser";
 import AllCheckins from "./components/Admin/AllCheckins";
 import CreateDisc from "./components/Admin/CreateDisc";
 import CreateUser from "./components/Admin/CreateUser";
+import AllDiscs from "./components/Admin/AllDiscs";
 import "./App.css";
 
 function App() {
@@ -133,6 +134,7 @@ function App() {
           element={<AdminEditUser account={account} setAccount={setAccount} />}
         />
         <Route exact path="/admin/checkins" element={<AllCheckins />} />
+        <Route exact path="/admin/discs" element={<AllDiscs />} />
         <Route exact path="/admin/discs/create" element={<CreateDisc />} />
       </Routes>
     </div>

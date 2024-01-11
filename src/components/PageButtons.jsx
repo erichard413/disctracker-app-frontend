@@ -17,7 +17,7 @@ function PageButtons({ paginated, decrementPage, incrementPage, page }) {
           prev
         </button>
         <p>
-          Page {page} of {paginated.endPage}
+          Page {page} of {paginated?.endPage}
         </p>
         <button className="next-btn" onClick={incrementPage} disabled={isNext}>
           next

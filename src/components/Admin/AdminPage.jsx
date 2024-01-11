@@ -33,6 +33,11 @@ function AdminPage() {
             </Link>
           </li>
           <li>
+            <Link to="/admin/discs">
+              <button type="button">Manage Discs</button>
+            </Link>
+          </li>
+          <li>
             <Link to="/admin/discs/create">
               <button type="button">Create Disc</button>
             </Link>
