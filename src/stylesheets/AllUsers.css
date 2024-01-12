@@ -17,7 +17,7 @@
     width: 100vw;
     background-color: var(--grey);
   }
-  .AdminUsers .button-container {
+  /* .AdminUsers .button-container {
     margin-top: 10px;
     display: inline-block;
     height: auto;
@@ -35,7 +35,7 @@
     padding: 0;
     margin: 0;
     top: 2%;
-  }
+  } */
   .AdminUsers .accounts-container {
     margin: auto;
     width: 90vw;

@@ -7,7 +7,7 @@ import "../stylesheets/DiscCheck.css";
 import format from "date-fns/format";
 import { Skeleton } from "./Skeletons/Skeleton";
 import Modal from "./modals/Modal";
-import DeleteCheckinModal from "./modals/Content/DeleteCheckinModal";
+import DeleteModal from "./modals/Content/DeleteModal";
 import DiscTrackerAPI from "../api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
@@ -109,7 +109,13 @@ function DiscCheck({ checkin, fetchCheckins, getDiscData = null }) {
         )}
       </div>
       <Modal setModalState={setModalState} modalState={modalState}>
-        <DeleteCheckinModal checkin={checkin} doDelete={doDelete} />
+        <DeleteModal doDelete={doDelete}>
+          <h4>Delete Checkin at {checkin.courseName}?</h4>
+          <p>
+            Are you sure you want to delete this check in? This change cannot be
+            undone.
+          </p>
+        </DeleteModal>
       </Modal>
     </div>
   );

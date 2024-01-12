@@ -10,6 +10,7 @@ import { DiscCheckSkeleton } from "./DiscCheck";
 import "../stylesheets/Disc.css";
 import { useDiscs } from "../hooks/useDiscContext";
 import { useCheckins } from "../hooks/useCheckinsContext";
+import PageButtons from "./PageButtons";
 
 const INIT_PAGE = 1;
 const NUM_PAGE_ITEMS = 5;
@@ -201,15 +202,18 @@ function Disc() {
       <div id="checkins-subtitle">
         <p>Where This Disc Has Been</p>
       </div>
-      <div className="button-container">
-        <button onClick={decrementPage} disabled={isPrev}>
-          prev
-        </button>
-        <p>Page {page}</p>
-        <button onClick={incrementPage} disabled={isNext}>
-          next
-        </button>
-      </div>
+      {checkins.results && (
+        <PageButtons
+          page={page}
+          decrementPage={decrementPage}
+          incrementPage={incrementPage}
+          paginated={checkins.results}
+          next={checkins.next}
+          endPage={checkins.endPage}
+          previous={checkins.previous}
+        />
+      )}
+      {!checkins.results && <p>This disc has never been checked in!</p>}
 
       <div className="checkins-container">
         {loadState == "load" || loadState == "fetching-checkins" ? (

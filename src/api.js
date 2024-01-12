@@ -54,11 +54,13 @@ class DiscTrackerAPI {
     await this.request(`checkin/${discId}`, formData, "post");
   }
   static async getDiscs(page = 1, limit = 10, formData) {
+    console.log(formData);
     let query = `discs?page=${page}&limit=${limit}`;
-    Object.keys(formData).map(d => {
-      if (formData[d] !== "") query += `&${d}=${formData[d]}`;
-    });
-    await this.request(query, formData, "get");
+    Object.keys(formData).map(
+      d => (query += formData[d] == "" ? "" : `&${d}=${formData[d]}`)
+    );
+    const res = await this.request(query);
+    return res;
   }
   static async getAllDiscs() {
     const res = await this.request(`discs`);
@@ -157,6 +159,10 @@ class DiscTrackerAPI {
   }
   static async editDisc(discId, formData) {
     const res = await this.request(`discs/${discId}`, formData, "patch");
+    return res;
+  }
+  static async deleteDisc(discId) {
+    const res = await this.request(`discs/${discId}`, {}, "delete");
     return res;
   }
 }

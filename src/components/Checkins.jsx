@@ -32,12 +32,14 @@ function Checkins() {
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
       <PageButtons
-        paginated={paginatedDiscs}
+        page={page}
         decrementPage={decrementPage}
         incrementPage={incrementPage}
-        page={page}
+        paginated={paginatedDiscs.results}
+        next={paginatedDiscs.next}
+        endPage={paginatedDiscs.endPage}
+        previous={paginatedDiscs.previous}
       />
-
       {discs &&
         paginatedDiscs?.results.map(disc => (
           <DiscCard key={disc.id} disc={disc} />

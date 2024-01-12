@@ -58,12 +58,18 @@ function UserCheckIns() {
       <h2>Check Ins for {user?.username}</h2>
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
-      <PageButtons
-        page={page}
-        decrementPage={decrementPage}
-        incrementPage={incrementPage}
-        paginated={checkins}
-      />
+      {checkins && (
+        <PageButtons
+          page={page}
+          decrementPage={decrementPage}
+          incrementPage={incrementPage}
+          paginated={checkins.results}
+          next={checkins.next}
+          endPage={checkins.endPage}
+          previous={checkins.previous}
+        />
+      )}
+
       <div className="checkins-container">
         {checkins &&
           checkins.results.map(checkin => (

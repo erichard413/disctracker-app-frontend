@@ -1,4 +1,4 @@
-export function paginatedResults(data, page = null, limit = null) {
+export function paginatedResults(data, page = 1, limit = 10) {
   if (!page || !limit) return { results: data };
   const startIdx = (page - 1) * limit;
   const endIdx = page * limit;

@@ -1,0 +1,92 @@
+@media (max-width: 479px) {
+  .AllDiscs .search-subtitle p {
+    margin: 0;
+    padding: 0;
+  }
+  .AllDiscs .search-container > label {
+    display: block;
+  }
+  .AllDiscs .search-buttons button {
+    margin: 10px;
+  }
+  .AllDiscs .search-container input {
+    width: 80vw;
+  }
+  .AllDiscs .chevrons {
+    text-align: center;
+    margin: auto;
+  }
+  .AllDiscs .chevrons > :first-child {
+    color: white;
+    display: inline;
+    position: relative;
+    bottom: 0px;
+    left: 20%;
+    top: 3px;
+    text-align: center;
+  }
+  .AllDiscs .chevrons > :nth-child(2) {
+    color: white;
+    display: inline;
+    position: relative;
+    left: -30%;
+    bottom: 5px;
+    top: -2px;
+  }
+  .AllDiscs .disc-card-container {
+    margin-bottom: 80px;
+  }
+  .AdminDiscCard .left-container img {
+    width: 100px;
+  }
+  .AdminDiscCard .right-container ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    height: 65px;
+  }
+  .AdminDiscCard > div {
+    display: inline-block;
+  }
+  .AdminDiscCard .right-container li:first-of-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .AdminDiscCard .left-container {
+    /* outline: 1px solid blue; */
+    width: 30%;
+  }
+  .AdminDiscCard .right-container {
+    /* outline: 1px solid red; */
+    margin: auto;
+    height: 100%;
+    width: 60%;
+    vertical-align: top;
+  }
+  .AdminDiscCard {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 80vw;
+    height: 100px;
+    list-style: none;
+    margin: 0 auto;
+    background-color: rgb(230, 230, 230);
+    border-radius: 15px;
+    margin-top: 5px;
+    font-size: 16px;
+  }
+  .AdminDiscCard .right-container li:nth-of-type(3) {
+    position: relative;
+    top: -15px;
+  }
+  .AdminDiscCard .right-container li:nth-of-type(2) {
+    position: relative;
+    top: -5px;
+  }
+  .AdminDiscCard .buttons-container button {
+    padding: 5px;
+    width: 50px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}

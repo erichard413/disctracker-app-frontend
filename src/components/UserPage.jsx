@@ -76,10 +76,13 @@ function UserPage() {
       <div className="checkin-container">
         <h3>{fetchedUser.username}'s check ins:</h3>
         <PageButtons
-          incrementPage={incrementPage}
-          decrementPage={decrementPage}
-          paginated={fetchedCheckins}
           page={page}
+          decrementPage={decrementPage}
+          incrementPage={incrementPage}
+          paginated={fetchedCheckins.results}
+          next={fetchedCheckins.next}
+          endPage={fetchedCheckins.endPage}
+          previous={fetchedCheckins.previous}
         />
         {fetchedCheckins.results?.map(checkin => (
           <DiscCheck
