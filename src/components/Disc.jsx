@@ -10,7 +10,7 @@ import { DiscCheckSkeleton } from "./DiscCheck";
 import "../stylesheets/Disc.css";
 import { useDiscs } from "../hooks/useDiscContext";
 import { useCheckins } from "../hooks/useCheckinsContext";
-import PageButtons from "./PageButtons";
+import PageButtons, { PageButtonsSkeleton } from "./PageButtons";
 
 const INIT_PAGE = 1;
 const NUM_PAGE_ITEMS = 5;
@@ -18,14 +18,10 @@ const NUM_PAGE_ITEMS = 5;
 function Disc() {
   const { discs } = useDiscs();
   const { discId } = useParams();
-  // const [disc, setDisc] = useState(() =>
-  //   discs ? discs.filter(d => d?.id == discId) : null
-  // );
   const [checkins, setCheckins] = useState([]);
   const [stats, setStats] = useState();
-  const [loadState, setLoadState] = useState("load");
   const [page, setPage] = useState(INIT_PAGE);
-  const disc = discs?.filter(d => d?.id == discId);
+  const [checkinLoadState, setCheckinLoadState] = useState(true);
 
   console.log("page re-rendered");
 
@@ -34,34 +30,12 @@ function Disc() {
     fetchCheckins(INIT_PAGE);
   }, []);
 
-  // I probably don't need a useEffect here. Disabled for now.
-  // useEffect(() => {
-  //   console.log("fetching check ins..");
-  //   async function fetchCheckins() {
-  //     try {
-  //       const results = await DiscTrackerAPI.getCheckins(
-  //         discId,
-  //         NUM_PAGE_ITEMS,
-  //         page
-  //       );
-  //       setCheckins(results);
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //     setLoadState("ready");
-  //   }
-  //   fetchCheckins();
-  // }, [page]);
+  const disc = discs ? discs.filter(d => d.id === discId)[0] : null;
 
   const getDiscData = async () => {
+    console.log("getting disc data");
     try {
       const discStats = await DiscTrackerAPI.getStatsForDisc(discId);
-      // if (!disc) {
-      //   console.log("getting disc..");
-      //   const discData = await DiscTrackerAPI.getDisc(discId);
-      //   setDisc(discData);
-      // }
-
       setStats(discStats);
     } catch (err) {
       console.log(err);
@@ -80,7 +54,8 @@ function Disc() {
     } catch (err) {
       console.log(err);
     }
-    setLoadState("ready");
+
+    setCheckinLoadState(false);
   };
 
   // if (loadState !== "ready") {
@@ -96,12 +71,10 @@ function Disc() {
   }
 
   const incrementPage = () => {
-    setLoadState("fetching-checkins");
     if (page < checkins.endPage) setPage(p => p + 1);
     fetchCheckins(page + 1);
   };
   const decrementPage = () => {
-    setLoadState("fetching-checkins");
     if (page > 1) setPage(p => p - 1);
     fetchCheckins(page - 1);
   };
@@ -126,97 +99,90 @@ function Disc() {
 
   return (
     <div className="Disc">
-      <h2 className={loadState == "load" ? "skeleton-h2" : undefined}>
-        {loadState == "load" ? (
-          <Skeleton size={"75vw"} />
-        ) : (
-          <>
-            {disc?.plastic} {disc?.name}
-          </>
-        )}
-      </h2>
-      <span id="subtitle">
-        {loadState == "load" ? (
-          <SkeletonH2Subtitle size={"50vw"} />
-        ) : (
-          <>{disc?.manufacturer}</>
-        )}
-      </span>
-      <div className="top-container">
-        <div className="top-left">
-          {loadState == "load" ? (
-            <Skeleton />
-          ) : (
-            <img src={imgURL} alt={`Disc Golf Disc`} onError={replaceImage} />
-          )}
-        </div>
-        <div className="top-right">
-          {loadState == "load" ? (
-            <>
-              <Skeleton size={"90%"} />
-            </>
-          ) : (
-            <>
-              {checkins && stats && (
-                <>
-                  <ul>
-                    <li>
-                      This disc has travelled{" "}
-                      <span className="bold-me">
-                        {Math.ceil(stats.distance)}
-                      </span>{" "}
-                      miles!
-                    </li>
-                    <li>
-                      Played on{" "}
-                      <span className="bold-me">{stats.courseCount}</span>{" "}
-                      course{stats.courseCount > 1 && "s"}!
-                    </li>
-                    <li>
-                      Visited{" "}
-                      <span className="bold-me">{stats.stateCount}</span> state
-                      {stats.stateCount > 1 && "s"}!
-                    </li>
-                    <li>
-                      Checked in by{" "}
-                      <span className="bold-me">{stats.userCount}</span> user
-                      {stats.userCount > 1 && "s"}!
-                    </li>
-                    {stats.countryCount > 1 && (
+      {!disc || !stats ? (
+        <HeaderSkeleton />
+      ) : (
+        <>
+          <div>
+            <h2>
+              {disc?.plastic} {disc?.name}
+            </h2>
+            <span id="subtitle">{disc?.manufacturer}</span>
+            <div className="top-container">
+              <div className="top-left">
+                <img
+                  src={imgURL}
+                  alt={`Disc Golf Disc`}
+                  onError={replaceImage}
+                />
+              </div>
+              <div className="top-right">
+                {stats && (
+                  <>
+                    <ul>
                       <li>
-                        This disc has been to{" "}
-                        <span className="bold-me">{stats.countryCount}</span>{" "}
-                        countries!
+                        This disc has travelled{" "}
+                        <span className="bold-me">
+                          {Math.ceil(stats.distance)}
+                        </span>{" "}
+                        miles!
                       </li>
-                    )}
-                  </ul>
-                </>
-              )}
-              {!checkins && <p>No check ins found for this disc!</p>}
-            </>
-          )}
-        </div>
-      </div>
+                      <li>
+                        Played on{" "}
+                        <span className="bold-me">{stats.courseCount}</span>{" "}
+                        course{stats.courseCount > 1 && "s"}!
+                      </li>
+                      <li>
+                        Visited{" "}
+                        <span className="bold-me">{stats.stateCount}</span>{" "}
+                        state
+                        {stats.stateCount > 1 && "s"}!
+                      </li>
+                      <li>
+                        Checked in by{" "}
+                        <span className="bold-me">{stats.userCount}</span> user
+                        {stats.userCount > 1 && "s"}!
+                      </li>
+                      {stats.countryCount > 1 && (
+                        <li>
+                          This disc has been to{" "}
+                          <span className="bold-me">{stats.countryCount}</span>{" "}
+                          countries!
+                        </li>
+                      )}
+                    </ul>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
       <div id="checkins-subtitle">
         <p>Where This Disc Has Been</p>
       </div>
-      {checkins.results && (
+
+      <>
         <PageButtons
           page={page}
           decrementPage={decrementPage}
           incrementPage={incrementPage}
-          paginated={checkins.results}
-          next={checkins.next}
-          endPage={checkins.endPage}
-          previous={checkins.previous}
+          paginated={checkins?.results}
+          next={checkins?.next}
+          endPage={checkins?.endPage}
+          previous={checkins?.previous}
         />
+      </>
+
+      {!checkinLoadState && checkins?.length == 0 && (
+        <p>This disc has never been checked in!</p>
       )}
-      {!checkins.results && <p>This disc has never been checked in!</p>}
 
       <div className="checkins-container">
-        {loadState == "load" || loadState == "fetching-checkins" ? (
+        {checkinLoadState ? (
           <>
             <SkeletonList amount={5}>
               <DiscCheckSkeleton />
@@ -234,6 +200,42 @@ function Disc() {
             ))}
           </>
         )}
+      </div>
+    </div>
+  );
+}
+
+function HeaderSkeleton() {
+  return (
+    <div className="header-skeleton">
+      <span className="title">
+        <Skeleton width="180px" height="35px" />
+      </span>
+
+      <span className="subtitle">
+        <Skeleton width="120px" height="22px" />
+      </span>
+      <div className="top-container">
+        <div className="top-left">
+          <Skeleton width="130px" height="130px" />
+        </div>
+        <div className="top-right">
+          <ul>
+            <li>
+              <Skeleton width={"165px"} />
+            </li>
+            <li>
+              <Skeleton width={"115px"} />
+            </li>
+            <li>
+              <Skeleton width={"85px"} />
+            </li>
+            <li>
+              <Skeleton width={"115px"} />
+            </li>
+            <Skeleton width={"150px"} />
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -122,7 +122,40 @@ function DiscCheck({ checkin, fetchCheckins, getDiscData = null }) {
 }
 
 export function DiscCheckSkeleton() {
-  return <div className="DiscCheck DiscCheck-skeleton"></div>;
+  return (
+    <div className="DiscCheck DiscCheckSkeleton">
+      <Skeleton width={"160px"} height={"30px"} />
+
+      <span className="Disc-check-subtitle">
+        {window.location.pathname.includes("/admin/checkins") ? (
+          <>
+            <Skeleton width={"50px"} height={"23px"} /> checked in by:{" "}
+            <Skeleton width={"60px"} height={"16px"} />
+          </>
+        ) : window.location.pathname.includes("/myaccount/checkins") ? (
+          <>
+            <Skeleton width={"50px"} height={"16px"} /> checked in at{" "}
+            <Skeleton width={"60px"} height={"16px"} />
+          </>
+        ) : (
+          <>
+            Checked in by: <Skeleton width={"60px"} height={"16px"} />
+          </>
+        )}
+      </span>
+      <ul>
+        <li>
+          <Skeleton width={"200px"} height={"33px"} />
+        </li>
+        <li>
+          <Skeleton width={"150px"} />
+        </li>
+      </ul>
+      <div className="skeleton-button-container">
+        <Skeleton width={"50px"} height={"20px"} />
+      </div>
+    </div>
+  );
 }
 
 export default DiscCheck;

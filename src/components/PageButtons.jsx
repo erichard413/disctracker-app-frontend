@@ -1,11 +1,14 @@
+import { Skeleton } from "./Skeletons/Skeleton";
+import "../stylesheets/PageButtons.css";
+
 function PageButtons({
-  paginated,
+  paginated = [],
   next,
   previous,
-  endPage,
+  endPage = 1,
   decrementPage,
   incrementPage,
-  page,
+  page = 1,
   emptyMsg = null,
 }) {
   let isPrev;
@@ -21,7 +24,7 @@ function PageButtons({
   if (paginated.length == 0) return <p>{emptyMsg}</p>;
   return (
     <div className="PageButtons">
-      <div className="button-container">
+      <div className="page-button-container">
         <button className="prev-btn" onClick={decrementPage} disabled={isPrev}>
           prev
         </button>
@@ -29,6 +32,24 @@ function PageButtons({
           Page {page} of {endPage}
         </p>
         <button className="next-btn" onClick={incrementPage} disabled={isNext}>
+          next
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export function PageButtonsSkeleton() {
+  return (
+    <div className="PageButtons PageButtonsSkeleton">
+      <div className="page-button-container">
+        <button className="prev-btn" disabled={true}>
+          prev
+        </button>
+
+        <Skeleton width={"67px"} height={"30px"} />
+
+        <button className="next-btn" disabled={true}>
           next
         </button>
       </div>

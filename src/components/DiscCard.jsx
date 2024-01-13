@@ -4,6 +4,7 @@ import defaultDiscImg from "../assets/disc-images/default-disc.png";
 import { Link } from "react-router-dom";
 import "../stylesheets/DiscCard.css";
 import { useUser } from "../hooks/useUserContext";
+import { Skeleton } from "./Skeletons/Skeleton";
 
 function DiscCard({ disc }) {
   const { user } = useUser();
@@ -20,7 +21,6 @@ function DiscCard({ disc }) {
   const imgURL = `/src/assets/disc-images/disc-${disc.id}.png`;
   return (
     <div className="DiscCard">
-      <h3>{disc.name}</h3>
       <div className="container">
         <div className="container-left">
           <img src={imgURL} alt={`Disc Golf Disc`} onError={replaceImage} />
@@ -45,6 +45,33 @@ function DiscCard({ disc }) {
                     Edit
                   </button>
                 )}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function DiscCardSkeleton() {
+  return (
+    <div className="DiscCard">
+      <div className="container">
+        <div className="container-left">
+          <Skeleton height="90px" width="90px" />
+        </div>
+        <div className="container-right">
+          <ul>
+            <li>
+              <Skeleton width="150px" height="24px" />
+            </li>
+            <li>
+              <Skeleton width="115px" height="24px" />
+            </li>
+            <li>
+              <div className="buttons-container">
+                <Skeleton width="50px" height="32px" />
               </div>
             </li>
           </ul>

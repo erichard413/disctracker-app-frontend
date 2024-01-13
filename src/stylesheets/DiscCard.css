@@ -33,6 +33,7 @@
     width: 60vw;
   }
   .DiscCard .container-left {
+    text-align: center;
     width: 30vw;
   }
   .DiscCard ul {
@@ -54,5 +55,14 @@
     display: flex;
     justify-content: flex-start;
     padding: 0px;
+  }
+  .DiscCard .container-left .skeleton {
+    margin-left: 10px;
+  }
+  .DiscCard .buttons-container > .skeleton {
+    margin-top: 10px;
+  }
+  .DiscCard .container-right li {
+    margin-bottom: 5px;
   }
 }

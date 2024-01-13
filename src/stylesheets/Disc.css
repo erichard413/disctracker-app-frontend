@@ -76,4 +76,27 @@
     margin: 0;
     top: 2%;
   }
+  .Disc .header-skeleton > .title > div {
+    margin: auto;
+    margin-bottom: 5px;
+    position: relative;
+    top: -10px;
+  }
+  .Disc .header-skeleton > .subtitle * {
+    margin: auto;
+    position: relative;
+    top: -13px;
+  }
+  .Disc .header-skeleton .top-left {
+    margin-top: 10px;
+  }
+
+  .Disc .header-skeleton li {
+    margin-bottom: 9px;
+  }
+  .Disc .header-skeleton {
+    position: relative;
+    top: -10px;
+    height: 211.8px;
+  }
 }

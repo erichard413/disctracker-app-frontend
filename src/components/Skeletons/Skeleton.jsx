@@ -1,22 +1,24 @@
 import "../../stylesheets/Skeleton/Skeleton.css";
 import React from "react";
 
-export function Skeleton({ size }) {
+export function Skeleton({ width, height = "1rem", borderRadius = null }) {
   return (
     <div
       className="skeleton"
       style={{
-        width: size,
+        width: width,
+        height: height,
+        borderRadius: borderRadius ? borderRadius : null,
       }}
     ></div>
   );
 }
 
-export function SkeletonH2Subtitle({ size }) {
+export function SkeletonH2Subtitle({ width }) {
   return (
     <div
       className="skeleton skeleton-h2-subtitle"
-      style={{ width: `${size}` }}
+      style={{ width: `${width}` }}
     ></div>
   );
 }

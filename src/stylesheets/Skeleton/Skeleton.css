@@ -1,10 +1,17 @@
 .skeleton {
-  background: hsl(200, 20%, 90%);
+  background: hsl(0, 1%, 71%);
   border-radius: 0.5rem;
   height: 1em;
 
   animation: skeleton 1s infinite alternate ease-in-out;
 }
+/* .skeleton {
+  background: hsl(200, 20%, 90%);
+  border-radius: 0.5rem;
+  height: 1em;
+
+  animation: skeleton 1s infinite alternate ease-in-out;
+} */
 
 .skeleton + .skeleton:last-child {
   width: 75%;
@@ -51,9 +58,13 @@
   margin-bottom: 9px;
 }
 .DiscCheck-skeleton {
-  background: hsl(200, 20%, 90%);
+  background: hsl(0, 1%, 71%);
   animation: skeleton 1s infinite alternate ease-in-out;
 }
+/* .DiscCheck-skeleton {
+  background: hsl(200, 20%, 90%);
+  animation: skeleton 1s infinite alternate ease-in-out;
+} */
 @keyframes skeleton {
   from {
     opacity: 0.5;
