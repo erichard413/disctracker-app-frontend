@@ -1,7 +1,11 @@
 export function FlashContainer({ flashMsg = null }) {
   return (
     <div id="flash-container">
-      <p>{flashMsg && flashMsg.message}</p>
+      {flashMsg && (
+        <p>
+          {flashMsg.Error instanceof Array ? flashMsg.Error[0] : flashMsg.Error}
+        </p>
+      )}
     </div>
   );
 }

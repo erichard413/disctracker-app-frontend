@@ -24,14 +24,18 @@ function EditProfileForm() {
 
   useEffect(() => {
     async function waitForUserData() {
-      if (user) {
+      if (!user) return;
+      try {
+        const res = await DiscTrackerAPI.getUser(user.username);
+        console.log(res);
         setFormData({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          password: "",
-          password2: "",
+          ...initialForm,
+          firstName: res.firstName,
+          lastName: res.lastName,
+          email: res.email,
         });
+      } catch (err) {
+        console.error(err);
       }
     }
     waitForUserData();
@@ -147,7 +151,7 @@ function EditProfileForm() {
     }
     return true;
   };
-  console.log(flashMsg);
+
   return (
     <div className="EditProfileForm">
       <FlashContainer flashMsg={flashMsg} />

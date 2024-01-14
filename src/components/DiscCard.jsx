@@ -28,7 +28,9 @@ function DiscCard({ disc }) {
         <div className="container-right">
           <ul>
             <li>
-              <h4 className="bolded-text">Manufacturer:</h4> {disc.manufacturer}
+              <h4 className="bolded-text">
+                {disc.manufacturer} - {disc.name}
+              </h4>
             </li>
             <li>
               <h4 className="bolded-text">Plastic: </h4> {disc.plastic}

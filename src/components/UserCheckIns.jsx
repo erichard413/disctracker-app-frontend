@@ -19,7 +19,7 @@ function UserCheckIns() {
   const [checkins, setCheckins] = useState();
 
   useEffect(() => {
-    if (!currentToken) {
+    if (!currentToken && !user) {
       navigate("/", { replace: true });
       return;
     }

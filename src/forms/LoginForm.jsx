@@ -21,12 +21,12 @@ function LoginForm({ login, handleClose = null }) {
   const handleSubmit = async e => {
     e.preventDefault();
     const res = await login(formData.username, formData.password);
-    console.log(res);
     if (!res.token) {
-      setFlashMsg({ message: res });
+      setFlashMsg({ Error: res });
       setTimeout(() => {
         setFlashMsg(initialFlash);
       }, 3000);
+      return;
     }
     if (handleClose && res.token) {
       handleClose();

@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import EditProfileForm from "../forms/EditProfileForm";
-import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks/useUserContext";
+import { useAuth } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 function EditProfile() {
   const { user } = useUser();
+  const { currentToken } = useAuth();
   const navigate = useNavigate();
-
-  if (!user) navigate("/");
+  useEffect(() => {
+    if (!currentToken && !user) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <div className="EditProfile">
