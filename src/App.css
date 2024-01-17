@@ -13,7 +13,7 @@
   }
   textarea {
     width: 100%;
-    border: 1px solid teal;
+    /* border: 1px solid teal; */
     border-radius: 5px;
   }
   input,
@@ -34,7 +34,7 @@
   input,
   select {
     height: 40px;
-    border: 1px solid teal;
+    /* border: 1px solid teal; */
     border-radius: 5px;
   }
   .App .mb-3 {
@@ -100,5 +100,10 @@
   }
   .AuthRecovery h3 {
     margin-bottom: 0px;
+  }
+  #avatar-pic {
+    border-radius: 50%;
+    height: 250px;
+    width: 250px;
   }
 }

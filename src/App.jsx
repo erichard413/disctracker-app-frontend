@@ -28,6 +28,7 @@ import CreateDisc from "./components/Admin/CreateDisc";
 import CreateUser from "./components/Admin/CreateUser";
 import AllDiscs from "./components/Admin/AllDiscs";
 import "./App.css";
+import AvatarUploader from "./components/AvatarUploader";
 
 function App() {
   const navigate = useNavigate();
@@ -110,6 +111,11 @@ function App() {
         <Route exact path="/myaccount/checkins" element={<UserCheckIns />} />
         <Route exact path="/checkins/:id/edit" element={<EditCheckin />} />
         <Route exact path="/users/:username" element={<UserPage />} />
+        <Route
+          exact
+          path="/users/:username/avatar"
+          element={<AvatarUploader />}
+        />
         <Route exact path="/admin" element={<AdminPage />} />
         <Route
           exact

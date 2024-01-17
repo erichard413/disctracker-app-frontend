@@ -57,7 +57,11 @@ function UserPage() {
       <h2>{fetchedUser?.username}</h2>
       <div className="top-container">
         <div className="left-container">
-          <img src={defaultUserImg} alt="default-profile-pic" />
+          <img
+            id="avatar-pic"
+            src={fetchedUser?.imgUrl ? fetchedUser.imgUrl : defaultUserImg}
+            alt="default-profile-pic"
+          />
         </div>
         <div className="right-container">
           <ul>

@@ -165,6 +165,14 @@ class DiscTrackerAPI {
     const res = await this.request(`discs/${discId}`, {}, "delete");
     return res;
   }
+  static async updateUserImg(username, url) {
+    const res = await this.request(
+      `users/${username}/image`,
+      { url: url },
+      "patch"
+    );
+    return res;
+  }
 }
 
 export default DiscTrackerAPI;

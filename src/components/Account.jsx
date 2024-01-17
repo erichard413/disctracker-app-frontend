@@ -20,12 +20,14 @@ function Account() {
 
   const dateStrings = user.joinDate.split(" ")[0].split("-");
 
+  const imgUrl = user.imgUrl ? user.imgUrl : defaultUserImg;
+
   return (
     <div className="Account">
       <h2>Your Account - {user.username}</h2>
       <div className="top-container">
         <div className="left-container">
-          <img src={defaultUserImg} alt="default-profile-pic" />
+          <img id="avatar-pic" src={imgUrl} alt="user-profile-pic" />
         </div>
         <div className="right-container">
           <ul>
@@ -43,6 +45,9 @@ function Account() {
       <div className="Account-content">
         <Link to="/editprofile">
           <button type="button">Edit Profile</button>
+        </Link>
+        <Link to={`/users/${user.username}/avatar`}>
+          <button type="button">Upload Profile Picture</button>
         </Link>
         <Link to={`/myaccount/checkins`}>
           <button type="button">My Check Ins</button>
