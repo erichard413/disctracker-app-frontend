@@ -8,7 +8,7 @@ import { SuccessModal } from "./modals/Content/SuccessModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMagnifyingGlassMinus } from "@fortawesome/free-solid-svg-icons";
-import { uploadImage } from "../helpers/cloudinary";
+import { getPublicIdFromUrl, uploadImage } from "../helpers/cloudinary";
 import DiscTrackerAPI from "../api";
 
 //REFERENCE MATERIAL: https://kroonmackenzie.medium.com/allowing-users-to-upload-images-in-your-react-app-1d0d7cecb934
@@ -68,11 +68,16 @@ function AvatarUploader() {
         .toDataURL("image/png");
 
       try {
+        if (user.imgUrl) {
+          const id = getPublicIdFromUrl(user.imgUrl);
+          await DiscTrackerAPI.deleteStoredImage(id, user.username);
+        }
         const url = await uploadImage(img);
         const updatedUser = await DiscTrackerAPI.updateUserImg(
           user.username,
           url
         );
+
         setUser(updatedUser);
         setSuccessModalState(true);
       } catch (err) {

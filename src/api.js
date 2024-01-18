@@ -173,6 +173,14 @@ class DiscTrackerAPI {
     );
     return res;
   }
+  static async deleteStoredImage(id, username) {
+    const res = await this.request(
+      `users/${username}/image?id=${id}`,
+      {},
+      "delete"
+    );
+    return res;
+  }
 }
 
 export default DiscTrackerAPI;
