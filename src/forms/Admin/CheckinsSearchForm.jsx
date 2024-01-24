@@ -74,8 +74,8 @@ export function CheckinsSearchForm({
         value={formData.date}
       />
       <div className="search-buttons">
-        <button onClick={handleSearch}>Search</button>
         <button onClick={handleReset}>Reset</button>
+        <button onClick={handleSearch}>Search</button>
       </div>
     </div>
   );

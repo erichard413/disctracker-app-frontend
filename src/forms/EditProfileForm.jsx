@@ -6,6 +6,7 @@ import { useUser } from "../hooks/useUserContext";
 import Modal from "../components/modals/Modal";
 import { SuccessModal } from "../components/modals/Content/SuccessModal";
 import { FlashContainer } from "../components/flash/FlashContainer";
+import { Link } from "react-router-dom";
 
 function EditProfileForm() {
   const { user, setUser } = useUser();
@@ -212,16 +213,17 @@ function EditProfileForm() {
               />
             </FormGroup>
           )}
-          <div className="buttons-container">
-            {isComplete() ? (
-              <Button type="submit" onClick={handleSubmit}>
-                Submit
-              </Button>
-            ) : (
-              <Button type="submit" disabled onClick={handleSubmit}>
-                Submit
-              </Button>
-            )}
+          <div className="edit-user-buttons-container">
+            <Link to={`/myaccount`}>
+              <button>Cancel</button>
+            </Link>
+            <Button
+              type="submit"
+              disabled={isComplete() ? false : true}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
           </div>
 
           <Modal

@@ -73,15 +73,15 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
     //   return false;
     // }
     if (formData.courseName === "") return false;
-    if (
-      (formData.country === "United States" || formData.country === "Canada") &&
-      formData.state === ""
-    ) {
-      return false;
+    if (formData.country === "United States" || formData.country === "Canada") {
+      if (formData.zip === "") return false;
+      if (formData.zip.length < 5 || formData.zip.length > 15) {
+        return false;
+      }
+      if (formData.state === "") return false;
     }
 
     if (formData.city === "") return false;
-    if (formData.zip === "") return false;
     // does data fit length requirements?
     if (formData.courseName.length < 2 || formData.courseName.length > 100) {
       return false;
@@ -89,9 +89,7 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
     if (formData.city.length < 1 || formData.city.length > 50) {
       return false;
     }
-    if (formData.zip.length < 5 || formData.zip.length > 15) {
-      return false;
-    }
+
     if (formData.note?.length > 255) {
       return false;
     }

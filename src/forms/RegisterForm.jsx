@@ -176,7 +176,7 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
           <Label for="type">Email:</Label>
           <Input
             name="email"
-            type="email"
+            type="text"
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}

@@ -4,12 +4,16 @@ import DiscTrackerAPI from "../../api";
 import { Link } from "react-router-dom";
 import { useUser } from "../../hooks/useUserContext";
 import defaultUserImg from "../../assets/user-images/defaultprofilepic.png";
+import Modal from "../modals/Modal";
+import DeleteModal from "../modals/Content/DeleteModal";
+import { getPublicIdFromUrl } from "../../helpers/cloudinary";
 
 function UserPanel({ account, setAccount }) {
   const { user } = useUser();
   const navigate = useNavigate();
   const { username } = useParams();
   const [loadState, setLoadState] = useState("load");
+  const [modalState, setModalState] = useState(false);
   useEffect(() => {
     if (!user || !user.isAdmin) {
       navigate("/", { replace: true });
@@ -45,6 +49,20 @@ function UserPanel({ account, setAccount }) {
     return <p>Loading..</p>;
   }
 
+  async function profileImgReset() {
+    // set imgUrl to null in db:
+    const res = await DiscTrackerAPI.resetUserImage(account.username);
+    // then delete the image from cloudinary:
+    if (account.imgUrl) {
+      const id = getPublicIdFromUrl(account.imgUrl);
+      await DiscTrackerAPI.deleteStoredImage(id, account.username);
+    }
+    setAccount(res);
+    return;
+  }
+
+  const imgUrl = account.imgUrl ? account.imgUrl : defaultUserImg;
+
   const dateStrings = account.joinDate.split(" ")[0].split("-");
 
   return (
@@ -52,7 +70,7 @@ function UserPanel({ account, setAccount }) {
       <h2>{account.username}</h2>
       <div className="top-container">
         <div className="left-container">
-          <img src={defaultUserImg} alt="default-profile-pic" />
+          <img id="avatar-pic" src={imgUrl} alt="user-profile-pic" />
         </div>
         <div className="right-container">
           <ul>
@@ -64,11 +82,28 @@ function UserPanel({ account, setAccount }) {
               {dateStrings[1] + "-" + dateStrings[2] + "-" + dateStrings[0]}
             </li>
           </ul>
-          <Link to={`/admin/users/edit/${username}`}>
-            <button type="button">Edit Profile</button>
-          </Link>
         </div>
       </div>
+      <div className="Account-content">
+        <Link to={`/admin/users/edit/${username}`}>
+          <button type="button">Edit Profile</button>
+        </Link>
+        <button
+          onClick={() => setModalState(true)}
+          disabled={account.imgUrl ? false : true}
+        >
+          Delete Profile Picture
+        </button>
+      </div>
+      <Modal setModalState={setModalState} modalState={modalState}>
+        <DeleteModal doDelete={profileImgReset}>
+          <h4>Delete Profile Picture?</h4>
+          <p>
+            Are you sure you want to delete {account.username}'s profile photo?
+            This cannot be undone.
+          </p>
+        </DeleteModal>
+      </Modal>
     </div>
   );
 }

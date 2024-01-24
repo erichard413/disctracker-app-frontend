@@ -18,12 +18,15 @@ function DiscCard({ disc }) {
     error.target.src = defaultDiscImg;
   }
 
-  const imgURL = `/src/assets/disc-images/disc-${disc.id}.png`;
   return (
     <div className="DiscCard">
       <div className="container">
         <div className="container-left">
-          <img src={imgURL} alt={`Disc Golf Disc`} onError={replaceImage} />
+          <img
+            src={disc.imgUrl ? disc.imgUrl : defaultDiscImg}
+            alt={`Disc Golf Disc`}
+            onError={replaceImage}
+          />
         </div>
         <div className="container-right">
           <ul>

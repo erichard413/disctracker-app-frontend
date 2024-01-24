@@ -7,6 +7,7 @@ import Modal from "../../components/modals/Modal";
 import { SuccessModal } from "../../components/modals/Content/SuccessModal";
 import { FlashContainer } from "../../components/flash/FlashContainer";
 import "../../stylesheets/EditDisc.css";
+import { isValidImageUrl } from "../../helpers/isValidHttpUrl";
 
 export function EditDiscForm() {
   const navigate = useNavigate();
@@ -20,7 +21,12 @@ export function EditDiscForm() {
     if (discs) {
       let discData = discs.filter(d => d.id == discId)[0];
       const { name, plastic, manufacturer } = discData;
-      setFormData({ name, plastic, manufacturer });
+      setFormData({
+        name,
+        plastic,
+        manufacturer,
+        imgUrl: discData.imgUrl ? discData.imgUrl : "",
+      });
     }
   }, [discs]);
 
@@ -32,6 +38,7 @@ export function EditDiscForm() {
     );
   const handleChange = e => {
     let { name, value } = e.target;
+
     const changeState = () => {
       setFormData(data => ({
         ...data,
@@ -45,21 +52,38 @@ export function EditDiscForm() {
     if (name === "manufacturer" && value.length <= 30) changeState();
     if (name === "plastic" && value.length <= 30) changeState();
     if (name === "name" && value.length <= 30) changeState();
+    if (name === "imgUrl") changeState();
   };
   const handleSubmit = async e => {
+    if (formData.imgUrl && !isValidImageUrl(formData.imgUrl)) {
+      setFlashMsg({ Error: "Image Url must be a valid image url!" });
+      setTimeout(() => {
+        setFlashMsg(null);
+      }, 3000);
+      return;
+    }
+
     console.log("fire submit");
     try {
-      await DiscTrackerAPI.editDisc(discId, formData);
+      await DiscTrackerAPI.editDisc(discId, {
+        ...formData,
+        imgUrl: formData.imgUrl === "" ? null : formData.imgUrl,
+      });
       // update our state to reflect changes
       setDiscs(data =>
         data.map(d => {
-          if (d.id == discId) return { id: discId, ...formData };
+          if (d.id == discId)
+            return {
+              id: discId,
+              ...formData,
+              imgUrl: formData.imgUrl === "" ? null : formData.imgUrl,
+            };
           return d;
         })
       );
       setModalState(true);
     } catch (err) {
-      setFlashMsg({ message: err[0] });
+      setFlashMsg({ Error: err[0] });
       setTimeout(() => {
         setFlashMsg(null);
       }, 3000);
@@ -112,9 +136,19 @@ export function EditDiscForm() {
               onChange={handleChange}
             />
           </FormGroup>
+          <FormGroup>
+            <Label for="imgUrl">Image Url:</Label>
+            <Input
+              name="imgUrl"
+              type="text"
+              placeholder="http://"
+              value={formData.imgUrl}
+              onChange={handleChange}
+            />
+          </FormGroup>
           <div className="button-container">
-            <Button onClick={handleSubmit}>Edit</Button>
             <Button onClick={() => navigate("/checkins")}>Cancel</Button>
+            <Button onClick={handleSubmit}>Edit</Button>
           </div>
         </Form>
       </div>

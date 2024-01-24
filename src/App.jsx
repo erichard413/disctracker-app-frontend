@@ -29,6 +29,8 @@ import CreateUser from "./components/Admin/CreateUser";
 import AllDiscs from "./components/Admin/AllDiscs";
 import "./App.css";
 import AvatarUploader from "./components/AvatarUploader";
+import { Link } from "react-router-dom";
+import wtfrichard from "./assets/error-image/wtfrichard.gif";
 
 function App() {
   const navigate = useNavigate();
@@ -142,7 +144,21 @@ function App() {
         <Route exact path="/admin/checkins" element={<AllCheckins />} />
         <Route exact path="/admin/discs" element={<AllDiscs />} />
         <Route exact path="/admin/discs/create" element={<CreateDisc />} />
+        <Route path="/*" element={<ErrorElement />} />
       </Routes>
+    </div>
+  );
+}
+
+function ErrorElement() {
+  return (
+    <div className="error-element">
+      <h1>What the f%@$, Richard!</h1>
+      <h3>404 - Fairway not found.</h3>
+      <p>
+        Return to <Link to={"/"}>home</Link>
+      </p>
+      <img src={wtfrichard} alt={"disc golf fail"} />
     </div>
   );
 }

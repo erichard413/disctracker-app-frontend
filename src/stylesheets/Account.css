@@ -10,8 +10,8 @@
     padding: 0;
   }
   .Account .Account-content > * {
-    margin: 15px;
-    display: block;
+    margin: 7px;
+    display: inline-block;
   }
   .Account button {
     width: 60vw;

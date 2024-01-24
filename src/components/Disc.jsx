@@ -30,7 +30,9 @@ function Disc() {
     fetchCheckins(INIT_PAGE);
   }, []);
 
-  const disc = discs ? discs.filter(d => d.id === discId)[0] : null;
+  const disc = discs ? discs.filter(d => d.id == discId)[0] : null;
+
+  console.log(disc);
 
   const getDiscData = async () => {
     console.log("getting disc data");
@@ -62,7 +64,7 @@ function Disc() {
   //   return <div>Loading..</div>;
   // }
 
-  if (discs && !discs.some(disc => +disc.id === +discId)) {
+  if (discs && !discs.some(disc => disc.id == discId)) {
     return (
       <div>
         <p>404 - Disc not found</p>
@@ -95,8 +97,6 @@ function Disc() {
     error.target.src = defaultDiscImg;
   }
 
-  const imgURL = `/src/assets/disc-images/disc-${discId}.png`;
-
   return (
     <div className="Disc">
       {!disc || !stats ? (
@@ -111,7 +111,7 @@ function Disc() {
             <div className="top-container">
               <div className="top-left">
                 <img
-                  src={imgURL}
+                  src={disc?.imgUrl ? disc.imgUrl : defaultDiscImg}
                   alt={`Disc Golf Disc`}
                   onError={replaceImage}
                 />

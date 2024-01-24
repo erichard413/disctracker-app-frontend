@@ -6,6 +6,7 @@ import { useUser } from "../../hooks/useUserContext";
 import Modal from "../../components/modals/Modal";
 import { SuccessModal } from "../../components/modals/Content/SuccessModal";
 import "../../stylesheets/EditUser.css";
+import { Link } from "react-router-dom";
 
 function AdminEditUserForm({ account }) {
   const [modalState, setModalState] = useState(false);
@@ -149,7 +150,7 @@ function AdminEditUserForm({ account }) {
     }
     return true;
   };
-  console.log(flashMsg);
+
   return (
     <div className="EditProfileForm">
       <div id="flash-container">
@@ -229,15 +230,18 @@ function AdminEditUserForm({ account }) {
               onChange={boolToggle}
             />
           </FormGroup>
-          {isComplete() ? (
-            <Button type="submit" onClick={handleSubmit}>
+          <div className="edit-user-buttons-container">
+            <Link to={`/admin/users/${account.username}`}>
+              <button>Cancel</button>
+            </Link>
+            <Button
+              type="submit"
+              disabled={isComplete() ? false : true}
+              onClick={handleSubmit}
+            >
               Submit
             </Button>
-          ) : (
-            <Button type="submit" disabled onClick={handleSubmit}>
-              Submit
-            </Button>
-          )}
+          </div>
         </Form>
       )}
 

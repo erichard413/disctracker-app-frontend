@@ -7,7 +7,9 @@ function DeleteModal({ handleClose, doDelete, children }) {
   return (
     <div className="modal-body">
       {children}
+
       <div className="Modal-btns">
+        <button onClick={handleClose}>Cancel</button>
         <button
           id="delete-btn"
           onClick={async () => {
@@ -17,7 +19,6 @@ function DeleteModal({ handleClose, doDelete, children }) {
         >
           Delete
         </button>
-        <button onClick={handleClose}>Cancel</button>
       </div>
     </div>
   );

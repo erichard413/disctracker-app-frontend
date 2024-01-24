@@ -6,18 +6,22 @@ import { useDiscs } from "../../hooks/useDiscContext";
 import "../../stylesheets/Admin/CreateDisc.css";
 import Modal from "../../components/modals/Modal";
 import { SuccessModal } from "../../components/modals/Content/SuccessModal";
+import { isValidImageUrl } from "../../helpers/isValidHttpUrl";
+import { isValid } from "date-fns";
+import { FlashContainer } from "../../components/flash/FlashContainer";
 
 function AdminCreateDiscForm() {
   const { user } = useUser();
   const { discs, setDiscs } = useDiscs();
   const [modalState, setModalState] = useState();
-  let errs = {};
+
   let initialFlash = {};
   let initialForm = {
     id: "",
     manufacturer: "",
     plastic: "",
     name: "",
+    imgUrl: "",
   };
 
   const [flashMsg, setFlashMsg] = useState(initialFlash);
@@ -35,6 +39,7 @@ function AdminCreateDiscForm() {
     if (name === "manufacturer" && value.length <= 30) changeState();
     if (name === "plastic" && value.length <= 30) changeState();
     if (name === "name" && value.length <= 30) changeState();
+    if (name === "imgUrl") changeState();
   };
 
   if (!user) {
@@ -47,23 +52,38 @@ function AdminCreateDiscForm() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    try {
-      await DiscTrackerAPI.createDisc(formData);
-      setDiscs(data => [...data, { ...formData }]);
-      setModalState(true);
-    } catch (err) {
-      setFlashMsg({ message: err[0] });
+    if (formData.imgUrl && !isValidImageUrl(formData.imgUrl)) {
+      setFlashMsg({ Error: "Image Url must be a valid image url!" });
       setTimeout(() => {
         setFlashMsg(initialFlash);
-      }, 3500);
+      }, 3000);
+      return;
+    }
+
+    try {
+      await DiscTrackerAPI.createDisc({
+        ...formData,
+        imgUrl: formData.imgUrl === "" ? null : formData.imgUrl,
+      });
+      setDiscs(data => [
+        ...data,
+        {
+          ...formData,
+          imgUrl: formData.imgUrl === "" ? null : formData.imgUrl,
+        },
+      ]);
+      setModalState(true);
+    } catch (err) {
+      setFlashMsg({ Error: err[0] });
+      setTimeout(() => {
+        setFlashMsg(initialFlash);
+      }, 3000);
     }
   };
 
   return (
     <div className="AdminCreateDiscForm">
-      <div id="flash-container">
-        <p>{flashMsg && flashMsg.message}</p>
-      </div>
+      <FlashContainer flashMsg={flashMsg} />
 
       <Form className="form">
         <FormGroup>
@@ -103,6 +123,16 @@ function AdminCreateDiscForm() {
             type="text"
             placeholder="Disc Name"
             value={formData.name}
+            onChange={handleChange}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="imgUrl">Image Url:</Label>
+          <Input
+            name="imgUrl"
+            type="text"
+            placeholder="http://"
+            value={formData.imgUrl}
             onChange={handleChange}
           />
         </FormGroup>

@@ -12,11 +12,14 @@ function AuthRecovery() {
   const [flashMsg, setFlashMsg] = useState(initialFlash);
   const [modalState, setModalState] = useState(false);
   const handleChange = e => {
-    const { name, value } = e.target;
-    setFormData(data => ({
-      ...data,
-      [name]: value,
-    }));
+    let { name, value } = e.target;
+    if (value.length <= 30) {
+      value = value.replace(/\s/g, "");
+      setFormData(data => ({
+        ...data,
+        [name]: value,
+      }));
+    }
   };
   const handleSubmit = e => {
     e.preventDefault();

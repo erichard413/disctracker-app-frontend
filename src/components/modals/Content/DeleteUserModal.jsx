@@ -32,11 +32,10 @@ function DeleteUserModal({ username, doDelete, handleClose }) {
         name="username"
       />
       <div className="Modal-btns">
+        <button onClick={handleClose}>Cancel</button>
         <button id="delete-btn" onClick={doDelete} disabled={disabled}>
           Delete
         </button>
-
-        <button onClick={handleClose}>Cancel</button>
       </div>
     </div>
   );

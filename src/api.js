@@ -173,11 +173,21 @@ class DiscTrackerAPI {
     );
     return res;
   }
+  // this will delete the image from cloudinary service
   static async deleteStoredImage(id, username) {
     const res = await this.request(
       `users/${username}/image?id=${id}`,
       {},
       "delete"
+    );
+    return res;
+  }
+  // this will modify the db for the user, set image_url to null.
+  static async resetUserImage(username) {
+    const res = await this.request(
+      `users/${username}/image/reset`,
+      {},
+      "patch"
     );
     return res;
   }

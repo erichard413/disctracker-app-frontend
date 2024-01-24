@@ -10,6 +10,7 @@ import { faMagnifyingGlassPlus } from "@fortawesome/free-solid-svg-icons";
 import { faMagnifyingGlassMinus } from "@fortawesome/free-solid-svg-icons";
 import { getPublicIdFromUrl, uploadImage } from "../helpers/cloudinary";
 import DiscTrackerAPI from "../api";
+import { Link } from "react-router-dom";
 
 //REFERENCE MATERIAL: https://kroonmackenzie.medium.com/allowing-users-to-upload-images-in-your-react-app-1d0d7cecb934
 // DOCS https://github.com/mosch/react-avatar-editor
@@ -130,9 +131,14 @@ function AvatarUploader() {
       </div>
 
       <div>
-        <button onClick={handleSubmit} disabled={!editable}>
-          Submit
-        </button>
+        <div className="submit-buttons-container">
+          <Link to={`/myaccount`}>
+            <button>Cancel</button>
+          </Link>
+          <button onClick={handleSubmit} disabled={!editable}>
+            Submit
+          </button>
+        </div>
       </div>
       <Modal setModalState={setErrorModalState} modalState={errorModalState}>
         <SuccessModal

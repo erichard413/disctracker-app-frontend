@@ -1,12 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useUser } from "../hooks/useUserContext";
 import { useNavigate } from "react-router-dom";
 import defaultUserImg from "../assets/user-images/defaultprofilepic.png";
 import "../stylesheets/Account.css";
+import DiscTrackerAPI from "../api";
+import Modal from "./modals/Modal";
+import DeleteModal from "./modals/Content/DeleteModal";
+import { getPublicIdFromUrl } from "../helpers/cloudinary";
 
 function Account() {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
+  const [modalState, setModalState] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +26,18 @@ function Account() {
   const dateStrings = user.joinDate.split(" ")[0].split("-");
 
   const imgUrl = user.imgUrl ? user.imgUrl : defaultUserImg;
+
+  async function profileImgReset() {
+    // set imgUrl to null in db:
+    const res = await DiscTrackerAPI.resetUserImage(user.username);
+    // then delete the image from cloudinary:
+    if (user.imgUrl) {
+      const id = getPublicIdFromUrl(user.imgUrl);
+      await DiscTrackerAPI.deleteStoredImage(id, user.username);
+    }
+    setUser(res);
+    return;
+  }
 
   return (
     <div className="Account">
@@ -49,10 +66,25 @@ function Account() {
         <Link to={`/users/${user.username}/avatar`}>
           <button type="button">Upload Profile Picture</button>
         </Link>
+        <button
+          onClick={() => setModalState(true)}
+          disabled={user.imgUrl ? false : true}
+        >
+          Delete Profile Picture
+        </button>
         <Link to={`/myaccount/checkins`}>
           <button type="button">My Check Ins</button>
         </Link>
       </div>
+      <Modal setModalState={setModalState} modalState={modalState}>
+        <DeleteModal doDelete={profileImgReset}>
+          <h4>Delete Profile Picture?</h4>
+          <p>
+            Are you sure you want to delete your profile photo? This cannot be
+            undone.
+          </p>
+        </DeleteModal>
+      </Modal>
     </div>
   );
 }

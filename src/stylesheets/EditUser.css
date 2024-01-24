@@ -26,4 +26,7 @@
   .EditProfile button {
     margin-top: 150px;
   }
+  .edit-user-buttons-container > * {
+    margin: 15px;
+  }
 }

@@ -5,4 +5,7 @@
   .EditDiscForm .button-container button {
     margin: 15px;
   }
+  .EditDiscForm {
+    margin-bottom: 60px;
+  }
 }
