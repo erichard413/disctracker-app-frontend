@@ -33,17 +33,21 @@ function AvatarUploader() {
   const [options, setOptions] = useState(initialOptions);
   const [errorModalState, setErrorModalState] = useState(false);
   const [successModalState, setSuccessModalState] = useState(false);
+  const [loadState, setLoadState] = useState(true);
   const [editable, setEditable] = useState(false);
   const editorRef = useRef();
 
   useEffect(() => {
-    if (user) {
+    if (loadState && user) {
       setOptions({
         ...initialOptions,
         image: user.imgUrl ? user.imgUrl : defaultUserImg,
       });
+      setLoadState(false);
     }
   }, [user]);
+
+  if (loadState) return <p>Loading..</p>;
 
   const handleNewImage = e => {
     if (!e.target.files) return;

@@ -100,11 +100,14 @@ function AdminDiscCard({ disc, currentDiscRef, setModalState }) {
     setModalState(true);
   }
 
-  const imgURL = `/src/assets/disc-images/disc-${disc.id}.png`;
   return (
     <div className="AdminDiscCard">
       <div className="left-container">
-        <img src={imgURL} alt="Disc Golf Disc" onError={replaceImage} />
+        <img
+          src={disc.imgUrl ? disc.imgUrl : defaultDiscImg}
+          alt={`Disc Golf Disc`}
+          onError={replaceImage}
+        />
       </div>
       <div className="right-container">
         <ul>

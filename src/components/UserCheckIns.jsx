@@ -6,6 +6,8 @@ import { useUser } from "../hooks/useUserContext";
 import { useAuth } from "../hooks/useAuthContext";
 import "../stylesheets/UserCheckIns.css";
 import PageButtons from "./PageButtons";
+import { DiscCheckSkeleton } from "./DiscCheck";
+import { SkeletonList } from "./Skeletons/Skeleton";
 
 const INIT_PAGE = 1;
 const NUM_PAGE_ITEMS = 5;
@@ -42,8 +44,6 @@ function UserCheckIns() {
     setCheckins(checkinRes);
   }
 
-  if (loadState || !checkins) return <p>Loading..</p>;
-
   const incrementPage = () => {
     fetchCheckins(page + 1);
     if (page < checkins.endPage) setPage(p => p + 1);
@@ -52,7 +52,7 @@ function UserCheckIns() {
     fetchCheckins(page - 1);
     if (page > 1) setPage(p => p - 1);
   };
-  console.log(checkins);
+
   return (
     <div className="UserCheckIns">
       <h2>Check Ins for {user?.username}</h2>
@@ -68,6 +68,11 @@ function UserCheckIns() {
           endPage={checkins.endPage}
           previous={checkins.previous}
         />
+      )}
+      {loadState && (
+        <SkeletonList amount={5}>
+          <DiscCheckSkeleton />
+        </SkeletonList>
       )}
 
       <div className="checkins-container">

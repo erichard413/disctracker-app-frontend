@@ -37,8 +37,10 @@ function DiscCheck({ checkin, fetchCheckins, getDiscData = null }) {
       <span className="Disc-check-subtitle">
         {window.location.pathname.includes("/admin/checkins") ? (
           <>
-            <span style={{ fontWeight: "600" }}>{disc.name}</span> checked in
-            by:{" "}
+            <span style={{ fontWeight: "600" }}>
+              <Link to={`/discs/${disc.id}`}>{disc.name}</Link>
+            </span>{" "}
+            checked in by:{" "}
             <span style={{ fontWeight: "600" }}>
               {checkin.username ? (
                 <Link to={`/users/${checkin.username}`}>
@@ -51,8 +53,10 @@ function DiscCheck({ checkin, fetchCheckins, getDiscData = null }) {
           </>
         ) : window.location.pathname.includes("/myaccount/checkins") ? (
           <>
-            <span style={{ fontWeight: "600" }}>{disc.name}</span> checked in at{" "}
-            {format(new Date(checkin.date), "p")}
+            <span style={{ fontWeight: "600" }}>
+              <Link to={`/discs/${disc.id}`}>{disc.name}</Link>
+            </span>{" "}
+            checked in at {format(new Date(checkin.date), "p")}
           </>
         ) : (
           <>

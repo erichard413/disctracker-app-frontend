@@ -9,6 +9,19 @@ function NavBar({ logOut }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const prevIsOpen = useRef();
+  const wrapperRef = useRef();
+
+  useEffect(() => {
+    function outsideClickHandler(e) {
+      if (!wrapperRef.current.contains(e.target)) {
+        if (prevIsOpen.current || isOpen) setIsOpen(state => !state);
+      }
+    }
+    document.addEventListener("click", outsideClickHandler);
+    return () => {
+      document.removeEventListener("click", outsideClickHandler);
+    };
+  }, [isClosing]);
 
   useLayoutEffect(() => {
     if (!isOpen && prevIsOpen.current) {
@@ -18,14 +31,8 @@ function NavBar({ logOut }) {
     prevIsOpen.current = isOpen;
   }, [isOpen]);
 
-  // console.log(`Menu is open? ${isOpen || isClosing || prevIsOpen.current}`);
-
-  // const menuToggle = () => {
-  //   setIsOpen(menu => !menu);
-  // };
-
   const handleLogOut = () => {
-    setIsOpen(menu => !menu);
+    setIsOpen(false);
     logOut();
   };
 
@@ -34,7 +41,7 @@ function NavBar({ logOut }) {
   };
 
   return (
-    <div className="NavBar-mobile">
+    <div ref={wrapperRef} className="NavBar-mobile">
       <Navbar>
         <Nav>
           <div className="navbar-brand">
@@ -63,6 +70,11 @@ function NavBar({ logOut }) {
               <NavItem>
                 <NavLink to="/home" onClick={handleMenuIconClick}>
                   Home
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/about" onClick={handleMenuIconClick}>
+                  About
                 </NavLink>
               </NavItem>
               <NavItem>

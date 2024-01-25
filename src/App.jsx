@@ -27,6 +27,7 @@ import AllCheckins from "./components/Admin/AllCheckins";
 import CreateDisc from "./components/Admin/CreateDisc";
 import CreateUser from "./components/Admin/CreateUser";
 import AllDiscs from "./components/Admin/AllDiscs";
+import { About } from "./components/About";
 import "./App.css";
 import AvatarUploader from "./components/AvatarUploader";
 import { Link } from "react-router-dom";
@@ -106,6 +107,7 @@ function App() {
         />
         <Route exact path="/checkins" element={<Checkins />} />
         <Route exact path="/discs/:discId" element={<Disc />} />
+        <Route exact path="/about" element={<About />} />
         <Route exact path="/discs/:discId/edit" element={<EditDisc />} />
         <Route exact path="/myaccount" element={<Account />} />
         <Route exact path="/editprofile" element={<EditProfile />} />
