@@ -37,6 +37,14 @@ function AdminPage() {
               <button type="button">Manage Discs</button>
             </Link>
           </li>
+          {user.isSuperAdmin && (
+            <li>
+              <Link to="/admin/manageadmins">
+                <button type="button">Manage Admins</button>
+              </Link>
+            </li>
+          )}
+
           <li>
             <Link to="/admin/discs/create">
               <button type="button">Create Disc</button>

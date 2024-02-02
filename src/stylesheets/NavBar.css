@@ -76,6 +76,8 @@
   }
   .NavBar-mobile .menu-icon {
     display: inline-block;
+    position: relative;
+    top: -20px;
   }
   .NavBar-mobile .menu {
     height: auto;
@@ -117,5 +119,11 @@
     to {
       transform: translate3d(0, 0, 0);
     }
+  }
+  .NavBar-mobile .nav-item a {
+    color: white;
+  }
+  .NavBar-mobile .nav-item .active {
+    color: var(--teal);
   }
 }

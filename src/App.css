@@ -9,7 +9,7 @@
 }
 @media (max-width: 479px) {
   .App > :nth-child(2) {
-    margin-top: 130px;
+    margin-top: 160px;
   }
   textarea {
     width: 100%;

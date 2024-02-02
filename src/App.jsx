@@ -32,6 +32,7 @@ import "./App.css";
 import AvatarUploader from "./components/AvatarUploader";
 import { Link } from "react-router-dom";
 import wtfrichard from "./assets/error-image/wtfrichard.gif";
+import { ManageAdmins } from "./components/Admin/ManageAdmins";
 
 function App() {
   const navigate = useNavigate();
@@ -145,6 +146,17 @@ function App() {
         />
         <Route exact path="/admin/checkins" element={<AllCheckins />} />
         <Route exact path="/admin/discs" element={<AllDiscs />} />
+        <Route
+          exact
+          path="/admin/manageadmins"
+          element={
+            <ManageAdmins
+              setAccounts={setAccounts}
+              accounts={accounts}
+              setAccount={setAccount}
+            />
+          }
+        />
         <Route exact path="/admin/discs/create" element={<CreateDisc />} />
         <Route path="/*" element={<ErrorElement />} />
       </Routes>

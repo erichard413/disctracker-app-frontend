@@ -19,6 +19,7 @@ function AdminEditUserForm({ account }) {
     email: "",
     password: "",
     password2: "",
+    isAdmin: false,
   };
   const [flashMsg, setFlashMsg] = useState(initialFlash);
   const [formData, setFormData] = useState(initialForm);
@@ -218,18 +219,23 @@ function AdminEditUserForm({ account }) {
               />
             </FormGroup>
           )}
-          <FormGroup>
-            <Label for="type" id="isAdmin-label">
-              Is Admin?
-            </Label>
-            <Input
-              name="isAdmin"
-              id="isAdmin"
-              type="checkbox"
-              value={formData.isAdmin}
-              onChange={boolToggle}
-            />
-          </FormGroup>
+          {(!account.isAdmin || user.isSuperAdmin) && (
+            <FormGroup>
+              <Label for="isAdmin" id="isAdmin-label">
+                Is Admin?
+              </Label>
+              <Input
+                name="isAdmin"
+                id="isAdmin"
+                type="checkbox"
+                checked={formData.isAdmin}
+                onChange={boolToggle}
+              >
+                <span></span>
+              </Input>
+            </FormGroup>
+          )}
+
           <div className="edit-user-buttons-container">
             <Link to={`/admin/users/${account.username}`}>
               <button>Cancel</button>
@@ -245,11 +251,7 @@ function AdminEditUserForm({ account }) {
         </Form>
       )}
 
-      <Modal
-        setModalState={setModalState}
-        modalState={modalState}
-        navTo={`/admin/users`}
-      >
+      <Modal setModalState={setModalState} modalState={modalState}>
         <SuccessModal
           modalMessage={`Successfully edited User: ${account.username}`}
           modalTitle={"User updated!"}

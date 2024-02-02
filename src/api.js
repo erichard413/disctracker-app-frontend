@@ -111,6 +111,15 @@ class DiscTrackerAPI {
     const res = await this.request(queryString);
     return res;
   }
+  static async getAdminUsers(page = null, limit = 9, username = null) {
+    let queryString = `users/admins?limit=${limit}`;
+    if (page) {
+      queryString += `&page=${page}`;
+    }
+    if (username) queryString += `&nameLike=${username}`;
+    const res = await this.request(queryString);
+    return res;
+  }
   static async adminEditUser(username, formData) {
     let res = await this.request(`users/${username}/admin`, formData, "patch");
     return res;

@@ -3,6 +3,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { Navbar, Nav, NavbarBrand, NavItem } from "reactstrap";
 import "../stylesheets/NavBar.css";
 import { useUser } from "../hooks/useUserContext";
+import logo from "../assets/logo-wordmark-sm.png";
 
 function NavBar({ logOut }) {
   const { user } = useUser();
@@ -46,7 +47,7 @@ function NavBar({ logOut }) {
         <Nav>
           <div className="navbar-brand">
             <div>
-              <h1>The Traveling Disc Project</h1>
+              <img id="logo" src={logo} alt="traveling-disc-logo" />
               <div
                 className={`menu-icon ${isOpen ? `button-open` : ""}`}
                 onClick={handleMenuIconClick}

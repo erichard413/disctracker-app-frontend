@@ -1,0 +1,85 @@
+/* MOBILE */
+
+@media (max-width: 479px) {
+  .ManageAdmins-users-container label {
+    display: block;
+  }
+  .ManageAdmins .search-buttons button {
+    margin: 10px;
+  }
+  .ManageAdmins .hr-line-teal {
+    height: 2px;
+    width: 100vw;
+    background-color: var(--teal);
+  }
+  .ManageAdmins .hr-line-grey {
+    height: 2px;
+    width: 100vw;
+    background-color: var(--grey);
+  }
+  /* .ManageAdmins .button-container {
+      margin-top: 10px;
+      display: inline-block;
+      height: auto;
+      padding: 5px;
+      vertical-align: middle;
+    }
+    .ManageAdmins .button-container button {
+      margin-right: 15px;
+      margin-left: 15px;
+    }
+    .ManageAdmins .button-container p {
+      display: inline-block;
+      position: relative;
+      font-size: 1.4em;
+      padding: 0;
+      margin: 0;
+      top: 2%;
+    } */
+  .ManageAdmins .accounts-container {
+    margin: auto;
+    width: 90vw;
+    margin-bottom: 50px;
+  }
+  .ManageAdmins .accounts-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .ManageAdmins .accounts-container li {
+    text-align: left;
+    padding-left: 20px;
+  }
+  .ManageAdmins .accounts-container li:nth-child(even) {
+    background-color: rgb(165, 164, 164);
+  }
+  .ManageAdmins .accounts-container li:nth-child(odd) {
+    background-color: rgb(218, 218, 218);
+  }
+  .ManageAdmins li > div {
+    display: inline-block;
+    padding: 10px;
+  }
+  .ManageAdmins .li-container-left {
+    width: 50%;
+  }
+  .ManageAdmins .li-container-right button {
+    width: 10vw;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  .ManageAdmins #flash-container {
+    height: 20px;
+    margin: 0px;
+    color: rgb(139, 41, 41);
+    font-weight: bold;
+  }
+
+  .ManageAdmins h2 {
+    margin-bottom: 0px;
+  }
+}

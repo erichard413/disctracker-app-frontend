@@ -17,15 +17,21 @@
   --grey: rgb(43, 43, 43);
 }
 
+#logo {
+  width: 80%;
+  margin-right: 10px;
+  display: inline-block;
+}
+
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--teal);
   text-decoration: inherit;
 }
 a:hover,
 a:active,
 a:visited {
-  color: #535bf2;
+  color: var(--teal);
 }
 
 body {

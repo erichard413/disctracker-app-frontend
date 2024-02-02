@@ -1,0 +1,11 @@
+@media (max-width: 479px) {
+  .About {
+    width: 85vw;
+    margin: auto;
+    margin-bottom: 60px;
+  }
+  .About .faq-question {
+    font-weight: 600;
+    margin: 10px;
+  }
+}

@@ -69,12 +69,12 @@ function AllCheckins() {
     <div className="AllCheckins">
       <h2>All Check Ins</h2>
       <div className="search-subtitle">
-        <span onClick={() => setSearch(s => !s)}>
-          <h4>Search </h4>
+        <span id="search-btn" onClick={() => setSearch(s => !s)}>
           <span className="chevrons">
             <FontAwesomeIcon icon={search ? faChevronUp : faChevronDown} />
             <FontAwesomeIcon icon={search ? faChevronUp : faChevronDown} />
           </span>
+          <p>Search</p>
         </span>
       </div>
       {search && (
