@@ -24,9 +24,14 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
   const [modalState, setModalState] = useState(false);
   const [flashMsg, setFlashMsg] = useState(initialFlash);
   const [formData, setFormData] = useState(initialState);
+  const [redirectModal, setRedirectModal] = useState(false);
   const [fetchState, setFetchState] = useState("fetch");
   const [courseSuggestions, setCourseSuggestions] = useState([]);
-
+  useEffect(() => {
+    if (document.cookie && document.cookie.includes(disc.id)) {
+      setRedirectModal(true);
+    }
+  }, []);
   useEffect(() => {
     async function fetchCourses() {
       const courses = await DiscTrackerAPI.getCourses(formData.courseName);
@@ -51,11 +56,20 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
 
   const handleSubmit = e => {
     e.preventDefault();
+
     async function handleCheckIn() {
-      await DiscTrackerAPI.doCheckIn(disc.id, formData);
+      try {
+        await DiscTrackerAPI.doCheckIn(disc.id, formData);
+        let date = new Date();
+        document.cookie = `${document.cookie},${disc.id}; expires=${new Date(
+          date.setDate(date.getDate() + 1)
+        )}`;
+        setModalState(true);
+      } catch (err) {
+        console.error(err);
+      }
     }
     handleCheckIn();
-    setModalState(true);
   };
 
   const handleSuggestionClick = course => {
@@ -250,6 +264,16 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
           />
         </Modal>
       </Form>
+      <Modal
+        setModalState={setRedirectModal}
+        modalState={redirectModal}
+        navTo={`/discs/${disc.id}`}
+      >
+        <SuccessModal
+          modalMessage={`You've already checked in this disc recently. Please leave the disc at another course!`}
+          modalTitle={"Hold on a moment."}
+        />
+      </Modal>
     </div>
   );
 }

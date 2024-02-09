@@ -41,12 +41,22 @@ function AdminEditUserForm({ account }) {
   }, [account]);
 
   const handleChange = e => {
-    const { name, value } = e.target;
-    // if (name === "password" && value === "") formData.password2 = "";
-    setFormData(data => ({
-      ...data,
-      [name]: value,
-    }));
+    let { name, value } = e.target;
+    const changeState = () => {
+      setFormData(data => ({
+        ...data,
+        [name]: value,
+      }));
+    };
+    if (name === "email" && value.length <= 60) {
+      value = value.replace(/\s/g, "");
+      return changeState();
+    } else if (name === "password" && value.length <= 20) {
+      value = value.replace(/\s/g, "");
+      return changeState();
+    } else {
+      return changeState();
+    }
   };
   const boolToggle = e => {
     const { name, value } = e.target;
@@ -230,9 +240,7 @@ function AdminEditUserForm({ account }) {
                 type="checkbox"
                 checked={formData.isAdmin}
                 onChange={boolToggle}
-              >
-                <span></span>
-              </Input>
+              />
             </FormGroup>
           )}
 
@@ -251,7 +259,11 @@ function AdminEditUserForm({ account }) {
         </Form>
       )}
 
-      <Modal setModalState={setModalState} modalState={modalState}>
+      <Modal
+        setModalState={setModalState}
+        modalState={modalState}
+        navTo={"/admin"}
+      >
         <SuccessModal
           modalMessage={`Successfully edited User: ${account.username}`}
           modalTitle={"User updated!"}

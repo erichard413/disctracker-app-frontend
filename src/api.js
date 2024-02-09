@@ -54,7 +54,6 @@ class DiscTrackerAPI {
     await this.request(`checkin/${discId}`, formData, "post");
   }
   static async getDiscs(page = 1, limit = 10, formData) {
-    console.log(formData);
     let query = `discs?page=${page}&limit=${limit}`;
     Object.keys(formData).map(
       d => (query += formData[d] == "" ? "" : `&${d}=${formData[d]}`)
