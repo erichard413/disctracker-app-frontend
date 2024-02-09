@@ -89,8 +89,6 @@ function App() {
     DiscTrackerAPI.token = null;
   };
 
-  console.log(import.meta.env.VITE_REACT_APP_BASE_URL);
-
   return (
     <div className="App">
       <NavBar logOut={logOutUser} />
