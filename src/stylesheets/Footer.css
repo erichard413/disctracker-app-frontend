@@ -1,6 +1,6 @@
 .Footer {
-  display: block;
-  position: sticky;
+  display: inline-block;
+  position: fixed;
   bottom: 0px;
   left: 0;
   right: 0;
@@ -8,6 +8,7 @@
   background-color: var(--grey);
   height: 40px;
   padding-top: 5px;
+  margin-top: 40px;
 }
 .Footer p {
   color: white;
