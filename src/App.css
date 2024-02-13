@@ -6,11 +6,12 @@
   margin: 0 auto;
   text-align: center;
   overflow-x: hidden;
-  overflow-y: scroll;
 }
 @media (max-width: 479px) {
   .App > :nth-child(2) {
-    margin-top: 160px;
+    position: relative;
+    overflow-y: scroll;
+    top: 160px;
   }
   textarea {
     width: 100%;
