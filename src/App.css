@@ -118,9 +118,4 @@
   .error-element h3 {
     margin: 0;
   }
-  input {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
 }

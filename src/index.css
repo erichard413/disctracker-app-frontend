@@ -60,6 +60,13 @@ button {
   appearance: none;
   /* transition: border-color 0.25s; */
 }
+
+input[type="submit"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
 /* button:hover {
   border-color: #646cff;
 }
