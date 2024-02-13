@@ -86,7 +86,7 @@ function NavBar({ logOut }) {
               {!user && (
                 <NavItem>
                   <NavLink to="/register" onClick={handleMenuIconClick}>
-                    Register
+                    Sign Up
                   </NavLink>
                 </NavItem>
               )}

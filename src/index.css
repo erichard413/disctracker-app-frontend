@@ -61,6 +61,9 @@ button {
   appearance: none;
   /* transition: border-color 0.25s; */
 }
+button:disabled {
+  color: rgb(148, 148, 148);
+}
 
 input {
   -webkit-appearance: none;
