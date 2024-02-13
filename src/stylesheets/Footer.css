@@ -1,8 +1,6 @@
-
-
 .Footer {
   display: block;
-  position: fixed;
+  position: sticky;
   bottom: 0px;
   left: 0;
   right: 0;
