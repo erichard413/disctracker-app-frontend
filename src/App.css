@@ -12,6 +12,7 @@
     position: relative;
     overflow-y: scroll;
     top: 160px;
+    margin-bottom: 50px;
   }
   textarea {
     width: 100%;
