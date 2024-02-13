@@ -37,6 +37,7 @@ function Checkins() {
       <h2>Select Disc</h2>
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
+
       {loadState || !paginatedDiscs ? (
         <PageButtonsSkeleton />
       ) : (
