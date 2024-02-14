@@ -10,7 +10,7 @@ function Home() {
     <div className="Home">
       <h2>Welcome to the Traveling Disc Project</h2>
       {user && <p>Welcome back, {user.username}.</p>}
-      <video autoPlay={true} muted playsInLine={true} loop id="video-home">
+      <video autoPlay={true} muted playsInline loop id="video-home">
         <source src={video} type="video/mp4" />
       </video>
       <div className="about-content">
