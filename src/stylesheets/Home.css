@@ -1,5 +1,12 @@
 @media (max-width: 479px) {
-  #video-home {
+  .Home #video-home {
     width: 90vw;
+  }
+  .Home .about-content {
+    width: 80vw;
+    margin: 0 auto;
+  }
+  .Home .about-content > p {
+    font-size: 1.2rem;
   }
 }

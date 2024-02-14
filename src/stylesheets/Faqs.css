@@ -1,10 +1,15 @@
 @media (max-width: 479px) {
-  .About {
+  .Faqs {
     width: 85vw;
     margin: auto;
     margin-bottom: 60px;
   }
-  .About .faq-question {
+  .Faq {
+    width: 85vw;
+    font-size: 1.2rem;
+    margin: auto;
+  }
+  .Faqs .faq-question {
     font-weight: 600;
     margin: 10px;
   }

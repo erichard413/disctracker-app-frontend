@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { useNavigate, NavLink } from "react-router-dom";
 import { Navbar, Nav, NavbarBrand, NavItem } from "reactstrap";
 import "../stylesheets/NavBar.css";
@@ -6,6 +7,7 @@ import { useUser } from "../hooks/useUserContext";
 import logo from "../assets/logo-wordmark-sm.png";
 
 function NavBar({ logOut }) {
+  const navigate = useNavigate();
   const { user } = useUser();
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -47,7 +49,16 @@ function NavBar({ logOut }) {
         <Nav>
           <div className="navbar-brand">
             <div>
-              <img id="logo" src={logo} alt="traveling-disc-logo" />
+              <img
+                id="logo"
+                src={logo}
+                alt="traveling-disc-logo"
+                onClick={() => {
+                  navigate("/home");
+                  if (isOpen) handleMenuIconClick();
+                }}
+              />
+
               <div
                 className={`menu-icon ${isOpen ? `button-open` : ""}`}
                 onClick={handleMenuIconClick}
@@ -74,8 +85,8 @@ function NavBar({ logOut }) {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/about" onClick={handleMenuIconClick}>
-                  About
+                <NavLink to="/faqs" onClick={handleMenuIconClick}>
+                  FAQs
                 </NavLink>
               </NavItem>
               <NavItem>
