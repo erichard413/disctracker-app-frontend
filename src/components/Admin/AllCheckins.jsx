@@ -88,15 +88,7 @@ function AllCheckins() {
 
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
-      <PageButtons
-        page={page}
-        decrementPage={decrementPage}
-        incrementPage={incrementPage}
-        paginated={checkins.results}
-        next={checkins.next}
-        endPage={checkins.endPage}
-        previous={checkins.previous}
-      />
+
       <ul>
         {checkins.results.map(checkin => (
           <li key={checkin.id}>
@@ -111,6 +103,17 @@ function AllCheckins() {
           </li>
         ))}
       </ul>
+      <div className="page-btns-container">
+        <PageButtons
+          page={page}
+          decrementPage={decrementPage}
+          incrementPage={incrementPage}
+          paginated={checkins.results}
+          next={checkins.next}
+          endPage={checkins.endPage}
+          previous={checkins.previous}
+        />
+      </div>
     </div>
   );
 }

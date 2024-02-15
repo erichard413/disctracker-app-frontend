@@ -1,6 +1,7 @@
 @media (max-width: 479px) {
   .Disc {
     font-size: 16px;
+    padding-bottom: 60px;
   }
   .Disc .top-left img {
     width: 150px;
@@ -44,7 +45,6 @@
     /* border: 1px solid blue; */
     display: block;
     margin: 0 auto;
-    padding-bottom: 60px;
   }
   .Disc #checkins-subtitle {
     padding: 0px;
@@ -79,13 +79,11 @@
   .Disc .header-skeleton > .title > div {
     margin: auto;
     margin-bottom: 5px;
-    position: relative;
-    top: -10px;
+    position: inline-block;
   }
   .Disc .header-skeleton > .subtitle * {
     margin: auto;
-    position: relative;
-    top: -13px;
+    position: inline-block;
   }
   .Disc .header-skeleton .top-left {
     margin-top: 10px;
@@ -95,8 +93,7 @@
     margin-bottom: 9px;
   }
   .Disc .header-skeleton {
-    position: relative;
-    top: -10px;
+    position: inline-block;
     height: 211.8px;
   }
 }

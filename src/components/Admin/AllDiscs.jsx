@@ -55,6 +55,14 @@ function AllDiscs() {
       <div className="hr-line-teal"></div>
 
       <div className="disc-card-container">
+        {currentDiscs.results?.map(d => (
+          <AdminDiscCard
+            key={d.id}
+            disc={d}
+            currentDiscRef={currentDiscRef}
+            setModalState={setModalState}
+          />
+        ))}
         <PageButtons
           page={page}
           decrementPage={decrementPage}
@@ -65,14 +73,6 @@ function AllDiscs() {
           previous={currentDiscs.previous}
           emptyMsg="No discs found!"
         />
-        {currentDiscs.results?.map(d => (
-          <AdminDiscCard
-            key={d.id}
-            disc={d}
-            currentDiscRef={currentDiscRef}
-            setModalState={setModalState}
-          />
-        ))}
       </div>
 
       <Modal modalState={modalState} setModalState={setModalState}>

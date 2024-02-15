@@ -23,16 +23,12 @@ function Disc() {
   const [page, setPage] = useState(INIT_PAGE);
   const [checkinLoadState, setCheckinLoadState] = useState(true);
 
-  console.log("page re-rendered");
-
   useEffect(() => {
     getDiscData();
     fetchCheckins(INIT_PAGE);
   }, []);
 
   const disc = discs ? discs.filter(d => d.id == discId)[0] : null;
-
-  console.log(disc);
 
   const getDiscData = async () => {
     console.log("getting disc data");
@@ -56,7 +52,6 @@ function Disc() {
     } catch (err) {
       console.log(err);
     }
-
     setCheckinLoadState(false);
   };
 
@@ -165,18 +160,6 @@ function Disc() {
         <p>Where This Disc Has Been</p>
       </div>
 
-      <>
-        <PageButtons
-          page={page}
-          decrementPage={decrementPage}
-          incrementPage={incrementPage}
-          paginated={checkins?.results}
-          next={checkins?.next}
-          endPage={checkins?.endPage}
-          previous={checkins?.previous}
-        />
-      </>
-
       {!checkinLoadState && checkins?.length == 0 && (
         <p>This disc has never been checked in!</p>
       )}
@@ -200,6 +183,19 @@ function Disc() {
             ))}
           </>
         )}
+      </div>
+      <div className="page-btns-container">
+        <>
+          <PageButtons
+            page={page}
+            decrementPage={decrementPage}
+            incrementPage={incrementPage}
+            paginated={checkins?.results}
+            next={checkins?.next}
+            endPage={checkins?.endPage}
+            previous={checkins?.previous}
+          />
+        </>
       </div>
     </div>
   );

@@ -133,17 +133,6 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
         <div className="hr-line-grey"></div>
         <div className="hr-line-teal"></div>
 
-        {accounts && (
-          <PageButtons
-            page={page}
-            decrementPage={decrementPage}
-            incrementPage={incrementPage}
-            paginated={accounts.results}
-            next={accounts.next}
-            endPage={accounts.endPage}
-            previous={accounts.previous}
-          />
-        )}
         <div className="accounts-container">
           <ul>
             {accounts &&
@@ -156,6 +145,19 @@ function AllUsers({ accounts, setAccounts, setAccount }) {
                 />
               ))}
           </ul>
+        </div>
+        <div className="page-btns-container">
+          {accounts && (
+            <PageButtons
+              page={page}
+              decrementPage={decrementPage}
+              incrementPage={incrementPage}
+              paginated={accounts.results}
+              next={accounts.next}
+              endPage={accounts.endPage}
+              previous={accounts.previous}
+            />
+          )}
         </div>
 
         <Modal

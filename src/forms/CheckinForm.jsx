@@ -4,7 +4,7 @@ import DiscTrackerAPI from "../api";
 import "../stylesheets/CheckinForm.css";
 import { states, countryList, canadaProvinces } from "../helpers/data";
 import Modal from "../components/modals/Modal";
-
+import { isCheckedInLimit, setCheckInLimit } from "../helpers/isCheckedInLimit";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { SuccessModal } from "../components/modals/Content/SuccessModal";
 import { useUser } from "../hooks/useUserContext";
@@ -28,7 +28,7 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
   const [fetchState, setFetchState] = useState("fetch");
   const [courseSuggestions, setCourseSuggestions] = useState([]);
   useEffect(() => {
-    if (document.cookie && document.cookie.includes(disc.id)) {
+    if (isCheckedInLimit(disc.id)) {
       setRedirectModal(true);
     }
   }, []);
@@ -60,10 +60,7 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
     async function handleCheckIn() {
       try {
         await DiscTrackerAPI.doCheckIn(disc.id, formData);
-        let date = new Date();
-        document.cookie = `${document.cookie},${disc.id}; expires=${new Date(
-          date.setDate(date.getDate() + 1)
-        )}`;
+        setCheckInLimit(disc.id);
         setModalState(true);
       } catch (err) {
         console.error(err);

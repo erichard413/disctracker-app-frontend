@@ -86,7 +86,9 @@ function UserPanel({ account, setAccount }) {
       </div>
       <div className="Account-content">
         <Link to={`/admin/users/edit/${username}`}>
-          <button type="button">Edit Profile</button>
+          <button type="button" disabled={account.isSuperAdmin ? true : false}>
+            Edit Profile
+          </button>
         </Link>
         <button
           onClick={() => setModalState(true)}

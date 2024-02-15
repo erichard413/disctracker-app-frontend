@@ -136,17 +136,7 @@ export function ManageAdmins({ setAccounts, accounts, setAccount }) {
       </div>
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
-      {accounts && (
-        <PageButtons
-          page={page}
-          decrementPage={decrementPage}
-          incrementPage={incrementPage}
-          paginated={accounts.results}
-          next={accounts.next}
-          endPage={accounts.endPage}
-          previous={accounts.previous}
-        />
-      )}
+
       <div className="accounts-container">
         <ul>
           {accounts &&
@@ -159,6 +149,17 @@ export function ManageAdmins({ setAccounts, accounts, setAccount }) {
               />
             ))}
         </ul>
+        {accounts && (
+          <PageButtons
+            page={page}
+            decrementPage={decrementPage}
+            incrementPage={incrementPage}
+            paginated={accounts.results}
+            next={accounts.next}
+            endPage={accounts.endPage}
+            previous={accounts.previous}
+          />
+        )}
       </div>
       <Modal
         modalState={modalState}

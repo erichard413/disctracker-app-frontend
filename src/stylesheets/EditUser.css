@@ -5,12 +5,7 @@
   .AdminEditUser {
     margin-bottom: 60px;
   }
-  .EditProfileForm .form-check-input {
-    display: inline;
-    position: relative;
-    margin: 15px;
-    height: auto;
-  }
+
   .EditProfileForm #isAdmin-label {
     display: inline;
   }

@@ -59,8 +59,9 @@ function AdminEditUserForm({ account }) {
     }
   };
   const boolToggle = e => {
-    const { name, value } = e.target;
-    setFormData(data => ({ ...data, [name]: !formData.isAdmin }));
+    const { name, checked } = e.target;
+    console.log(name, checked);
+    setFormData(data => ({ ...data, isAdmin: checked }));
   };
 
   if (!user) {

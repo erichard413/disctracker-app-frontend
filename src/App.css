@@ -15,6 +15,10 @@
     width: 100vw;
     padding-bottom: 50px;
   }
+  .App > :nth-child(2) h2 {
+    font-size: 1.4rem;
+    margin-top: 0px;
+  }
   textarea {
     width: 100%;
     /* border: 1px solid teal; */
@@ -40,6 +44,16 @@
     height: 40px;
     /* border: 1px solid teal; */
     border-radius: 5px;
+  }
+  input[type="checkbox"] {
+    background-color: var(--grey);
+    display: block;
+    margin: auto;
+    height: 30px;
+    width: 30px;
+  }
+  input[type="checkbox"]:checked {
+    accent-color: var(--grey);
   }
   .App .mb-3 {
     padding-top: 2px;

@@ -1,10 +1,8 @@
 @media (max-width: 479px) {
   .CreateUser #submit-btn {
-    margin: 0px;
+    margin: 40px;
   }
   .CreateUser h2 {
-    font-size: 1.5rem;
-    margin-top: 30px;
     margin-bottom: 0;
     padding: 0px;
     line-height: 1.2rem;
@@ -18,12 +16,12 @@
     margin: 0;
     padding: 0;
   }
-  .AdminCreateUserForm .form-check-input {
+  /* .AdminCreateUserForm .form-check-input {
     display: inline;
     position: relative;
     margin: 15px;
     height: auto;
-  }
+  } */
   .AdminCreateUserForm #isAdmin-label {
     display: inline;
   }

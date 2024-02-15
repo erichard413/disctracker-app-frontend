@@ -38,20 +38,6 @@ function Checkins() {
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
 
-      {loadState || !paginatedDiscs ? (
-        <PageButtonsSkeleton />
-      ) : (
-        <PageButtons
-          page={page}
-          decrementPage={decrementPage}
-          incrementPage={incrementPage}
-          paginated={paginatedDiscs?.results}
-          next={paginatedDiscs?.next}
-          endPage={paginatedDiscs?.endPage}
-          previous={paginatedDiscs?.previous}
-        />
-      )}
-
       {!loadState &&
         paginatedDiscs &&
         paginatedDiscs?.results.map(disc => (
@@ -62,6 +48,21 @@ function Checkins() {
           <DiscCardSkeleton />
         </SkeletonList>
       )}
+      <div className="page-btns-container">
+        {loadState || !paginatedDiscs ? (
+          <PageButtonsSkeleton />
+        ) : (
+          <PageButtons
+            page={page}
+            decrementPage={decrementPage}
+            incrementPage={incrementPage}
+            paginated={paginatedDiscs?.results}
+            next={paginatedDiscs?.next}
+            endPage={paginatedDiscs?.endPage}
+            previous={paginatedDiscs?.previous}
+          />
+        )}
+      </div>
     </div>
   );
 }

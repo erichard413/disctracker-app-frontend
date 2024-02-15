@@ -65,11 +65,11 @@ button:disabled {
   color: rgb(148, 148, 148);
 }
 
-input {
+/* input {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-}
+} */
 
 /* button:hover {
   border-color: #646cff;
