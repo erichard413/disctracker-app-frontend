@@ -239,6 +239,8 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
         )}
 
         <div className="buttons-container">
+          {!user && <button onClick={handleSignUpClick}>Sign Up</button>}
+          {!user && <button onClick={handleLogInClick}>Log In</button>}
           <Button
             type="submit"
             onClick={handleSubmit}
@@ -246,8 +248,6 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
           >
             Submit
           </Button>
-          {!user && <button onClick={handleSignUpClick}>Sign Up</button>}
-          {!user && <button onClick={handleLogInClick}>Log In</button>}
         </div>
 
         <Modal

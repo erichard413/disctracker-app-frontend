@@ -183,14 +183,6 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
           />
         </FormGroup>
         <div className="buttons-container">
-          <Button
-            type="submit"
-            onClick={handleSubmit}
-            disabled={isComplete() ? false : true}
-          >
-            Sign Up
-          </Button>
-          {handleClose && <button onClick={handleLogInClick}>Log In</button>}
           {handleClose && (
             <button
               onClick={e => {
@@ -201,6 +193,14 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
               Skip
             </button>
           )}
+          {handleClose && <button onClick={handleLogInClick}>Log In</button>}
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            disabled={isComplete() ? false : true}
+          >
+            Sign Up
+          </Button>
         </div>
       </Form>
     </div>

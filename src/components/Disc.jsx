@@ -11,6 +11,7 @@ import "../stylesheets/Disc.css";
 import { useDiscs } from "../hooks/useDiscContext";
 import { useCheckins } from "../hooks/useCheckinsContext";
 import PageButtons, { PageButtonsSkeleton } from "./PageButtons";
+import { Disc404 } from "./404/Disc404";
 
 const INIT_PAGE = 1;
 const NUM_PAGE_ITEMS = 5;
@@ -22,13 +23,16 @@ function Disc() {
   const [stats, setStats] = useState();
   const [page, setPage] = useState(INIT_PAGE);
   const [checkinLoadState, setCheckinLoadState] = useState(true);
-
-  useEffect(() => {
-    getDiscData();
-    fetchCheckins(INIT_PAGE);
-  }, []);
-
+  const [error, setError] = useState();
   const disc = discs ? discs.filter(d => d.id == discId)[0] : null;
+  useEffect(() => {
+    if (disc) {
+      getDiscData();
+      fetchCheckins(INIT_PAGE);
+    } else {
+      setError(`Disc with id ${discId} not found`);
+    }
+  }, []);
 
   const getDiscData = async () => {
     console.log("getting disc data");
@@ -60,11 +64,7 @@ function Disc() {
   // }
 
   if (discs && !discs.some(disc => disc.id == discId)) {
-    return (
-      <div>
-        <p>404 - Disc not found</p>
-      </div>
-    );
+    return <Disc404 error={error} />;
   }
 
   const incrementPage = () => {

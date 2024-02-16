@@ -7,33 +7,40 @@ import "../stylesheets/Checkin.css";
 import RegisterModal from "./modals/Content/RegisterModal";
 import LoginModal from "./modals/Content/LoginModal";
 import Modal from "./modals/Modal";
+import { useNavigate } from "react-router-dom";
+import { Disc404 } from "./404/Disc404";
 
 function Checkin({ doLogin }) {
+  const navigate = useNavigate();
   const { discId } = useParams();
   const { user, setUser } = useUser();
   const [disc, setDisc] = useState();
   const [load, setLoad] = useState("load");
   const [registerModalState, setRegisterModalState] = useState(false);
   const [loginModalState, setLoginModalState] = useState(false);
+  const [error, setError] = useState();
 
   useEffect(() => {
     async function fetchDisc() {
-      const result = await DiscTrackerAPI.getDisc(discId);
-      setDisc(result);
+      try {
+        const result = await DiscTrackerAPI.getDisc(discId);
+        setLoad("ready");
+        setDisc(result);
+      } catch (err) {
+        setError(err);
+        setLoad("error");
+        return;
+      }
     }
     fetchDisc();
-    setLoad("ready");
+
     if (!localStorage.getItem("token")) {
       setRegisterModalState(true);
     }
   }, []);
 
-  if (load === "ready" && !disc) {
-    return (
-      <div>
-        <p>404 - not found!</p>
-      </div>
-    );
+  if (load === "error" && !disc) {
+    return <Disc404 error={error} />;
   }
 
   return (

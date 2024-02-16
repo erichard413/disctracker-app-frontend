@@ -84,7 +84,7 @@ function App() {
   };
   // function to log out user
   const logOutUser = () => {
-    setUser();
+    setUser(null);
     localStorage.removeItem("token");
     DiscTrackerAPI.token = null;
   };
