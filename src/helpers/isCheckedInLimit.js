@@ -17,7 +17,7 @@ export function isCheckedInLimit(discId) {
   if (!lsData[discId]) return false;
   // check to see if limit expired -> if expired delete the entry from ls and return false
   const now = new Date();
-  if (now.getTime() > lsData[discId]) {
+  if (now.getTime() > new Date(lsData[discId])) {
     delete lsData[discId];
     localStorage.setItem("userCheckins", JSON.stringify(lsData));
     return false;

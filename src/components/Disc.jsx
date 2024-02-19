@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import DiscTrackerAPI from "../api";
 import DiscCheck from "./DiscCheck";
@@ -25,14 +25,24 @@ function Disc() {
   const [checkinLoadState, setCheckinLoadState] = useState(true);
   const [error, setError] = useState();
   const disc = discs ? discs.filter(d => d.id == discId)[0] : null;
+
+  // useEffect(() => {
+  //   if (disc) {
+  //     getDiscData();
+  //     fetchCheckins(INIT_PAGE);
+  //   } else {
+  //     console.error(`Disc with id ${discId} not found`);
+  //     setError(`Disc with id ${discId} not found`);
+  //   }
+  // }, []);
   useEffect(() => {
-    if (disc) {
+    try {
       getDiscData();
       fetchCheckins(INIT_PAGE);
-    } else {
+    } catch (err) {
       setError(`Disc with id ${discId} not found`);
     }
-  }, []);
+  }, [disc]);
 
   const getDiscData = async () => {
     console.log("getting disc data");
