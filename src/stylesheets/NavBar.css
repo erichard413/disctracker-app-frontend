@@ -26,7 +26,6 @@
     margin: 0px;
   }
   .NavBar-mobile .navbar-brand {
-    display: inline-block;
     position: relative;
     height: 100px;
     background-color: rgb(43, 43, 43);
@@ -54,7 +53,6 @@
     color: teal;
   }
   .NavBar-mobile a,
-  a:active,
   a:visited,
   a:hover,
   a.navbar-brand {
@@ -62,10 +60,10 @@
     color: white;
   }
   .NavBar-mobile .active {
-    color: white;
+    color: var(--teal) !important;
     text-decoration: underline;
   }
-  .NavBar-mobile .bar1,
+  /* .NavBar-mobile .bar1,
   .bar2,
   .bar3 {
     width: 35px;
@@ -73,7 +71,7 @@
     background-color: #006d75;
     margin: 6px 0;
     transition: 0.4s;
-  }
+  } */
   .NavBar-mobile .menu-icon {
     display: inline-block;
     position: relative;
@@ -87,7 +85,7 @@
     background-color: rgb(43, 43, 43);
     z-index: 2;
   }
-  .NavBar-mobile .button-open .bar1 {
+  /* .NavBar-mobile .button-open .bar1 {
     transform: translate(0, 11px) rotate(-45deg);
   }
   .NavBar-mobile .button-open .bar2 {
@@ -95,35 +93,164 @@
   }
   .NavBar-mobile .button-open .bar3 {
     transform: translate(0, -11px) rotate(45deg);
-  }
-  .NavBar-mobile .menu.open {
+  } */
+  /* .NavBar-mobile .menu.open {
     animation: animateFromTop 0.5s;
   }
   .NavBar-mobile .menu.close {
     top: -400px;
     position: absolute;
     animation: animateToTop 0.5s;
+  } */
+}
+.NavBar .nav {
+  vertical-align: middle;
+}
+.navbar-brand:first-child {
+  padding-top: 10%;
+  height: auto;
+  align-self: center;
+  justify-content: center;
+}
+.NavBar {
+  display: block;
+  align-items: center;
+  position: relative;
+  width: 100vw;
+  background-color: rgb(43, 43, 43);
+  border: 0px;
+  height: 100px;
+  z-index: 10 !important;
+}
+
+.NavBar .img-div > #logo {
+  display: block;
+  width: auto;
+  height: 75px;
+  padding-left: 3vw;
+}
+.NavBar .img-div {
+  display: flex;
+  align-items: center;
+  height: 100px;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  z-index: 6;
+}
+.NavBar li {
+  list-style: none;
+  display: block;
+  width: 150px;
+  font-size: 1.5rem;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.NavBar ul {
+  /* outline: 1px solid blue; */
+  right: 10px;
+  height: auto;
+  text-align: right;
+  padding: 0px;
+  margin: 0px;
+}
+.NavBar .navbar-brand {
+  display: flex;
+  position: absolute;
+  height: 100px;
+  background-color: rgb(43, 43, 43);
+  padding: 0px;
+  margin: 0px;
+  z-index: 3;
+}
+.NavBar a,
+a:visited,
+a:hover,
+a.navbar-brand {
+  text-decoration: none;
+  color: white !important;
+}
+.NavBar .active {
+  color: var(--teal) !important;
+  text-decoration: underline;
+}
+.NavBar .menu-icon {
+  display: inline-block;
+  text-align: right;
+  position: absolute;
+  top: 35px;
+  right: 2vw;
+}
+.NavBar .menu {
+  display: block;
+  height: auto;
+  position: absolute;
+  margin-top: 100px;
+  right: -1vw;
+  padding-right: 25px;
+  background-color: rgb(43, 43, 43);
+  z-index: 1 !important;
+  margin-right: 2vw;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.NavBar .nav-icon-div {
+  display: inline-block;
+  position: relative;
+  text-align: right;
+  top: 50px;
+  height: 100%;
+  width: 100%;
+  padding-right: 5vw;
+}
+.bar1,
+.bar2,
+.bar3 {
+  display: block;
+  width: 35px;
+  height: 5px;
+  background-color: #006d75;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+.button-open .bar1 {
+  transform: translate(0, 11px) rotate(-45deg);
+}
+.button-open .bar2 {
+  opacity: 0;
+}
+.button-open .bar3 {
+  transform: translate(0, -11px) rotate(45deg);
+}
+
+@keyframes animateFromTop {
+  from {
+    transform: translate3d(0, -400px, 0);
   }
-  @keyframes animateFromTop {
-    from {
-      transform: translate3d(0, -400px, 0);
-    }
-    to {
-      transform: translate3d(0, 0, 0);
-    }
+  to {
+    transform: translate3d(0, 0, 0);
   }
-  @keyframes animateToTop {
-    from {
-      transform: translate3d(0, 400px, 0);
-    }
-    to {
-      transform: translate3d(0, 0, 0);
-    }
+}
+@keyframes animateToTop {
+  from {
+    transform: translate3d(0, 400px, 0);
   }
-  .NavBar-mobile .nav-item a {
-    color: white;
+  to {
+    transform: translate3d(0, 0, 0);
   }
-  .NavBar-mobile .nav-item .active {
-    color: var(--teal);
-  }
+}
+.NavBar .nav-item a {
+  color: white;
+}
+.NavBar .nav-item .active {
+  color: var(--teal);
+}
+.NavBar .menu.open,
+.NavBar-mobile .menu.open {
+  animation: animateFromTop 0.5s;
+}
+.NavBar .menu.close,
+.NavBar-mobile .menu.close {
+  top: -400px;
+  animation: animateToTop 0.5s;
 }

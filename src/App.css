@@ -137,3 +137,11 @@
     margin: 0;
   }
 }
+
+.App > :nth-child(2) {
+  position: absolute;
+  overflow-y: hidden;
+  top: 160px;
+  width: 100vw;
+  padding-bottom: 50px;
+}

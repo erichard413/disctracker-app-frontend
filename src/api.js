@@ -200,6 +200,11 @@ class DiscTrackerAPI {
     );
     return res;
   }
+  // this will get all checkins for disc id with no pagination.
+  static async getAllCheckinsForDisc(discId) {
+    const res = await this.request(`checkin/${discId}`);
+    return res.results;
+  }
 }
 
 export default DiscTrackerAPI;

@@ -7,7 +7,6 @@
   color-scheme: light dark;
   color: rgba(0, 0, 0, 0.87);
   background-color: white;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -15,6 +14,12 @@
   -webkit-text-size-adjust: 100%;
   --teal: rgb(0, 109, 117);
   --grey: rgb(43, 43, 43);
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+:root::-webkit-scrollbar {
+  display: none;
 }
 
 #logo {

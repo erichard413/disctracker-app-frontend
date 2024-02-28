@@ -12,6 +12,7 @@ import { useDiscs } from "../hooks/useDiscContext";
 import { useCheckins } from "../hooks/useCheckinsContext";
 import PageButtons, { PageButtonsSkeleton } from "./PageButtons";
 import { Disc404 } from "./404/Disc404";
+import MapChart from "./MapChart";
 
 const INIT_PAGE = 1;
 const NUM_PAGE_ITEMS = 5;
@@ -162,6 +163,11 @@ function Disc() {
             </div>
           </div>
         </>
+      )}
+      {stats && (
+        <div className="map-div">
+          <MapChart numCountries={stats.countryCount} discId={discId} />
+        </div>
       )}
 
       <div className="hr-line-grey"></div>

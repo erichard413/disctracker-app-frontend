@@ -26,6 +26,7 @@
     "react-avatar-editor": "^13.0.2",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",
+    "react-simple-maps": "^3.0.0",
     "reactstrap": "^9.1.10"
   },
   "devDependencies": {
