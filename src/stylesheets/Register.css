@@ -1,21 +1,29 @@
 @media (max-width: 479px) {
   .Register h2 {
     font-size: 1.5rem;
-    margin-top: 30px;
+    /* margin-top: 30px;
     margin-bottom: 0;
-    padding: 0px;
+    padding: 0px; */
     line-height: 1.2rem;
   }
-  .RegisterForm #flash-container {
-    height: 30px;
-  }
-  .RegisterForm #flash-container p {
-    font-weight: 600;
-    color: rgb(139, 41, 41);
-    margin: 0;
-    padding: 0;
-  }
-  .RegisterForm .buttons-container * {
-    margin: 15px;
-  }
+}
+
+.Register h2 {
+  /* font-size: 1.5rem; */
+  margin-top: 30px;
+  margin-bottom: 0;
+  padding: 0px;
+  /* line-height: 1.2rem; */
+}
+.RegisterForm #flash-container {
+  height: 30px;
+}
+.RegisterForm #flash-container p {
+  font-weight: 600;
+  color: rgb(139, 41, 41);
+  margin: 0;
+  padding: 0;
+}
+.RegisterForm .buttons-container * {
+  margin: 15px;
 }

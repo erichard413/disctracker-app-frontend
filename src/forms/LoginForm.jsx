@@ -76,9 +76,6 @@ function LoginForm({ login, handleClose = null }) {
           </button>
         )}
       </Form>
-      <Link to="/resetpw">
-        <p>Forgot Password?</p>
-      </Link>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-@media (max-width: 479px) {
+/* @media (max-width: 479px) {
   .Faqs {
     width: 85vw;
     margin: auto;
@@ -13,4 +13,21 @@
     font-weight: 600;
     margin: 10px;
   }
+} */
+.Faqs {
+  width: 85vw;
+  margin: auto;
+  margin-bottom: 60px;
+}
+.Faq {
+  width: 85vw;
+  font-size: 1.2rem;
+  margin: auto;
+}
+.Faqs .faq-question {
+  font-weight: 600;
+  margin: 10px;
+}
+.Faqs .faq-question:hover {
+  cursor: pointer;
 }

@@ -1,22 +1,20 @@
 /* MOBILE */
 
-@media (max-width: 479px) {
-  .Checkin {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    /* outline: 1px solid red; */
-  }
-  .Checkin .buttons-container {
-    margin-top: 15px;
-  }
-  .Checkin .buttons-container * {
-    margin: 15px;
-  }
-  .Checkin .text-content {
-    text-align: center;
-    width: 80vw;
-    padding-left: 10vw;
-    padding-right: 10vw;
-  }
+.Checkin {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  /* outline: 1px solid red; */
+}
+.Checkin .buttons-container {
+  margin-top: 15px;
+}
+.Checkin .buttons-container * {
+  margin: 15px;
+}
+.Checkin .text-content {
+  text-align: center;
+  width: 80vw;
+  padding-left: 10vw;
+  padding-right: 10vw;
 }

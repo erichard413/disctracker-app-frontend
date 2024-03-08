@@ -97,3 +97,101 @@
     vertical-align: top;
   }
 }
+@media (min-width: 480px) {
+  .DiscCheck {
+    /* border: 1px solid red; */
+    height: auto;
+    width: 50vw;
+    list-style: none;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 15px;
+    margin-top: 5px;
+  }
+
+  .DiscCheck li {
+    list-style: none;
+  }
+  .DiscCheck ul {
+    margin: 0;
+    padding: 0;
+  }
+  .Disc-check-title {
+    font-size: 1.3rem;
+  }
+  .Disc-check-subtitle {
+    display: block;
+    position: relative;
+    top: -10px;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+  }
+  .DiscCheck .button-container {
+    margin-top: 10px;
+    width: auto;
+    text-align: center;
+  }
+  .DiscCheck .button-container > * {
+    width: auto;
+    text-align: center;
+    margin: 5px;
+  }
+  .DiscCheck .link {
+    display: inline;
+    padding: 2px;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 20px;
+    border-radius: 15px;
+    width: 100px;
+  }
+  .DiscCheck .link > img {
+    height: 10px;
+  }
+  .DiscCheck .link.u-disc {
+    background-color: #fae20b;
+  }
+  .DiscCheck .link.edit-checkin-btn {
+    background-color: green;
+    color: white;
+  }
+  .DiscCheck .link.delete-checkin-btn {
+    background-color: rgb(128, 40, 40);
+    color: white;
+  }
+  .DiscCheck .note-li {
+    width: 85%;
+    padding: 10px;
+    margin: auto;
+    background-color: rgb(255, 255, 255);
+    font-family: "Barlow Condensed", sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    border-radius: 5px;
+  }
+  .DiscCheck li:nth-of-type(2) {
+    position: relative;
+    top: -10px;
+    padding-top: 0;
+    margin-top: 0;
+    font-size: 1.2rem;
+  }
+  .DiscCheck li:nth-of-type(1) {
+    font-size: 1.4rem;
+  }
+  .DiscCheckSkeleton div {
+    margin: auto;
+    display: inline-block;
+  }
+  .DiscCheckSkeleton .Disc-check-subtitle {
+    margin-top: 2px;
+  }
+  .Disc-check-subtitle .skeleton {
+    margin-top: 2px;
+    margin: 0;
+    vertical-align: top;
+  }
+}

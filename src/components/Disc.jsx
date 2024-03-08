@@ -49,7 +49,7 @@ function Disc() {
     console.log("getting disc data");
     try {
       const discStats = await DiscTrackerAPI.getStatsForDisc(discId);
-      setStats(discStats);
+      // setStats(discStats);
     } catch (err) {
       console.log(err);
     }
@@ -67,7 +67,7 @@ function Disc() {
     } catch (err) {
       console.log(err);
     }
-    setCheckinLoadState(false);
+    // setCheckinLoadState(false);
   };
 
   // if (loadState !== "ready") {
@@ -109,11 +109,13 @@ function Disc() {
         <HeaderSkeleton />
       ) : (
         <>
-          <div>
+          <div className="Disc-title">
             <h2>
               {disc?.plastic} {disc?.name}
             </h2>
             <span id="subtitle">{disc?.manufacturer}</span>
+          </div>
+          <div className="Disc-top">
             <div className="top-container">
               <div className="top-left">
                 <img
@@ -161,15 +163,14 @@ function Disc() {
                 )}
               </div>
             </div>
+            {stats && (
+              <div className="map-div">
+                <MapChart numCountries={stats.countryCount} discId={discId} />
+              </div>
+            )}
           </div>
         </>
       )}
-      {stats && (
-        <div className="map-div">
-          <MapChart numCountries={stats.countryCount} discId={discId} />
-        </div>
-      )}
-
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
       <div id="checkins-subtitle">
@@ -229,23 +230,41 @@ function HeaderSkeleton() {
       </span>
       <div className="top-container">
         <div className="top-left">
-          <Skeleton width="130px" height="130px" />
+          <Skeleton
+            width={window.innerWidth < 480 ? "150px" : "18vw"}
+            height={window.innerWidth < 480 ? "150px" : "18vw"}
+          />
         </div>
         <div className="top-right">
           <ul>
             <li>
-              <Skeleton width={"165px"} />
+              <Skeleton
+                height={window.innerWidth < 480 ? "1rem" : "1.4rem"}
+                width={"165px"}
+              />
             </li>
             <li>
-              <Skeleton width={"115px"} />
+              <Skeleton
+                height={window.innerWidth < 480 ? "1rem" : "1.4rem"}
+                width={"115px"}
+              />
             </li>
             <li>
-              <Skeleton width={"85px"} />
+              <Skeleton
+                height={window.innerWidth < 480 ? "1rem" : "1.4rem"}
+                width={"85px"}
+              />
             </li>
             <li>
-              <Skeleton width={"115px"} />
+              <Skeleton
+                height={window.innerWidth < 480 ? "1rem" : "1.4rem"}
+                width={"115px"}
+              />
             </li>
-            <Skeleton width={"150px"} />
+            <Skeleton
+              height={window.innerWidth < 480 ? "1rem" : "1.4rem"}
+              width={"150px"}
+            />
           </ul>
         </div>
       </div>

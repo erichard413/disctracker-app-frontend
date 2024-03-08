@@ -134,16 +134,30 @@ export function DiscCheckSkeleton() {
         {window.location.pathname.includes("/admin/checkins") ? (
           <>
             <Skeleton width={"50px"} height={"23px"} /> checked in by:{" "}
-            <Skeleton width={"60px"} height={"16px"} />
+            <Skeleton
+              width={"60px"}
+              height={window.innerWidth < 480 ? "16px" : "1.4rem"}
+            />
           </>
         ) : window.location.pathname.includes("/myaccount/checkins") ? (
           <>
-            <Skeleton width={"50px"} height={"16px"} /> checked in at{" "}
-            <Skeleton width={"60px"} height={"16px"} />
+            <Skeleton
+              width={"50px"}
+              height={window.innerWidth < 480 ? "16px" : "1.4rem"}
+            />{" "}
+            checked in at{" "}
+            <Skeleton
+              width={"60px"}
+              height={window.innerWidth < 480 ? "16px" : "1.4rem"}
+            />
           </>
         ) : (
           <>
-            Checked in by: <Skeleton width={"60px"} height={"16px"} />
+            Checked in by:{" "}
+            <Skeleton
+              width={"60px"}
+              height={window.innerWidth < 480 ? "16px" : "1.4rem"}
+            />
           </>
         )}
       </span>

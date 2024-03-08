@@ -28,7 +28,7 @@
   display: inline-block;
 }
 
-a {
+/* a {
   font-weight: 500;
   color: var(--teal);
   text-decoration: inherit;
@@ -37,13 +37,14 @@ a:hover,
 a:active,
 a:visited {
   color: var(--teal);
-}
+} */
 
 body {
   height: 100vh;
   width: 100vw;
   margin: 0px;
   padding: 0px;
+  overflow-x: hidden;
 }
 
 h1 {

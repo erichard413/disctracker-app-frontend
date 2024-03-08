@@ -85,6 +85,7 @@
     margin: auto;
     position: inline-block;
   }
+
   .Disc .header-skeleton .top-left {
     margin-top: 10px;
   }
@@ -94,7 +95,7 @@
   }
   .Disc .header-skeleton {
     position: inline-block;
-    height: 211.8px;
+    height: 231.8px;
   }
   .Disc .map-div {
     width: 90vw;
@@ -103,5 +104,122 @@
     margin-top: 15px;
     background-color: rgb(230, 230, 230);
     border-radius: 15px;
+  }
+}
+@media (min-width: 480px) {
+  .Disc {
+    font-size: 1.4rem;
+    padding-bottom: 60px;
+  }
+  .Disc .top-left img {
+    width: 18vw;
+  }
+  .Disc .top-container {
+    flex-flow: row;
+    width: auto;
+  }
+  .Disc .top-left {
+    display: inline-block;
+    margin: 4vw;
+  }
+  .Disc .top-right {
+    display: inline-block;
+    position: absolute;
+    top: 200px;
+    text-align: left;
+    font-size: 1em;
+
+    /* border: 1px solid blue; */
+  }
+  .Disc .top-right ul {
+    list-style: none;
+    padding: 0;
+  }
+  .Disc #subtitle {
+    /* border: 1px solid teal; */
+    display: block;
+    margin: 0;
+    padding: 0;
+    font-size: 1.4rem;
+  }
+  .Disc h2 {
+    font-size: 2.5em;
+    margin: 0;
+    padding: 0px;
+    margin-top: 25px;
+  }
+  .Disc .checkins-container {
+    width: 100%;
+    /* border: 1px solid blue; */
+    display: block;
+    margin: 0 auto;
+  }
+  .Disc #checkins-subtitle {
+    padding: 0px;
+    margin: 5px;
+    font-size: 1.8em;
+    position: relative;
+    display: absolute;
+    top: -1px;
+  }
+  .Disc #checkins-subtitle p {
+    margin: 0px;
+  }
+
+  .Disc .button-container {
+    display: inline-block;
+    height: auto;
+    padding: 5px;
+    vertical-align: middle;
+  }
+  .Disc .button-container button {
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+  .Disc .button-container p {
+    display: inline-block;
+    position: relative;
+    font-size: 1.4em;
+    padding: 0;
+    margin: 0;
+    top: 2%;
+  }
+  .Disc .header-skeleton > .title > div {
+    margin: auto;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+  .Disc .header-skeleton > .subtitle * {
+    margin: auto;
+    display: block;
+  }
+  .Disc .header-skeleton .top-left {
+    margin-top: 10px;
+  }
+
+  .Disc .header-skeleton li {
+    margin-bottom: 9px;
+  }
+  .Disc .header-skeleton {
+    position: inline-block;
+    height: auto;
+  }
+  .Disc .map-div {
+    width: 30vw;
+    background-color: rgb(230, 230, 230);
+    border-radius: 15px;
+  }
+  .Disc .Disc-top {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+  }
+  .Disc .top-container {
+    order: 2;
+  }
+  .Disc .map-div {
+    order: 1;
+    border: 5px solid var(--grey);
   }
 }

@@ -5,10 +5,13 @@ import DiscTrackerAPI from "../api";
 import { useParams } from "react-router-dom";
 import "../stylesheets/Checkin.css";
 import RegisterModal from "./modals/Content/RegisterModal";
+import { SuccessModal } from "./modals/Content/SuccessModal";
 import LoginModal from "./modals/Content/LoginModal";
 import Modal from "./modals/Modal";
 import { useNavigate } from "react-router-dom";
 import { Disc404 } from "./404/Disc404";
+import { isMobile } from "react-device-detect";
+import { isBrowser } from "react-device-detect";
 
 function Checkin({ doLogin }) {
   const navigate = useNavigate();
@@ -18,7 +21,10 @@ function Checkin({ doLogin }) {
   const [load, setLoad] = useState("load");
   const [registerModalState, setRegisterModalState] = useState(false);
   const [loginModalState, setLoginModalState] = useState(false);
+  const [redirectModal, setRedirectModal] = useState(false);
   const [error, setError] = useState();
+
+  // console.log(isMobile, import.meta.env.MODE);
 
   useEffect(() => {
     async function fetchDisc() {
@@ -31,6 +37,12 @@ function Checkin({ doLogin }) {
         setLoad("error");
         return;
       }
+    }
+    // return to home if user is trying to check in from a non-mobile device.
+    // if (!isMobile && import.meta.env.MODE !== "development") navigate("/");
+    if (!isMobile) {
+      setRedirectModal(true);
+      return;
     }
     fetchDisc();
 
@@ -68,6 +80,18 @@ function Checkin({ doLogin }) {
         navTo={`/checkin/${discId}`}
       >
         <LoginModal doLogin={doLogin} />
+      </Modal>
+      <Modal
+        modalState={redirectModal}
+        setModalState={setRedirectModal}
+        navTo={"/"}
+      >
+        <SuccessModal
+          modalMessage={
+            "The page you are trying to access is not available on desktop. Please use a mobile device to make a check in."
+          }
+          modalTitle={"Checkins Not Available On Device"}
+        />
       </Modal>
 
       {disc && (

@@ -19,9 +19,8 @@
     font-size: 1.4rem;
     margin-top: 0px;
   }
-  textarea {
+  /* textarea {
     width: 100%;
-    /* border: 1px solid teal; */
     border-radius: 5px;
   }
   input,
@@ -42,7 +41,6 @@
   input,
   select {
     height: 40px;
-    /* border: 1px solid teal; */
     border-radius: 5px;
   }
   input[type="checkbox"] {
@@ -59,7 +57,6 @@
     padding-top: 2px;
     padding-bottom: 2px;
     margin: auto;
-    /* outline: 1px solid teal; */
     width: 90vw;
   }
   .form-select {
@@ -78,25 +75,17 @@
   }
   .form button {
     margin-top: 20px;
-  }
+  } */
   p {
     color: black;
+    font-size: 1.4rem;
   }
   #root::-webkit-scrollbar {
     display: none;
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
-  .hr-line-teal {
-    height: 2px;
-    width: 100vw;
-    background-color: var(--teal);
-  }
-  .hr-line-grey {
-    height: 2px;
-    width: 100vw;
-    background-color: var(--grey);
-  }
+
   #modal-div {
     position: fixed;
     top: 0;
@@ -137,11 +126,108 @@
     margin: 0;
   }
 }
+@media (min-width: 480px) {
+  .App > :nth-child(2) h2 {
+    font-size: 2.4rem;
+    margin-top: 0px;
+  }
 
-.App > :nth-child(2) {
-  position: absolute;
-  overflow-y: hidden;
-  top: 160px;
+  .App > :nth-child(2) {
+    position: absolute;
+    overflow-y: hidden;
+    top: 120px;
+    width: 100vw;
+    padding-bottom: 50px;
+  }
+  .App {
+    font-size: 1.5rem;
+  }
+  .bold-me {
+    font-weight: bold;
+  }
+  .form button {
+    margin-top: 20px;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+}
+/* a,
+a:visited {
+  color: var(--teal) !important;
+} */
+textarea {
+  width: 100%;
+  border-radius: 5px;
+}
+input,
+textarea,
+select {
+  position: relative;
+  display: inline;
+  font-size: 24px;
+}
+.form-label {
+  position: relative;
+  display: block;
+  font-size: 24px;
+}
+.form {
+  margin: auto;
+}
+input,
+select {
+  height: 40px;
+  border-radius: 5px;
+}
+input[type="checkbox"] {
+  background-color: var(--grey);
+  display: block;
+  margin: auto;
+  height: 30px;
+  width: 30px;
+}
+input[type="checkbox"]:checked {
+  accent-color: var(--grey);
+}
+.App .mb-3 {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin: auto;
+  width: 90vw;
+}
+.form-select {
+  width: 100%;
+  padding: 0px;
+  margin: 0;
+  display: inline-block;
+}
+input,
+textarea,
+select,
+.suggestion {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+.form button {
+  margin-top: 20px;
+}
+.App a,
+.App a:visited {
+  color: var(--teal);
+  text-decoration: none;
+}
+
+.hr-line-teal {
+  height: 2px;
   width: 100vw;
-  padding-bottom: 50px;
+  background-color: var(--teal);
+}
+.hr-line-grey {
+  height: 2px;
+  width: 100vw;
+  background-color: var(--grey);
 }

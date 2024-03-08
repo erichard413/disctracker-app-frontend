@@ -1,68 +1,79 @@
 @media (max-width: 479px) {
   .DiscCard {
-    padding-top: 10px;
-    padding-bottom: 10px;
     width: 80vw;
-    list-style: none;
-    margin: 0 auto;
-    background-color: rgb(230, 230, 230);
-    border-radius: 15px;
-    margin-top: 5px;
-    font-size: 16px;
-  }
-  .DiscCard h3 {
-    padding: 0;
-    margin: 0;
-  }
-  .DiscCard .bolded-text {
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-    font-size: 1em;
-    /* border: 1px solid blue; */
   }
   .DiscCard .container-left > img {
     width: 90px;
     display: inline-block;
   }
-  .DiscCard .container {
-    display: flex;
-    justify-content: center;
-  }
-  .DiscCard .container-right {
-    width: 60vw;
-  }
-  .DiscCard .container-left {
-    text-align: center;
+}
+@media (min-width: 480px) {
+  .DiscCard {
     width: 30vw;
   }
-  .DiscCard ul {
-    list-style: none;
-    padding-left: 10px;
-    margin: 0;
-    text-align: left;
+  .DiscCard .container-left > img {
+    width: 120px;
+    display: inline-block;
   }
-  .DiscCard .buttons-container > button {
-    margin: 5px;
-    height: 2em;
-    padding: 0px;
-    width: 50px;
-  }
-  .DiscCard .buttons-container > button:first-of-type {
-    margin-left: 0px;
-  }
-  .DiscCard .buttons-container {
-    display: flex;
-    justify-content: flex-start;
-    padding: 0px;
-  }
-  .DiscCard .container-left .skeleton {
-    margin-left: 10px;
-  }
-  .DiscCard .buttons-container > .skeleton {
-    margin-top: 10px;
-  }
-  .DiscCard .container-right li {
-    margin-bottom: 5px;
-  }
+}
+.DiscCard {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  list-style: none;
+  margin: 0 auto;
+  background-color: rgb(230, 230, 230);
+  border-radius: 15px;
+  margin-top: 5px;
+  font-size: 16px;
+}
+.DiscCard h3 {
+  padding: 0;
+  margin: 0;
+}
+.DiscCard .bolded-text {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  font-size: 1em;
+  /* border: 1px solid blue; */
+}
+.DiscCard .container {
+  display: flex;
+  justify-content: center;
+}
+.DiscCard .container-right {
+  width: 60vw;
+}
+.DiscCard .container-left {
+  text-align: center;
+  width: 30vw;
+}
+.DiscCard ul {
+  list-style: none;
+  padding-left: 10px;
+  margin: 0;
+  text-align: left;
+}
+.DiscCard .buttons-container > button {
+  margin: 5px;
+  height: 2em;
+  padding: 0px;
+  width: 50px;
+}
+.DiscCard .buttons-container > button:first-of-type {
+  margin-left: 0px;
+}
+.DiscCard .buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0px;
+}
+.DiscCard .container-left .skeleton {
+  margin-left: 10px;
+}
+.DiscCard .buttons-container > .skeleton {
+  margin-top: 10px;
+}
+.DiscCard .container-right li {
+  margin-bottom: 5px;
 }
