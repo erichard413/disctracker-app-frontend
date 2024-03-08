@@ -49,7 +49,7 @@ function Disc() {
     console.log("getting disc data");
     try {
       const discStats = await DiscTrackerAPI.getStatsForDisc(discId);
-      // setStats(discStats);
+      setStats(discStats);
     } catch (err) {
       console.log(err);
     }
@@ -67,7 +67,7 @@ function Disc() {
     } catch (err) {
       console.log(err);
     }
-    // setCheckinLoadState(false);
+    setCheckinLoadState(false);
   };
 
   // if (loadState !== "ready") {
