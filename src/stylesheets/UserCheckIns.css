@@ -1,27 +1,25 @@
-@media (max-width: 479px) {
-  .UserCheckIns .checkins-container {
-    width: 100%;
-    /* border: 1px solid blue; */
-    display: block;
-    margin: 0 auto;
-    padding-bottom: 60px;
-  }
-  .UserCheckIns .button-container {
-    display: inline-block;
-    height: auto;
-    padding: 5px;
-    vertical-align: middle;
-  }
-  .UserCheckIns .button-container button {
-    margin-right: 15px;
-    margin-left: 15px;
-  }
-  .UserCheckIns .button-container p {
-    display: inline-block;
-    position: relative;
-    font-size: 1.4em;
-    padding: 0;
-    margin: 0;
-    top: 2%;
-  }
+.UserCheckIns .checkins-container {
+  width: 100%;
+  /* border: 1px solid blue; */
+  display: block;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+.UserCheckIns .button-container {
+  display: inline-block;
+  height: auto;
+  padding: 5px;
+  vertical-align: middle;
+}
+.UserCheckIns .button-container button {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+.UserCheckIns .button-container p {
+  display: inline-block;
+  position: relative;
+  font-size: 1.4em;
+  padding: 0;
+  margin: 0;
+  top: 2%;
 }

@@ -98,10 +98,16 @@ function AvatarUploader() {
   return (
     <div className="AvatarUploader">
       <h2>Upload Profile Picture</h2>
-      <label id="upload-img-input">
-        Choose Photo
-        <input name="upload-img-input" type="file" onChange={handleNewImage} />
-      </label>
+      <div id="uploader-div">
+        <label id="upload-img-input">
+          Choose Photo
+          <input
+            name="upload-img-input"
+            type="file"
+            onChange={handleNewImage}
+          />
+        </label>
+      </div>
 
       <div>
         <ReactAvatarEditor

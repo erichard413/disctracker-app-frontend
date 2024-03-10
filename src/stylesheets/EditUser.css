@@ -1,27 +1,25 @@
-@media (max-width: 479px) {
-  .AdminEditUser h2 {
-    margin-bottom: 0;
-  }
-  .AdminEditUser {
-    margin-bottom: 60px;
-  }
+.AdminEditUser h2 {
+  margin-bottom: 0;
+}
+.AdminEditUser {
+  margin-bottom: 60px;
+}
 
-  .EditProfileForm #isAdmin-label {
-    display: inline;
-  }
-  .EditProfileForm .form > div:last-of-type {
-    height: 60px;
-  }
-  .EditProfile h2 {
-    margin-bottom: 0;
-  }
-  .EditProfile form {
-    padding-top: 5px;
-  }
-  .EditProfile button {
-    margin-top: 150px;
-  }
-  .edit-user-buttons-container > * {
-    margin: 15px;
-  }
+.EditProfileForm #isAdmin-label {
+  display: inline;
+}
+.EditProfileForm .form > div:last-of-type {
+  height: 60px;
+}
+.EditProfile h2 {
+  margin-bottom: 0;
+}
+.EditProfile form {
+  padding-top: 5px;
+}
+.EditProfile button {
+  margin-top: 150px;
+}
+.edit-user-buttons-container > * {
+  margin: 15px;
 }

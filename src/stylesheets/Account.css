@@ -17,3 +17,21 @@
     width: 60vw;
   }
 }
+@media (min-width: 480px) {
+  .Account .left-container img {
+    width: 150px;
+  }
+  .Account .right-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .Account .Account-content > a {
+    margin: 7px;
+    display: flex;
+    justify-content: center;
+  }
+  .Account button {
+    width: 20vw;
+  }
+}

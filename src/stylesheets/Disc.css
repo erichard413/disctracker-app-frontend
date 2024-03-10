@@ -115,20 +115,23 @@
     width: 18vw;
   }
   .Disc .top-container {
+    display: flex;
     flex-flow: row;
     width: auto;
+    height: auto;
   }
   .Disc .top-left {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     margin: 4vw;
   }
   .Disc .top-right {
-    display: inline-block;
-    position: absolute;
-    top: 200px;
+    display: flex;
+    align-items: center;
     text-align: left;
     font-size: 1em;
-
+    height: auto;
+    width: 15vw;
     /* border: 1px solid blue; */
   }
   .Disc .top-right ul {

@@ -62,7 +62,7 @@
     color: var(--teal) !important;
     text-decoration: underline;
   }
-  /* .NavBar-mobile .bar1,
+  .NavBar-mobile .bar1,
   .bar2,
   .bar3 {
     width: 35px;
@@ -70,7 +70,7 @@
     background-color: #006d75;
     margin: 6px 0;
     transition: 0.4s;
-  } */
+  }
   .NavBar-mobile .menu-icon {
     display: inline-block;
     position: relative;
@@ -84,7 +84,7 @@
     background-color: rgb(43, 43, 43);
     z-index: 2;
   }
-  /* .NavBar-mobile .button-open .bar1 {
+  .NavBar-mobile .button-open .bar1 {
     transform: translate(0, 11px) rotate(-45deg);
   }
   .NavBar-mobile .button-open .bar2 {
@@ -92,15 +92,15 @@
   }
   .NavBar-mobile .button-open .bar3 {
     transform: translate(0, -11px) rotate(45deg);
-  } */
-  /* .NavBar-mobile .menu.open {
+  }
+  .NavBar-mobile .menu.open {
     animation: animateFromTop 0.5s;
   }
   .NavBar-mobile .menu.close {
     top: -400px;
     position: absolute;
     animation: animateToTop 0.5s;
-  } */
+  }
 }
 @media (min-width: 480px) {
   .NavBar .nav {
@@ -115,7 +115,7 @@
   .NavBar {
     display: block;
     align-items: center;
-    position: relative;
+    position: fixed;
     width: 100vw;
     background-color: rgb(43, 43, 43);
     border: 0px;
@@ -128,6 +128,7 @@
     width: auto;
     height: 75px;
     padding-left: 3vw;
+    cursor: pointer;
   }
   .NavBar .img-div {
     display: flex;
@@ -180,6 +181,9 @@
     top: 35px;
     right: 2vw;
   }
+  .NavBar .menu-icon:hover {
+    cursor: pointer;
+  }
   .NavBar .menu {
     display: block;
     height: auto;
@@ -221,23 +225,6 @@
   .button-open .bar3 {
     transform: translate(0, -11px) rotate(45deg);
   }
-
-  @keyframes animateFromTop {
-    from {
-      transform: translate3d(0, -400px, 0);
-    }
-    to {
-      transform: translate3d(0, 0, 0);
-    }
-  }
-  @keyframes animateToTop {
-    from {
-      transform: translate3d(0, 400px, 0);
-    }
-    to {
-      transform: translate3d(0, 0, 0);
-    }
-  }
   .NavBar .nav-item a {
     color: white;
   }
@@ -252,5 +239,21 @@
   .NavBar-mobile .menu.close {
     top: -400px;
     animation: animateToTop 0.5s;
+  }
+}
+@keyframes animateFromTop {
+  from {
+    transform: translate3d(0, -400px, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes animateToTop {
+  from {
+    transform: translate3d(0, 400px, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
   }
 }

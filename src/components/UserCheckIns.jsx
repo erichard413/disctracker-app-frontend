@@ -58,17 +58,7 @@ function UserCheckIns() {
       <h2>Check Ins for {user?.username}</h2>
       <div className="hr-line-grey"></div>
       <div className="hr-line-teal"></div>
-      {checkins && (
-        <PageButtons
-          page={page}
-          decrementPage={decrementPage}
-          incrementPage={incrementPage}
-          paginated={checkins.results}
-          next={checkins.next}
-          endPage={checkins.endPage}
-          previous={checkins.previous}
-        />
-      )}
+
       {loadState && (
         <SkeletonList amount={5}>
           <DiscCheckSkeleton />
@@ -84,6 +74,17 @@ function UserCheckIns() {
           <p>You have not checked in any discs yet!</p>
         )}
       </div>
+      {checkins && (
+        <PageButtons
+          page={page}
+          decrementPage={decrementPage}
+          incrementPage={incrementPage}
+          paginated={checkins.results}
+          next={checkins.next}
+          endPage={checkins.endPage}
+          previous={checkins.previous}
+        />
+      )}
     </div>
   );
 }

@@ -1,75 +1,4 @@
 @media (max-width: 479px) {
-  .AllCheckins > h2 {
-    margin-bottom: 5px;
-  }
-  .AllCheckins h4 {
-    margin: 0;
-    padding: 0;
-    font-size: 1.2em;
-    display: inline;
-  }
-  .AllCheckins .search-subtitle p {
-    margin: 0;
-    padding: 0;
-  }
-  .AllCheckins .search-container > label {
-    display: block;
-  }
-  .AllCheckins .search-buttons button {
-    margin: 10px;
-  }
-  .AllCheckins .search-container input {
-    width: 80vw;
-  }
-  .AllCheckins ul {
-    list-style: none;
-    padding: 0;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .AllCheckins {
-    margin-bottom: 50px;
-  }
-  .AllCheckins li > * {
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-  .AllCheckins .button-container {
-    display: inline-block;
-    height: auto;
-    padding: 5px;
-    vertical-align: middle;
-  }
-  .AllCheckins .button-container button {
-    margin-right: 15px;
-    margin-left: 15px;
-  }
-  .AllCheckins .button-container p {
-    display: inline-block;
-    position: relative;
-    font-size: 1.4em;
-    padding: 0;
-    margin: 0;
-    top: 2%;
-  }
-  .AllCheckins .button-container {
-    display: inline-block;
-    height: auto;
-    padding: 5px;
-    vertical-align: middle;
-  }
-  .AllCheckins .button-container button {
-    margin-right: 15px;
-    margin-left: 15px;
-  }
-  .AllCheckins .button-container p {
-    display: inline-block;
-    position: relative;
-    font-size: 1.4em;
-    padding: 0;
-    margin: 0;
-    top: 2%;
-  }
   .AllCheckins .chevrons {
     height: 100px;
   }
@@ -77,8 +6,7 @@
     color: white;
     display: inline;
     position: relative;
-    bottom: 0px;
-    top: 3px;
+    top: -4px;
     text-align: center;
   }
   .AllCheckins .chevrons > :nth-child(2) {
@@ -86,23 +14,114 @@
     display: inline;
     position: relative;
     left: -16px;
-    bottom: 5px;
-    top: -2px;
+    top: 1px;
   }
-  .AllCheckins #search-btn {
-    background-color: black;
-    display: inline-block;
+}
+@media (min-width: 480px) {
+  .AllCheckins .chevrons {
+    height: 100px;
+  }
+  .AllCheckins .chevrons > :first-child {
     color: white;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 5px;
-  }
-  .AllCheckins #search-btn > p {
-    display: inline-block;
+    display: inline;
     position: relative;
-    left: -5px;
-    padding: 0;
-    margin: 0;
-    color: white;
+    top: -2px;
+    text-align: center;
   }
+  .AllCheckins .chevrons > :nth-child(2) {
+    color: white;
+    display: inline;
+    position: relative;
+    left: -24px;
+    top: 5px;
+  }
+}
+
+.AllCheckins > h2 {
+  margin-bottom: 5px;
+}
+.AllCheckins h4 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2em;
+  display: inline;
+}
+.AllCheckins .search-subtitle p {
+  margin: 0;
+  padding: 0;
+}
+.AllCheckins .search-container > label {
+  display: block;
+}
+.AllCheckins .search-buttons button {
+  margin: 10px;
+}
+.AllCheckins .search-container input {
+  width: 80vw;
+}
+.AllCheckins ul {
+  list-style: none;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.AllCheckins {
+  margin-bottom: 50px;
+}
+.AllCheckins li > * {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.AllCheckins .button-container {
+  display: inline-block;
+  height: auto;
+  padding: 5px;
+  vertical-align: middle;
+}
+.AllCheckins .button-container button {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+.AllCheckins .button-container p {
+  display: inline-block;
+  position: relative;
+  font-size: 1.4em;
+  padding: 0;
+  margin: 0;
+  top: 2%;
+}
+.AllCheckins .button-container {
+  display: inline-block;
+  height: auto;
+  padding: 5px;
+  vertical-align: middle;
+}
+.AllCheckins .button-container button {
+  margin-right: 15px;
+  margin-left: 15px;
+}
+.AllCheckins .button-container p {
+  display: inline-block;
+  position: relative;
+  font-size: 1.4em;
+  padding: 0;
+  margin: 0;
+  top: 2%;
+}
+
+.AllCheckins #search-btn {
+  background-color: black;
+  display: inline-block;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+}
+.AllCheckins #search-btn > p {
+  display: inline-block;
+  position: relative;
+  left: -5px;
+  padding: 0;
+  margin: 0;
+  color: white;
 }
