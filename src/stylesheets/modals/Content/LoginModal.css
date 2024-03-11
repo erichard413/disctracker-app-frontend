@@ -1,4 +1,15 @@
-/* @media (max-width: 479px) {
+@media (max-width: 479px) {
+  .LoginModal p {
+    font-size: 0.9rem;
+  }
+  .LoginModal h2 {
+    font-size: 1.1rem;
+  }
+  .LoginModal h4 {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 479px) {
   .LoginModal {
     margin: auto;
   }
@@ -11,16 +22,4 @@
   .LoginModal p {
     margin: 2px;
   }
-} */
-.LoginModal {
-  margin: auto;
-}
-.LoginModal h2 {
-  margin: 0;
-}
-.LoginModal h4 {
-  margin: 0;
-}
-.LoginModal p {
-  margin: 2px;
 }

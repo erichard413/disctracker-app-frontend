@@ -79,6 +79,13 @@ function UserPage() {
       <div className="hr-line-teal"></div>
       <div className="checkin-container">
         <h3>{fetchedUser.username}'s check ins:</h3>
+        {fetchedCheckins.results?.map(checkin => (
+          <DiscCheck
+            key={checkin.id}
+            checkin={checkin}
+            fetchCheckins={fetchCheckins}
+          />
+        ))}
         <PageButtons
           page={page}
           decrementPage={decrementPage}
@@ -88,13 +95,6 @@ function UserPage() {
           endPage={fetchedCheckins.endPage}
           previous={fetchedCheckins.previous}
         />
-        {fetchedCheckins.results?.map(checkin => (
-          <DiscCheck
-            key={checkin.id}
-            checkin={checkin}
-            fetchCheckins={fetchCheckins}
-          />
-        ))}
       </div>
     </div>
   );

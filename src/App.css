@@ -175,6 +175,8 @@ select {
   position: relative;
   display: inline;
   font-size: 24px;
+  background-color: var(--grey);
+  color: rgb(118, 118, 118);
 }
 .form-label {
   position: relative;
@@ -190,14 +192,14 @@ select {
   border-radius: 5px;
 }
 input[type="checkbox"] {
-  background-color: var(--grey);
+  background-color: var(--grey) !important;
   display: block;
   margin: auto;
   height: 30px;
   width: 30px;
 }
 input[type="checkbox"]:checked {
-  accent-color: var(--grey);
+  accent-color: var(--grey) !important;
 }
 .App .mb-3 {
   padding-top: 2px;

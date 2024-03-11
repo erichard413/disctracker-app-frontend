@@ -1,17 +1,14 @@
-/* @media (max-width: 479px) {
-  .RegisterModal {
-    margin: auto;
+@media (max-width: 479px) {
+  .RegisterModal p {
+    font-size: 0.9rem;
   }
   .RegisterModal h2 {
-    margin: 0;
+    font-size: 1.1rem;
   }
   .RegisterModal h4 {
-    margin: 0;
+    font-size: 1rem;
   }
-  .RegisterModal p {
-    margin: 2px;
-  }
-} */
+}
 
 .RegisterModal {
   margin: auto;

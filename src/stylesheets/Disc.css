@@ -94,7 +94,6 @@
     margin-bottom: 9px;
   }
   .Disc .header-skeleton {
-    position: inline-block;
     height: 231.8px;
   }
   .Disc .map-div {
@@ -224,5 +223,8 @@
   .Disc .map-div {
     order: 1;
     border: 5px solid var(--grey);
+  }
+  .Disc .header-skeleton .top-container {
+    justify-content: center;
   }
 }

@@ -27,15 +27,6 @@ function Disc() {
   const [error, setError] = useState();
   const disc = discs ? discs.filter(d => d.id == discId)[0] : null;
 
-  // useEffect(() => {
-  //   if (disc) {
-  //     getDiscData();
-  //     fetchCheckins(INIT_PAGE);
-  //   } else {
-  //     console.error(`Disc with id ${discId} not found`);
-  //     setError(`Disc with id ${discId} not found`);
-  //   }
-  // }, []);
   useEffect(() => {
     try {
       getDiscData();
@@ -46,7 +37,6 @@ function Disc() {
   }, [disc]);
 
   const getDiscData = async () => {
-    console.log("getting disc data");
     try {
       const discStats = await DiscTrackerAPI.getStatsForDisc(discId);
       setStats(discStats);
@@ -56,7 +46,6 @@ function Disc() {
   };
 
   const fetchCheckins = async (idx = INIT_PAGE) => {
-    console.log("fetching check ins..");
     try {
       const results = await DiscTrackerAPI.getCheckins(
         discId,
@@ -69,10 +58,6 @@ function Disc() {
     }
     setCheckinLoadState(false);
   };
-
-  // if (loadState !== "ready") {
-  //   return <div>Loading..</div>;
-  // }
 
   if (discs && !discs.some(disc => disc.id == discId)) {
     return <Disc404 error={error} />;
@@ -163,11 +148,10 @@ function Disc() {
                 )}
               </div>
             </div>
-            {stats && (
-              <div className="map-div">
-                <MapChart numCountries={stats.countryCount} discId={discId} />
-              </div>
-            )}
+
+            <div className="map-div">
+              <MapChart numCountries={stats.countryCount} discId={discId} />
+            </div>
           </div>
         </>
       )}

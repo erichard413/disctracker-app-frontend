@@ -99,35 +99,35 @@
     }
   }
 }
+@media (min-width: 479px) {
+  .Modal .modal-body {
+    position: fixed;
+    text-align: center;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    z-index: 10;
+    min-width: 300px;
+    width: 30vw;
+    scale: 0;
+    animation: pop-in 250ms forwards;
+  }
 
-.Modal .modal-body {
-  position: fixed;
-  text-align: center;
-  background-color: white;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  z-index: 10;
-  min-width: 300px;
-  width: 80vw;
-  scale: 0;
-  animation: pop-in 250ms forwards;
-}
-
-.Modal {
-  position: fixed;
-  width: 80vw;
-  height: 100%;
-  z-index: 5;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Modal button {
-  margin: 5px;
-}
-/* .Modal .overlay {
+  .Modal {
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .Modal button {
+    margin: 5px;
+  }
+  /* .Modal .overlay {
     display: absolute;
     position: fixed;
     top: 0;
@@ -139,47 +139,48 @@
     z-index: 3;
     animation: fade-in 250ms forwards;
   } */
-.Modal .overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 8;
-  animation: fade-in 250ms forwards;
-}
+  .Modal .overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 8;
+    animation: fade-in 250ms forwards;
+  }
 
-.Modal.closing {
-  z-index: 10;
-}
-.Modal.closing .overlay {
-  animation: fade-out 250ms forwards reverse;
-}
-.Modal.closing .modal-body {
-  animation: pop-out 250ms forwards reverse;
-}
-.Modal-noScroll {
-  overflow: hidden;
-  max-height: 100%;
-  height: 100%;
-}
-@keyframes fade-in {
-  100% {
-    background-color: rgba(0, 0, 0, 0.5);
+  .Modal.closing {
+    z-index: 10;
   }
-}
-@keyframes pop-in {
-  100% {
-    scale: 1;
+  .Modal.closing .overlay {
+    animation: fade-out 250ms forwards reverse;
   }
-}
-@keyframes fade-out {
-  100% {
-    background-color: rgba(0, 0, 0, 0.5);
+  .Modal.closing .modal-body {
+    animation: pop-out 250ms forwards reverse;
   }
-}
-@keyframes pop-out {
-  100% {
-    scale: 1;
+  .Modal-noScroll {
+    overflow: hidden;
+    max-height: 100%;
+    height: 100%;
+  }
+  @keyframes fade-in {
+    100% {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  @keyframes pop-in {
+    100% {
+      scale: 1;
+    }
+  }
+  @keyframes fade-out {
+    100% {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  @keyframes pop-out {
+    100% {
+      scale: 1;
+    }
   }
 }

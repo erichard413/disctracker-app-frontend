@@ -87,6 +87,7 @@ function DiscCheck({ checkin, fetchCheckins, getDiscData = null }) {
       </ul>
       <div className="button-container">
         <Link
+          target="_blank"
           to={`https://udisc.com/courses?courseTerm=${checkin.courseName.replaceAll(
             " ",
             "+"
