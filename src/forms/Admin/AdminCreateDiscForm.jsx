@@ -144,7 +144,7 @@ function AdminCreateDiscForm() {
         navTo={`/admin`}
       >
         <SuccessModal
-          modalMessage={`Successfully created Disc: ${formData.discId}`}
+          modalMessage={`Successfully created Disc: ${formData.id}`}
           modalTitle={"Disc created!"}
         />
       </Modal>

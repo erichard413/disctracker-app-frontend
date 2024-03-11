@@ -8,6 +8,13 @@
   .RegisterModal h4 {
     font-size: 1rem;
   }
+  .RegisterModal input,
+  .RegisterModal select {
+    width: 90%;
+  }
+  .RegisterModal .RegisterForm {
+    width: 100%;
+  }
 }
 
 .RegisterModal {
