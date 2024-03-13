@@ -69,6 +69,7 @@ function NavBar({ logOut }) {
                 <div
                   className={`menu-icon ${isOpen ? `button-open` : ""}`}
                   onClick={handleMenuIconClick}
+                  data-testid="menu-icon"
                 >
                   <div className="bar1"></div>
                   <div className="bar2"></div>
@@ -134,7 +135,7 @@ function NavBar({ logOut }) {
                     </NavLink>
                   ) : (
                     <NavLink to="/login" onClick={handleMenuIconClick}>
-                      Login
+                      Log In
                     </NavLink>
                   )}
                 </NavItem>

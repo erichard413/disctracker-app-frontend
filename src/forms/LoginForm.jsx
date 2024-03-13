@@ -42,8 +42,9 @@ function LoginForm({ login, handleClose = null }) {
       <FlashContainer flashMsg={flashMsg} />
       <Form className="form">
         <FormGroup>
-          <Label for="type">Username:</Label>
+          <Label htmlFor="username">Username:</Label>
           <Input
+            id="username"
             name="username"
             type="text"
             placeholder="Username"
@@ -52,8 +53,9 @@ function LoginForm({ login, handleClose = null }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="type">Password:</Label>
+          <Label htmlFor="password">Password:</Label>
           <Input
+            id="password"
             name="password"
             type="password"
             placeholder="Password"
