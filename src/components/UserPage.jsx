@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { UNSAFE_NavigationContext, useParams } from "react-router-dom";
 import DiscTrackerAPI from "../api";
 import defaultUserImg from "../assets/user-images/defaultprofilepic.png";
 import "../stylesheets/UserPage.css";
 import DiscCheck from "./DiscCheck";
 import PageButtons from "./PageButtons";
+import { useNavigate } from "react-router-dom";
 
 const INIT_PAGE = 1;
 const INIT_LIMIT = 5;
 
 function UserPage() {
+  const navigate = useNavigate();
   const { username } = useParams();
   const [fetchedUser, setFetchedUser] = useState(null);
   const [fetchedCheckins, setFetchedCheckins] = useState([]);
@@ -19,17 +21,16 @@ function UserPage() {
     async function FetchUserData() {
       try {
         const userRes = await DiscTrackerAPI.getUser(username);
+        if (!userRes.username) throw Error;
         setFetchedUser(userRes);
         fetchCheckins();
         setLoadState("ready");
       } catch (err) {
-        console.error(err);
+        navigate("/404");
       }
     }
     FetchUserData();
   }, [username]);
-
-  console.log(username);
 
   async function fetchCheckins(idx = INIT_PAGE) {
     const checkinRes = await DiscTrackerAPI.getUserCheckins(
@@ -40,8 +41,10 @@ function UserPage() {
     setFetchedCheckins(checkinRes);
   }
 
-  if (loadState == "load") return;
-  const dateStrings = fetchedUser?.joinDate.split(" ")[0].split("-");
+  if (loadState != "ready") return;
+
+  const dateStrings = fetchedUser?.joinDate?.split(" ")[0].split("-");
+
   const incrementPage = () => {
     setLoadState("fetching-checkins");
     if (page < fetchedCheckins.endPage) setPage(p => p + 1);
@@ -65,13 +68,14 @@ function UserPage() {
         </div>
         <div className="right-container">
           <ul>
-            <li>First Name: {fetchedUser.firstName}</li>
-            <li>Last Name: {fetchedUser.lastName}</li>
-
-            <li>
-              Joined:{" "}
-              {dateStrings[1] + "-" + dateStrings[2] + "-" + dateStrings[0]}
-            </li>
+            <li>First Name: {fetchedUser?.firstName}</li>
+            <li>Last Name: {fetchedUser?.lastName}</li>
+            {dateStrings && (
+              <li>
+                Joined:{" "}
+                {dateStrings[1] + "-" + dateStrings[2] + "-" + dateStrings[0]}
+              </li>
+            )}
           </ul>
         </div>
       </div>

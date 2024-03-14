@@ -116,6 +116,7 @@ function App() {
         <Route exact path="/myaccount/checkins" element={<UserCheckIns />} />
         <Route exact path="/checkins/:id/edit" element={<EditCheckin />} />
         <Route exact path="/users/:username" element={<UserPage />} />
+
         <Route
           exact
           path="/users/:username/avatar"
@@ -159,6 +160,7 @@ function App() {
         />
         <Route exact path="/admin/discs/create" element={<CreateDisc />} />
         <Route path="/*" element={<ErrorElement />} />
+        <Route path="/404" element={<ErrorElement />} />
       </Routes>
     </div>
   );

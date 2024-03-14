@@ -29,6 +29,7 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.12.1",
     "react-simple-maps": "^3.0.0",
+    "react-test-renderer": "^18.2.0",
     "reactstrap": "^9.1.10"
   },
   "devDependencies": {
