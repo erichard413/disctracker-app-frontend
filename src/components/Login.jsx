@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function Login({ doLogin }) {
   return (
     <div className="Login">
-      <h2>Log In</h2>
+      <h2>Let's get you logged in.</h2>
       <p>
         If you have not yet created an account{" "}
         <Link to="/register">sign up here</Link>.

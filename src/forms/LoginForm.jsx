@@ -65,7 +65,7 @@ function LoginForm({ login, handleClose = null }) {
         </FormGroup>
 
         <Button type="submit" onClick={handleSubmit}>
-          Login
+          Log In
         </Button>
         {handleClose && (
           <button

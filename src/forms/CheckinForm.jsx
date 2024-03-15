@@ -256,7 +256,7 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
           navTo={`/discs/${disc.id}`}
         >
           <SuccessModal
-            modalMessage={`You've successfully checked in this disc at ${formData.courseName}`}
+            modalMessage={`You've successfully checked in this disc at ${formData.courseName}. Go leave it at your favorite course!`}
             modalTitle={"Check in complete!"}
           />
         </Modal>

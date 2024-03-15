@@ -47,22 +47,29 @@ describe("Testing Disc component", () => {
     });
     // mock the server api call to /checkin/:id
     addMockApiRouteHandler("get", "/checkin/Disc1", ({ request }) => {
-      const checkins = [
-        {
-          username: "testusr1",
-          id: 12,
-          discId: "12345678901234567890",
-          courseName: "Fox Hill Park",
-          city: "Las Vegas",
-          state: "Nevada",
-          zip: "89138",
-          date: "2023-07-16 15:42:31.195155-04",
-          country: "United States",
-          latitude: "36.17509125",
-          longitude: "-115.36179866516109",
-          note: null,
+      const checkins = {
+        next: {
+          page: 2,
+          limit: 2,
         },
-      ];
+        endPage: 13,
+        results: [
+          {
+            username: "user1",
+            id: 12,
+            discId: "1",
+            courseName: "Fox Hill Park",
+            city: "Las Vegas",
+            state: "Nevada",
+            zip: "89138",
+            date: "2023-07-16 15:42:31.195155-04",
+            country: "United States",
+            latitude: "36.17509125",
+            longitude: "-115.36179866516109",
+            note: null,
+          },
+        ],
+      };
       return HttpResponse.json(checkins);
     });
 
@@ -105,5 +112,8 @@ describe("Testing Disc component", () => {
     expect(courses).toBeInTheDocument();
     expect(users).toBeInTheDocument();
     expect(countries).toBeInTheDocument();
+    // renders disc's check ins:
+    expect(await screen.findByText("Fox Hill Park")).toBeInTheDocument();
+    expect(screen.getByText(`Las Vegas`, { exact: false })).toBeInTheDocument();
   });
 });

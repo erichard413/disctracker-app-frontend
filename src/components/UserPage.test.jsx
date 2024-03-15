@@ -14,12 +14,13 @@ import App from "../App.jsx";
 
 describe("Testing UserPage component", () => {
   it("Should render user page", async () => {
+    const user = userEvent.setup();
     addMockApiRouteHandler("get", `/users/user1`, ({ request }) => {
       const user = {
         username: "user1",
         firstName: "test",
         lastName: "user",
-        joinDate: `${new Date()}`,
+        joinDate: "2024-03-15T14:24:38.863Z",
       };
       return HttpResponse.json(user);
     });
@@ -42,23 +43,64 @@ describe("Testing UserPage component", () => {
       ];
       return HttpResponse.json(discs);
     });
+    // mock the server api call to /checkin/:id/stats
+    addMockApiRouteHandler("get", "/checkin/1/stats", ({ request }) => {
+      const stats = {
+        distance: 100,
+        stateCount: 5,
+        userCount: 3,
+        countryCount: 2,
+        courseCount: 10,
+      };
+      return HttpResponse.json(stats);
+    });
     addMockApiRouteHandler("get", `/checkin/user/user1`, ({ request }) => {
-      const checkins = [
-        {
-          username: "user1",
-          id: 12,
-          discId: "12345678901234567890",
-          courseName: "Fox Hill Park",
-          city: "Las Vegas",
-          state: "Nevada",
-          zip: "89138",
-          date: "2023-07-16 15:42:31.195155-04",
-          country: "United States",
-          latitude: "36.17509125",
-          longitude: "-115.36179866516109",
-          note: null,
+      const checkins = {
+        results: [
+          {
+            username: "user1",
+            id: 12,
+            discId: "1",
+            courseName: "Fox Hill Park",
+            city: "Las Vegas",
+            state: "Nevada",
+            zip: "89138",
+            date: "2023-07-16 15:42:31.195155-04",
+            country: "United States",
+            latitude: "36.17509125",
+            longitude: "-115.36179866516109",
+            note: null,
+          },
+        ],
+      };
+      return HttpResponse.json(checkins);
+    });
+    // mock the server api call to /checkin/:id
+    addMockApiRouteHandler("get", "/checkin/1", ({ request }) => {
+      const checkins = {
+        next: {
+          page: 2,
+          limit: 2,
         },
-      ];
+        endPage: 13,
+        results: [
+          {
+            username: "user1",
+            id: 12,
+            discId: "1",
+            courseName: "Fox Hill Park",
+            city: "Las Vegas",
+            state: "Nevada",
+            zip: "89138",
+            date: "2023-07-16 15:42:31.195155-04",
+            country: "United States",
+            latitude: "36.17509125",
+            longitude: "-115.36179866516109",
+            note: null,
+          },
+        ],
+      };
+
       return HttpResponse.json(checkins);
     });
     render(
@@ -75,6 +117,11 @@ describe("Testing UserPage component", () => {
         </CheckinsProvider>
       </MemoryRouter>
     );
-    screen.debug();
+    // renders user's check ins:
+    expect(await screen.findByText("Fox Hill Park")).toBeInTheDocument();
+    expect(screen.getByText(`Las Vegas`, { exact: false })).toBeInTheDocument();
+    // renders user's information:
+    expect(screen.getByText("First Name: test")).toBeInTheDocument();
+    expect(screen.getByText("Last Name: user")).toBeInTheDocument();
   });
 });
