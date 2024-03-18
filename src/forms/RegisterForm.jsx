@@ -5,6 +5,7 @@ import { useUser } from "../hooks/useUserContext";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { isEmail } from "../helpers/isEmail";
 import DiscTrackerAPI from "../api";
+import { FlashContainer } from "../components/flash/FlashContainer";
 
 function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
   const { setUser } = useUser();
@@ -62,7 +63,14 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
         setFlashMsg({ ...flashMsg, Error: "Email must be a valid email!" });
         return;
       }
-      await DiscTrackerAPI.register(formData);
+
+      const res = await DiscTrackerAPI.register(formData);
+
+      if (res.status == 400 || res.status == 401) {
+        setFlashMsg({ Error: res.data.error.message });
+        return;
+      }
+
       await doLogin(formData.username, formData.password);
 
       if (handleClose) {
@@ -70,7 +78,9 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
       }
       if (!handleClose) navigate("/home", { replace: true });
     };
-    signMeUp().catch(err => setFlashMsg({ Error: err }));
+
+    signMeUp();
+
     setTimeout(() => {
       setFlashMsg("");
     }, 5000);
@@ -115,16 +125,11 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
     <div className="RegisterForm">
       <Form className="form">
         <FormGroup>
-          <div id="flash-container">
-            {flashMsg && (
-              <p>
-                {flashMsg instanceof Array ? flashMsg.Error[0] : flashMsg.Error}
-              </p>
-            )}
-          </div>
+          <FlashContainer flashMsg={flashMsg} />
 
-          <Label for="type">Username:</Label>
+          <Label htmlFor="username">Username:</Label>
           <Input
+            id="username"
             name="username"
             type="text"
             placeholder="Username"
@@ -133,8 +138,9 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="type">Password:</Label>
+          <Label htmlFor="password">Password:</Label>
           <Input
+            id="password"
             name="password"
             type="password"
             placeholder="Password"
@@ -143,8 +149,9 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="type">Retype Password:</Label>
+          <Label htmlFor="password2">Retype Password:</Label>
           <Input
+            id="password2"
             name="password2"
             type="password"
             placeholder="Re-Type Password"
@@ -153,8 +160,9 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="type">First Name:</Label>
+          <Label htmlFor="firstName">First Name:</Label>
           <Input
+            id="firstName"
             name="firstName"
             type="text"
             placeholder="First Name"
@@ -163,8 +171,9 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="type">Last Name:</Label>
+          <Label htmlFor="lastName">Last Name:</Label>
           <Input
+            id="lastName"
             name="lastName"
             type="text"
             placeholder="Last Name"
@@ -173,8 +182,9 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="type">Email:</Label>
+          <Label htmlFor="email">Email:</Label>
           <Input
+            id="email"
             name="email"
             type="text"
             placeholder="Email"

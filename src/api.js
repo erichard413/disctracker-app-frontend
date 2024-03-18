@@ -17,12 +17,14 @@ class DiscTrackerAPI {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
       console.error("API Error:", err.response);
-      let message = err.response?.data.error.message;
-      return Array.isArray(message) ? message : [message];
+      // let message = err.response?.data.error.message;
+      // return Array.isArray(message) ? message : [message];
+      return err.response;
     }
   }
   static async logIn(username, password) {
     let res = await this.request("auth/token", { username, password }, "post");
+    if (!res.token) throw new Error("Invalid username/password!");
     return res;
   }
   static async register(formData) {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FlashContainer } from "../components/flash/FlashContainer";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import DiscTrackerAPI from "../api";
 
 function LoginForm({ login, handleClose = null }) {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function LoginForm({ login, handleClose = null }) {
     e.preventDefault();
     const res = await login(formData.username, formData.password);
     if (!res.token) {
-      setFlashMsg({ Error: res });
+      setFlashMsg({ Error: "Invalid username/password!" });
       setTimeout(() => {
         setFlashMsg(initialFlash);
       }, 3000);
@@ -64,7 +64,12 @@ function LoginForm({ login, handleClose = null }) {
           />
         </FormGroup>
 
-        <Button type="submit" onClick={handleSubmit}>
+        <Button
+          type="submit"
+          onClick={handleSubmit}
+          disabled={!formData.username || !formData.password}
+          data-testid="login-btn"
+        >
           Log In
         </Button>
         {handleClose && (

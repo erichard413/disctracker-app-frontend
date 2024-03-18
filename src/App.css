@@ -94,10 +94,11 @@
     width: 100vw;
   }
   #flash-container {
-    height: 30px;
+    height: 15px;
   }
   #flash-container p {
     font-weight: 600;
+    font-size: 0.8rem;
     color: rgb(139, 41, 41);
     margin: 0;
     padding: 0;
@@ -158,6 +159,15 @@
     border-radius: 50%;
     width: 250px;
     max-width: 250px;
+  }
+  #flash-container {
+    height: 30px;
+  }
+  #flash-container p {
+    font-weight: 600;
+    color: rgb(139, 41, 41);
+    margin: 0;
+    padding: 0;
   }
 }
 /* a,
