@@ -65,6 +65,7 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
       }
 
       const res = await DiscTrackerAPI.register(formData);
+      console.log(res);
 
       if (res.status == 400 || res.status == 401) {
         setFlashMsg({ Error: res.data.error.message });
@@ -208,6 +209,7 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
             type="submit"
             onClick={handleSubmit}
             disabled={isComplete() ? false : true}
+            data-testid="register-btn"
           >
             Sign Up
           </Button>
