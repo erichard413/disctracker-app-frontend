@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CheckinForm from "../forms/CheckinForm";
 import { useUser } from "../hooks/useUserContext";
-import DiscTrackerAPI from "../api";
+import { useDiscs } from "../hooks/useDiscContext";
 import { useParams } from "react-router-dom";
 import "../stylesheets/Checkin.css";
 import RegisterModal from "./modals/Content/RegisterModal";
@@ -11,40 +11,27 @@ import Modal from "./modals/Modal";
 import { useNavigate } from "react-router-dom";
 import { Disc404 } from "./404/Disc404";
 import { isMobile } from "react-device-detect";
-import { isBrowser } from "react-device-detect";
 
 function Checkin({ doLogin }) {
-  const navigate = useNavigate();
+  const { discs } = useDiscs();
   const { discId } = useParams();
-  const { user, setUser } = useUser();
-  const [disc, setDisc] = useState();
   const [load, setLoad] = useState("load");
   const [registerModalState, setRegisterModalState] = useState(false);
   const [loginModalState, setLoginModalState] = useState(false);
   const [redirectModal, setRedirectModal] = useState(false);
   const [error, setError] = useState();
 
-  // console.log(isMobile, import.meta.env.MODE);
+  const disc = discs ? discs.filter(d => d.id == discId)[0] : null;
 
   useEffect(() => {
-    async function fetchDisc() {
-      try {
-        const result = await DiscTrackerAPI.getDisc(discId);
-        setLoad("ready");
-        setDisc(result);
-      } catch (err) {
-        setError(err);
-        setLoad("error");
-        return;
-      }
-    }
-    // return to home if user is trying to check in from a non-mobile device.
-    // if (!isMobile && import.meta.env.MODE !== "development") navigate("/");
-    if (!isMobile) {
+    if (
+      !isMobile &&
+      import.meta.env.MODE !== "development" &&
+      import.meta.env.MODE !== "test"
+    ) {
       setRedirectModal(true);
       return;
     }
-    fetchDisc();
 
     if (!localStorage.getItem("token")) {
       setRegisterModalState(true);

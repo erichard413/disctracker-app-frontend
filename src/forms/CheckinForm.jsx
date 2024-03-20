@@ -121,8 +121,9 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
       <p className="FlashMsg">{flashMsg}</p>
       <Form className="form">
         <FormGroup>
-          <Label for="type">Course Name:</Label>
+          <Label htmlFor="courseName">Course Name:</Label>
           <Input
+            id="courseName"
             name="courseName"
             type="text"
             autoComplete="off"
@@ -146,8 +147,9 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
             </div>
           )}
         <FormGroup>
-          <Label for="type">Country:</Label>
+          <Label htmlFor="country">Country:</Label>
           <Input
+            id="country"
             name="country"
             type="select"
             placeholder="Your country"
@@ -160,8 +162,9 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
           </Input>
         </FormGroup>
         <FormGroup>
-          <Label for="type">City:</Label>
+          <Label htmlFor="city">City:</Label>
           <Input
+            id="city"
             name="city"
             type="text"
             autoComplete="off"
@@ -171,11 +174,12 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
           />
         </FormGroup>
         <FormGroup>
-          <Label for="state">
+          <Label htmlFor="state">
             {formData.country === "Canada" ? "Province" : "State"}:
           </Label>
           {formData.country === "United States" ? (
             <Input
+              id="state"
               name="state"
               type="select"
               placeholder="State"
@@ -188,6 +192,7 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
             </Input>
           ) : formData.country === "Canada" ? (
             <Input
+              id="state"
               name="state"
               type="select"
               placeholder="State"
@@ -200,6 +205,7 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
             </Input>
           ) : (
             <Input
+              id="state"
               name="state"
               type="text"
               autoComplete="off"
@@ -212,8 +218,9 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
           )}
         </FormGroup>
         <FormGroup>
-          <Label for="type">Zip:</Label>
+          <Label htmlFor="zip">Zip:</Label>
           <Input
+            id="zip"
             name="zip"
             type="text"
             autoComplete="off"
@@ -224,8 +231,9 @@ function CheckinForm({ disc, openRegisterModal, openLogInModal }) {
         </FormGroup>
         {user && (
           <FormGroup>
-            <Label for="type">Note:</Label>
+            <Label htmlFor="note">Note:</Label>
             <Input
+              id="note"
               name="note"
               type="textarea"
               autoComplete="off"

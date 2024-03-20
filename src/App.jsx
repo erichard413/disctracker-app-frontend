@@ -90,79 +90,84 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <NavBar logOut={logOutUser} />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/home" element={<Home />} />
-        <Route exact path="/login" element={<Login doLogin={logInUser} />} />
-        <Route
-          exact
-          path="/register"
-          element={<Register doLogin={logInUser} />}
-        />
-        <Route
-          exact
-          path="/checkin/:discId"
-          element={<Checkin doLogin={logInUser} />}
-        />
-        <Route exact path="/checkins" element={<Checkins />} />
-        <Route exact path="/discs/:discId" element={<Disc />} />
-        <Route exact path="/faqs" element={<Faqs />} />
-        <Route exact path="/discs/:discId/edit" element={<EditDisc />} />
-        <Route exact path="/myaccount" element={<Account />} />
-        <Route exact path="/editprofile" element={<EditProfile />} />
-        <Route exact path="/resetpw" element={<AuthRecovery />} />
-        <Route exact path="/myaccount/checkins" element={<UserCheckIns />} />
-        <Route exact path="/checkins/:id/edit" element={<EditCheckin />} />
-        <Route exact path="/users/:username" element={<UserPage />} />
+    <>
+      <div className="App">
+        <NavBar logOut={logOutUser} />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/home" element={<Home />} />
+          <Route exact path="/login" element={<Login doLogin={logInUser} />} />
+          <Route
+            exact
+            path="/register"
+            element={<Register doLogin={logInUser} />}
+          />
+          <Route
+            exact
+            path="/checkin/:discId"
+            element={<Checkin doLogin={logInUser} />}
+          />
+          <Route exact path="/checkins" element={<Checkins />} />
+          <Route exact path="/discs/:discId" element={<Disc />} />
+          <Route exact path="/faqs" element={<Faqs />} />
+          <Route exact path="/discs/:discId/edit" element={<EditDisc />} />
+          <Route exact path="/myaccount" element={<Account />} />
+          <Route exact path="/editprofile" element={<EditProfile />} />
+          <Route exact path="/resetpw" element={<AuthRecovery />} />
+          <Route exact path="/myaccount/checkins" element={<UserCheckIns />} />
+          <Route exact path="/checkins/:id/edit" element={<EditCheckin />} />
+          <Route exact path="/users/:username" element={<UserPage />} />
 
-        <Route
-          exact
-          path="/users/:username/avatar"
-          element={<AvatarUploader />}
-        />
-        <Route exact path="/admin" element={<AdminPage />} />
-        <Route
-          exact
-          path="/admin/users"
-          element={
-            <AllUsers
-              setAccounts={setAccounts}
-              accounts={accounts}
-              setAccount={setAccount}
-            />
-          }
-        />
-        <Route exact path="/admin/createuser" element={<CreateUser />} />
-        <Route
-          exact
-          path="/admin/users/:username"
-          element={<UserPanel account={account} setAccount={setAccount} />}
-        />
-        <Route
-          exact
-          path="/admin/users/edit/:username"
-          element={<AdminEditUser account={account} setAccount={setAccount} />}
-        />
-        <Route exact path="/admin/checkins" element={<AllCheckins />} />
-        <Route exact path="/admin/discs" element={<AllDiscs />} />
-        <Route
-          exact
-          path="/admin/manageadmins"
-          element={
-            <ManageAdmins
-              setAccounts={setAccounts}
-              accounts={accounts}
-              setAccount={setAccount}
-            />
-          }
-        />
-        <Route exact path="/admin/discs/create" element={<CreateDisc />} />
-        <Route path="/*" element={<ErrorElement />} />
-        <Route path="/404" element={<ErrorElement />} />
-      </Routes>
-    </div>
+          <Route
+            exact
+            path="/users/:username/avatar"
+            element={<AvatarUploader />}
+          />
+          <Route exact path="/admin" element={<AdminPage />} />
+          <Route
+            exact
+            path="/admin/users"
+            element={
+              <AllUsers
+                setAccounts={setAccounts}
+                accounts={accounts}
+                setAccount={setAccount}
+              />
+            }
+          />
+          <Route exact path="/admin/createuser" element={<CreateUser />} />
+          <Route
+            exact
+            path="/admin/users/:username"
+            element={<UserPanel account={account} setAccount={setAccount} />}
+          />
+          <Route
+            exact
+            path="/admin/users/edit/:username"
+            element={
+              <AdminEditUser account={account} setAccount={setAccount} />
+            }
+          />
+          <Route exact path="/admin/checkins" element={<AllCheckins />} />
+          <Route exact path="/admin/discs" element={<AllDiscs />} />
+          <Route
+            exact
+            path="/admin/manageadmins"
+            element={
+              <ManageAdmins
+                setAccounts={setAccounts}
+                accounts={accounts}
+                setAccount={setAccount}
+              />
+            }
+          />
+          <Route exact path="/admin/discs/create" element={<CreateDisc />} />
+          <Route path="/*" element={<ErrorElement />} />
+          <Route path="/404" element={<ErrorElement />} />
+        </Routes>
+      </div>
+      <div id="modal-div"></div>
+    </>
   );
 }
 
