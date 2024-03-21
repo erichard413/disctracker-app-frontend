@@ -28,7 +28,7 @@ function EditProfileForm() {
       if (!user) return;
       try {
         const res = await DiscTrackerAPI.getUser(user.username);
-        console.log(res);
+
         setFormData({
           ...initialForm,
           firstName: res.firstName,

@@ -31,7 +31,6 @@ function NavBar({ logOut }) {
 
   useLayoutEffect(() => {
     if (!isOpen && prevIsOpen.current) {
-      console.log("use layout effect");
       setIsClosing(state => !state);
     }
     prevIsOpen.current = isOpen;

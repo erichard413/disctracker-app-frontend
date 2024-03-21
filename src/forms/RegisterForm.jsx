@@ -65,7 +65,6 @@ function RegisterForm({ handleClose = null, doLogin, setLoginModal = null }) {
       }
 
       const res = await DiscTrackerAPI.register(formData);
-      console.log(res);
 
       if (res.status == 400 || res.status == 401) {
         setFlashMsg({ Error: res.data.error.message });

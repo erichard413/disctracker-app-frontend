@@ -63,7 +63,6 @@ export function EditDiscForm() {
       return;
     }
 
-    console.log("fire submit");
     try {
       await DiscTrackerAPI.editDisc(discId, {
         ...formData,

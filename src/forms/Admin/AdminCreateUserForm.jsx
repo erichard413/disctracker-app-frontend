@@ -138,7 +138,7 @@ function AdminCreateUserForm() {
       setFlashMsg(initialFlash);
     }, 5000);
   }
-  console.log(flashMsg);
+
   return (
     <div className="AdminCreateUserForm">
       <div id="flash-container">

@@ -7,7 +7,7 @@ import defaultDiscImg from "../../assets/disc-images/default-disc.png";
 export function EditDisc() {
   const discId = useParams();
   const { discs, setDiscs } = useDiscs();
-  console.log(discs);
+
   const { user } = useUser();
   if (user && !user.isAdmin) {
     navigate("/", { replace: true });

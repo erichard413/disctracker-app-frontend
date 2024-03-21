@@ -23,7 +23,6 @@ function AdminEditUser({ account, setAccount }) {
 
   useEffect(() => {
     if (loadState === "done" && !account) {
-      console.log("no account - fetch data");
       async function fetchAccount() {
         const res = await DiscTrackerAPI.getUser(username);
         setAccount(res);

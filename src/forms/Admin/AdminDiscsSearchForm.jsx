@@ -26,7 +26,7 @@ export function AdminDiscsSearchForm({ setCurrentDiscs }) {
       NUM_ITEMS_PER_PAGE,
       formData
     );
-    console.log(result);
+
     setCurrentDiscs(result);
   };
   const handleReset = async () => {

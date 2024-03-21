@@ -40,6 +40,7 @@ function App() {
   const [accounts, setAccounts] = useState();
   const [account, setAccount] = useState();
   const { user, setUser } = useUser();
+  const { currentToken, setCurrentToken } = useAuth();
 
   // grab token from LS on page load, grab user on page load
   useEffect(() => {
@@ -48,10 +49,11 @@ function App() {
       setDiscs(discs);
     }
     getDiscData();
-    if (DiscTrackerAPI.token) {
-      getUserData();
-    }
   }, []);
+  // grab user data on user
+  useEffect(() => {
+    getUserData();
+  }, [currentToken]);
 
   async function getUserData() {
     try {
