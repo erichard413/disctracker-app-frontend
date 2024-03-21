@@ -188,6 +188,10 @@ select {
   background-color: var(--grey);
   color: rgb(255, 255, 255);
 }
+input:focus {
+  outline: solid var(--teal);
+}
+
 .form-label {
   position: relative;
   display: block;

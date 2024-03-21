@@ -52,8 +52,8 @@ function App() {
   }, []);
   // grab user data on user
   useEffect(() => {
-    getUserData();
-  }, [currentToken]);
+    if (DiscTrackerAPI.token) getUserData();
+  }, [DiscTrackerAPI.token]);
 
   async function getUserData() {
     try {
