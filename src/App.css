@@ -186,7 +186,7 @@ select {
   display: inline;
   font-size: 24px;
   background-color: var(--grey);
-  color: rgb(118, 118, 118);
+  color: rgb(255, 255, 255);
 }
 .form-label {
   position: relative;

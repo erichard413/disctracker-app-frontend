@@ -62,9 +62,6 @@ function AllCheckins() {
     if (page > 1) setPage(page - 1);
   };
 
-  let isPrev = checkins.previous ? false : true;
-  let isNext = checkins.next ? false : true;
-
   return (
     <div className="AllCheckins">
       <h2>All Check Ins</h2>

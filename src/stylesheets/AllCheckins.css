@@ -1,4 +1,7 @@
-@media (max-width: 479px) {
+@media (max-width: 739px) {
+  .AllCheckins .search-container input {
+    width: 80vw;
+  }
   .AllCheckins .chevrons {
     height: 100px;
   }
@@ -17,7 +20,10 @@
     top: 1px;
   }
 }
-@media (min-width: 480px) {
+@media (min-width: 740px) {
+  .AllCheckins .search-container input {
+    width: 30vw;
+  }
   .AllCheckins .chevrons {
     height: 100px;
   }
@@ -56,9 +62,7 @@
 .AllCheckins .search-buttons button {
   margin: 10px;
 }
-.AllCheckins .search-container input {
-  width: 80vw;
-}
+
 .AllCheckins ul {
   list-style: none;
   padding: 0;
