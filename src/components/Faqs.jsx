@@ -3,16 +3,19 @@ import { useState } from "react";
 
 const frequentlyAskedQuestions = [
   {
+    id: "faq1",
     question: "What do I do with this disc?",
     answer:
       "If you had found a disc, use the QR code or link printed on the disc to check the disc in on that course. Fill out the form with the course details and submit. Then take the disc to another course and leave it there. Simple as that.",
   },
   {
+    id: "faq2",
     question: "Should I create an account?",
     answer:
       "Account creation is not required, however creating an account will let you manage your check in history and leave friendly notes when checking a disc in.",
   },
   {
+    id: "faq3",
     question: "How can I get involved?",
     answer: (
       <>
@@ -29,7 +32,7 @@ export function Faqs() {
     <div className="Faqs">
       <h2>Frequently Asked Questions</h2>
       {frequentlyAskedQuestions.map(q => (
-        <Faq key={crypto.randomUUID()} faq={q} />
+        <Faq key={q.id} faq={q} />
       ))}
     </div>
   );
